@@ -1,0 +1,485 @@
+/* ==================== Header ==================== */
+.header {
+    background: linear-gradient(90deg, #4b6cb7, #182848); /* subtle gradient */
+    color: #fff;
+    padding: 12px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* soft shadow */
+    border-bottom: 2px solid #2c3e50;
+    font-family: 'Inter', sans-serif;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header-name {
+    font-size: 1.8em;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.header-button {
+    display: flex;
+    gap: 12px;
+}
+
+.header-button-nav {
+    border: none;
+    border-radius: 8px;
+    padding: 8px 18px;
+    background-color: #ffd166;
+    color: #1f1f2e;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.header-button-nav:hover {
+    background-color: #ffb84c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.header-breakline {
+    border: none;
+    height: 2px;
+    background-color: #2c3e50;
+    margin: 10px 0;
+}
+
+
+
+/* ===================================================== */
+.hunter-builder-container{
+    background-color: rgb(81, 78, 78);
+}
+
+.hunter-builder-section{
+    background-color: rgb(81, 78, 78);
+}
+
+.class-dropdown {
+    position: absolute;
+    left: 50%;
+    top: calc(50% + 72px);
+    transform: translateX(-50%);
+    width: fit-content;          /* adjust to fit nicely */
+    height: 36px;          /* match modal select height */
+    font-size: 16px;
+    text-align: center;
+    border-radius: 8px;
+    border: 1px solid #3a3a4d;
+    background-color: #fafafa;  /* match modal inputs */
+    color: #2a2a3b;
+    padding: 0 8px;
+}
+
+.class-dropdown option {
+    text-align: center;   /* center the option text */
+}
+
+.gear-square:hover{
+	cursor: pointer;
+}
+
+
+/* ====================	Modal ======================= */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    backdrop-filter: blur(4px); /* adds a nice frosted effect */
+}
+
+.modal-content {
+    background: #2a2a3b;
+    padding: 3rem 3rem 1.5rem 3rem; /* space inside the modal */
+    border-radius: 16px;
+    min-width: 500px;
+    max-width: 900px;
+    height: fit-content;
+    position: relative;
+    align-items: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    color: #f0f0f5;
+    overflow: hidden; /* keeps button inside rounded corners */
+}
+
+.modal-title {
+    text-align: center;
+    border: none;
+    background-color: #3a3a4f;
+    border-radius: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 100%;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.modal-back-btn {
+    position: absolute;
+    top: 15px;   /* small space from top */
+    left: 15px;  /* small space from left */
+    background: #5865F2;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 6px 12px;
+    transition: background 0.2s ease;
+}
+
+.modal-back-btn:hover {
+    background-color: #4752c4;
+}
+
+.modal-first-squares-container {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    justify-content: center;
+}
+
+.modal-gear-image {
+    width: 132px;
+    height: 132px;
+    background: #3a3a4f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.modal-gear-image img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain; /* keeps aspect ratio, scales up/down */
+}
+
+.modal-gear-info {
+    min-width: 120px;
+    height: 100px;
+    background: #3a3a4f;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    justify-content: center;
+    color: #d0d0e0;
+}
+
+.modal-rune-selectors {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.modal-rune-selectors select {
+    text-align: center;      
+    text-align-last: center; 
+}
+
+.modal-stats-container {
+    max-width: 500px;
+    background: #3a3a4f;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.modal-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.modal-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;           
+    margin-bottom: 10px;
+}
+
+.modal-row label {
+    width: auto;       
+    text-align: center;  
+}
+
+.modal-row select {
+    width: fit-content;
+    min-width: 0px;       
+    text-align: center;  
+    padding: 2px 0 2px 0;
+}
+
+.modal-save-btn {
+    background-color: hsl(137, 33%, 48%);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+    margin: 34px auto 0 auto; 
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.modal-save-btn:hover {
+    background-color: hsl(137, 33%, 37%);
+    cursor: pointer;
+    transform: translateY(-3px);
+}
+
+
+/* ====================	Stat ======================= */
+.stat-background {
+        background-color: rgb(81, 78, 78);
+}
+
+.stat-component {
+    background-color: #1f1f2e;
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 700px;
+    margin: 0px auto;
+    margin-top: 30px;
+    font-family: 'Inter', sans-serif;
+    color: #f0f0f5;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    border: 1px solid #3a3a4d;
+    z-index: 1;
+}
+
+.stat-heading {
+    text-align: center;
+    font-size: 2.4em;
+    font-weight: 800;
+    color: #ffd166;
+    margin: 0 0 10px 0;
+    position: relative;
+}
+
+.stat-heading::after {
+    content: '';
+    display: block;
+    width: 700px;
+    height: 4px;
+    background-color: #ffd166;
+    margin: 8px auto 0 auto;
+    border-radius: 2px;
+}
+
+.stat-columns {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.stat-column {
+    flex: 1;
+}
+
+.stat-subheading {
+    text-align: center;
+    font-size: 1.5em;
+    color: #06d6a0;
+    margin-bottom: 10px;
+    padding: 0px;
+}
+
+.stat-group {
+    margin-bottom: 12px;
+}
+
+.stat-group-heading {
+    color: #06d6a0;
+    font-size: 1.2em;
+    margin-bottom: 6px;
+}
+
+.stat-stat {
+    display: block;
+    margin: 4px 0;
+    padding: 6px 12px;
+    background: linear-gradient(90deg, #3a3a4d, #2a2a3d);
+    border-radius: 8px;
+    font-weight: 500;
+    color: #f0f0f5;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    transition: transform 0.2s, background 0.2s;
+}
+
+.stat-stat:hover {
+    transform: translateX(4px);
+    background: linear-gradient(90deg, #50506a, #3a3a4d);
+}
+
+.stat-bottom-bar {
+    height: 30px;
+    background-color: rgb(81, 78, 78); /* grey background */
+    border-radius: 0 0 16px 16px; /* match the main container’s bottom corners */
+    margin-top: 30px; /* small gap from content */
+}
+
+
+/* ==================== Footer ==================== */
+.Footer {
+    background: linear-gradient(90deg, #182848, #4b6cb7); /* match header gradient */
+    color: #fff;
+    padding: 16px 20px;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    border-top: 2px solid #2c3e50;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.Footer p {
+    margin: 6px 0;
+    font-size: 1em;
+}
+
+.Footer a {
+    color: #ffd166;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.Footer a:hover {
+    color: #ffb84c;
+}
+
+.footer-cards {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* all cards equal height */
+    gap: 20px;
+    flex-wrap: wrap; /* mobile responsive */
+}
+
+
+.footer-card {
+    background-color: #2a2a3b;
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+    color: #f0f0f5;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    max-width: 250px;
+    margin: 20px 0px;
+}
+
+.footer-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.footer-card-picture {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 2px solid #5865F2; /* Discord blue border */
+}
+
+.card-discord-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-discord-desc {
+    font-size: 14px;
+    color: #c0c0c8;
+    margin-bottom: 10px;
+}
+
+.card-discord-link {
+    display: inline-block;
+    padding: 8px 14px;
+    background-color: #5865F2;
+    color: white;
+    border-radius: 8px;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    margin-top: 15px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+.card-title::after {
+    content: '';
+    display: block;
+    width: 70px;      /* length of the underline */
+    height: 3px;      /* thickness of the underline */
+    background-color: #5865F2; /* color of underline */
+    margin: 6px auto 0 auto;   /* space above/below and center */
+    border-radius: 2px;         /* slightly rounded edges */
+}
+
+.card-desc {
+    font-size: 14px;
+    color: #c0c0c8;
+    margin-bottom: 10px;
+}
+
+.card-link {
+    display: inline-block;
+    padding: 8px 14px;
+    background-color: #5865F2;
+    color: white;
+    border-radius: 8px;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    margin-top: 15px;
+}
+
+.card-link:hover {
+    background-color: #4752c4;
+}
+
+
+
+
+
+
+
+
+
