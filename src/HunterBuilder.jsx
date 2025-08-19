@@ -69,7 +69,9 @@ function HunterBuilder()
                 <div className="squares-container"
                     style={{
                         position: 'relative',
-                        width: '400px',
+                        width: '80vw',
+                        maxWidth: '400px',
+                        aspectRatio: '1 / 1',
                         height: '400px', 
                         margin: 'auto',
                         padding: '30px',
@@ -84,7 +86,7 @@ function HunterBuilder()
                         position: 'absolute',
                         left: '50%',
                         top: '50%',
-                        width: '100px',
+                        width: '25%',
                         height: 'auto',
                         transform: 'translate(-50%, -50%)',
                         }}>
@@ -105,8 +107,8 @@ function HunterBuilder()
                                     position: 'absolute',
                                     left: `calc(50% + ${x}px)`,
                                     top: `calc(50% + ${y}px)`,
-                                    width: '75px',
-                                    height: '75px',
+                                    width: '18%',
+                                    aspectRatio: '1/1',
                                     borderRadius: '8px',
                                     transform: 'translate(-50%, -50%)',
                                     backgroundImage: `url(${getGearImage(gearName)})`,

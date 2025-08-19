@@ -64,16 +64,16 @@
 
 .class-dropdown {
     position: absolute;
+    top: calc(50% + 72px); 
     left: 50%;
-    top: calc(50% + 72px);
     transform: translateX(-50%);
-    width: fit-content;          /* adjust to fit nicely */
-    height: 36px;          /* match modal select height */
+    max-width: 90vw;
+    width: 120px;
     font-size: 16px;
     text-align: center;
     border-radius: 8px;
     border: 1px solid #3a3a4d;
-    background-color: #fafafa;  /* match modal inputs */
+    background-color: #fafafa; 
     color: #2a2a3b;
     padding: 0 8px;
 }
@@ -100,12 +100,12 @@
     align-items: center;
     justify-content: center;
     z-index: 10;
-    backdrop-filter: blur(4px); /* adds a nice frosted effect */
+    backdrop-filter: blur(4px);
 }
 
 .modal-content {
     background: #2a2a3b;
-    padding: 3rem 3rem 1.5rem 3rem; /* space inside the modal */
+    padding: 3rem 3rem 1.5rem 3rem; /* original padding */
     border-radius: 16px;
     min-width: 500px;
     max-width: 900px;
@@ -114,7 +114,7 @@
     align-items: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
     color: #f0f0f5;
-    overflow: hidden; /* keeps button inside rounded corners */
+    overflow: hidden;
 }
 
 .modal-title {
@@ -133,8 +133,8 @@
 
 .modal-back-btn {
     position: absolute;
-    top: 15px;   /* small space from top */
-    left: 15px;  /* small space from left */
+    top: 15px;
+    left: 15px;
     background: #5865F2;
     border: none;
     color: white;
@@ -172,9 +172,9 @@
 }
 
 .modal-gear-image img {
-  width: 90%;
-  height: 90%;
-  object-fit: contain; /* keeps aspect ratio, scales up/down */
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
 }
 
 .modal-gear-info {
@@ -198,8 +198,8 @@
 }
 
 .modal-rune-selectors select {
-    text-align: center;      
-    text-align-last: center; 
+    text-align: center;
+    text-align-last: center;
 }
 
 .modal-stats-container {
@@ -224,20 +224,20 @@
 .modal-row {
     display: flex;
     align-items: center;
-    gap: 8px;           
+    gap: 8px;
     margin-bottom: 10px;
 }
 
 .modal-row label {
-    width: auto;       
-    text-align: center;  
+    width: auto;
+    text-align: center;
 }
 
 .modal-row select {
     width: fit-content;
-    min-width: 0px;       
-    text-align: center;  
-    padding: 2px 0 2px 0;
+    min-width: 0px;
+    text-align: center;
+    padding: 2px 0;
 }
 
 .modal-save-btn {
@@ -250,7 +250,7 @@
     font-weight: bold;
     display: block;
     margin-top: 10px;
-    margin: 34px auto 0 auto; 
+    margin: 34px auto 0 auto;
     transition: background 0.2s ease, transform 0.2s ease;
 }
 
@@ -259,6 +259,81 @@
     cursor: pointer;
     transform: translateY(-3px);
 }
+
+/* Mobile version updates */
+@media (max-width: 768px) {
+    /* Update overlay for padding & box-sizing */
+    .modal-overlay {
+        padding: 1rem;
+        box-sizing: border-box;
+    }
+
+    /* Updated modal-content for mobile */
+    .modal-content {
+        width: 85vw;
+        padding: 2rem 1rem;
+        min-width: auto;
+        align-items: center;
+    }
+
+    /* Update gear container */
+    .modal-first-squares-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    /* Responsive gear image */
+    .modal-gear-image {
+        width: 20vw;
+        max-width: 132px;
+        height: auto;
+        flex-shrink: 0;
+        transform: translateY(-10px);
+    }
+
+    .modal-gear-image img {
+        height: auto;
+    }
+
+    /* Gear info adjustments */
+    .modal-gear-info {
+        width: auto;
+        height: auto;
+        padding: 16px;
+        justify-content: flex-start;
+    }
+
+    /* Responsive selects */
+    .modal-special-line-select,
+    .modal-rune-effect-select,
+    .modal-line-select {
+        flex: 2 1 120px;
+        max-width: fit-content;
+        min-width: 80px;
+        padding: 2px 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .modal-rune-effect-select {
+        max-width: 200px;
+    }
+
+    .modal-special-line-value,
+    .modal-value-select {
+        width: fit-content;
+    }
+
+    /* Stats container padding */
+    .modal-stats-container {
+        padding: 16px;
+    }
+}
+
 
 
 /* ====================	Stat ======================= */

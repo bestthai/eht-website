@@ -272,9 +272,10 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                         </div>
 
                         <div className="modal-rune-selectors">
-                            <label htmlFor='rune-line-select'>Rune : </label>
+                            <label htmlFor='rune-line-select'>Rune: </label>
                             <select
                                 id="rune-line-select"
+                                className="modal-rune-effect-select"
                                 value={runeEffect}
                                 onChange={e => setRuneEffect(e.target.value)}
                             >
@@ -288,6 +289,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                                 <label htmlFor='rune-value-select'></label>
                                 <select
                                     id="rune-value-select"
+                                    className="modal-rune-value-select"
                                     value={runeValue}
                                     onChange={e => setRuneValue(e.target.value)}
                                 >
@@ -307,9 +309,10 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                         {/* Special Line Dropdown */}
                         {(type === 'chaos' || type === 'abyss') && (
                         <div className="modal-row">
-                            <label htmlFor='special-line'>Special Line :</label>
+                            <label htmlFor='special-line'>Special Line:</label>
                             <select
                             id='special-line'
+                            className="modal-special-line-select"
                             value={specialLine}
                             onChange={e => setSpecialLine(e.target.value)}>
                             <option value="">Select Special Line</option>
@@ -321,8 +324,9 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                             <label htmlFor='special-line-value'></label>
                             <select
                             id='special-line-value'
+                            className="modal-special-line-value"
                             value={specialLineValue}>
-                            <option value="">Select Value</option>
+                            <option value="">Value</option>
                             {(specialLineValues || []).map((value, index) => (
                                 <option key={index} value={value}>{value}%</option>
                             ))}                                        
@@ -333,9 +337,10 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                         {/* Attribute Lines */}
                         {lines.slice(0, gearLineAmounts[type]).map((entry, index) => (
                         <div className="modal-row" key={index}>
-                            <label htmlFor={`line-${index}`}>Attribute {index + 1} :</label>
+                            <label htmlFor={`line-${index}`}>Line {index + 1}:</label>
                             <select
                             id={`line-${index}`}
+                            className='modal-line-select'
                             value={entry.line}
                             onChange={e => {
                                 const newLine = e.target.value;
@@ -359,6 +364,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                             <label htmlFor={`line-${index}-value`}></label>
                             <select
                             id={`line-${index}-value`}
+                            className='modal-value-select'
                             value={entry.value}
                             onChange={e => {
                                 const newValue = e.target.value;
@@ -370,7 +376,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                             }}
                             disabled={!entry.line}
                             >
-                            <option value="">Select Value</option>
+                            <option value="">Value</option>
                             {getGearValues(entry.line).map((val, idx) => (
                                 <option key={idx} value={val}>{val}%</option>
                             ))}

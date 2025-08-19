@@ -4,7 +4,7 @@ function Header() {
     return (
         <div className="header">
             <div className="header-content">
-                <h1 className="header-name">TheGoddess's EHT helper</h1>
+                <h1 className="header-name">EHT helper</h1>
                 
                 <nav className="header-button">
                     <Link to="/builder" className="header-button-nav">Builder</Link>
