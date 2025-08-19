@@ -292,7 +292,8 @@
 .stat-heading::after {
     content: '';
     display: block;
-    width: 700px;
+    width: 100%;
+    max-width: 700px;
     height: 4px;
     background-color: #ffd166;
     margin: 8px auto 0 auto;
