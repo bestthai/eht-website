@@ -68,6 +68,15 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
     const HelmBeltGears = ['Helmet', 'Belt'];
     const WeaponGears = ['Weapon'];
 
+    const specialWeaponLine = [ 
+        "Chance to cast level 1 Evasion",
+        "Chance to cast level 1 Barrier",
+        "Chance to cast level 1 Curse",
+        "Chance to transform into Archangel",
+        "Chance to transform into Demon Lord",
+        "Additional Damage"
+    ];
+
 
     let imageSrc = '';
     if (type && gearName) 
@@ -353,12 +362,16 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                             >
                             <option value="">Select Line</option>
                             {(gearName === "Weapon" ? weaponLines : gearLines)
-                                .filter(line =>
-                                !lines.some((l, i) => i !== index && l.line === line)
-                                )
-                                .map((line, idx) => (
-                                <option key={idx} value={line}>{line}</option>
-                                ))}
+                                .filter(line => {
+                                    const isAlreadySelected = lines.some((l,i) => i !== index && l.line === line);
+                                    const specialWeaponSelected = lines.some((l,i) => i !== index && specialWeaponLine.includes(l.line));
+                                    const isSpecialLine = specialWeaponLine.includes(line);
+
+                                    return !isAlreadySelected && !(specialWeaponSelected && isSpecialLine && line !== entry.line);
+                                }).map((line, idx) => (
+                                    <option key={idx} value={line}>{line}</option>
+                                ))
+                            }
                             </select>
 
                             <label htmlFor={`line-${index}-value`}></label>

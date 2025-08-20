@@ -25,14 +25,16 @@ function Footer()
 
                     <div className="footer-card">
                         <h2 className="card-title">Coming Soon</h2>
+                            <h4 className="card-desc">atk spd Calculator</h4>
                             <h4 className="card-desc">World Boss Weapon</h4>
+                            <h4 className="card-desc">PvP</h4>
                             <h4 className="card-desc">Unique Gears</h4>
                     </div>
 
                     <div className="footer-card">
                         <h2 className="card-title">Credit</h2>
                         <p className="card-desc">Bestthai for now</p>
-                        <p className="card-desc">felt cute, might add later</p>
+                        <p className="card-desc">felt cute, might delete later</p>
                     </div>
                 </div>
             </div>
