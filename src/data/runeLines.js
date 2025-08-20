@@ -40,13 +40,13 @@ export const runeValues = {};
     })
 
     runeLines.slice(10, 14).forEach(rune => {
-        runeValues[rune] = [4, 22, 2];
+        runeValues[rune] = [4, 22, 1];
     })
 
     runeLines.slice(14, 19).forEach(rune => {
-        runeValues[rune] = [6, 24, 2];
+        runeValues[rune] = [6, 24, 1];
     })
 
     runeLines.slice(19, 25).forEach(rune => {
-        runeValues[rune] = [10, 28, 2];
+        runeValues[rune] = [10, 28, 1];
     })
