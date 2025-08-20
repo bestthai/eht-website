@@ -30,8 +30,9 @@ function Footer()
                     </div>
 
                     <div className="footer-card">
-                        <h2 className="card-title">Coming Soon</h2>
-                        <p className="card-desc">Stay tuned for updates!</p>
+                        <h2 className="card-title">Credit</h2>
+                        <p className="card-desc">Bestthai for now</p>
+                        <p className="card-desc">felt cute, might add later</p>
                     </div>
                 </div>
             </div>

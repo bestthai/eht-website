@@ -137,7 +137,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
     useEffect(() => {
         if ((specialLineValues || []).length > 0)
         {
-            setSpecialLineValue(specialLineValues[0]);
+            setSpecialLineValue(prev => prev || specialLineValues[0]);
         }
         else {
             setSpecialLineValue('');
@@ -156,7 +156,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
 
                     if (validValues.length && !validValues.includes(entry.value))
                     {
-                        return { ...entry, value: validValues[0] };
+                        return { ...entry, value: entry.value || validValues[0] };
                     }
                 }
                 return entry;
@@ -258,7 +258,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                     </div>
                     <div className="modal-gear-info">
                         <div>
-                            <label htmlFor='type-select'>Type : </label>
+                            <label htmlFor='type-select'>Type: </label>
                             <select
                                 id="type-select"
                                 value={type}

@@ -1,9 +1,9 @@
 /* ==================== Header ==================== */
 .header {
-    background: linear-gradient(90deg, #4b6cb7, #182848); /* subtle gradient */
+    background: linear-gradient(90deg, #4b6cb7, #182848);
     color: #fff;
     padding: 12px 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* soft shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     border-bottom: 2px solid #2c3e50;
     font-family: 'Inter', sans-serif;
 }
@@ -68,7 +68,7 @@
     left: 50%;
     transform: translateX(-50%);
     max-width: 90vw;
-    width: 120px;
+    width: 110px;
     font-size: 16px;
     text-align: center;
     border-radius: 8px;
@@ -79,7 +79,7 @@
 }
 
 .class-dropdown option {
-    text-align: center;   /* center the option text */
+    text-align: center;  
 }
 
 .gear-square:hover{
@@ -105,7 +105,7 @@
 
 .modal-content {
     background: #2a2a3b;
-    padding: 3rem 3rem 1.5rem 3rem; /* original padding */
+    padding: 3rem 3rem 1.5rem 3rem;
     border-radius: 16px;
     min-width: 500px;
     max-width: 900px;
@@ -320,7 +320,7 @@
     }
 
     .modal-rune-effect-select {
-        max-width: 200px;
+        max-width: 180px;
     }
 
     .modal-special-line-value,
@@ -422,15 +422,15 @@
 
 .stat-bottom-bar {
     height: 30px;
-    background-color: rgb(81, 78, 78); /* grey background */
-    border-radius: 0 0 16px 16px; /* match the main container’s bottom corners */
-    margin-top: 30px; /* small gap from content */
+    background-color: rgb(81, 78, 78); 
+    border-radius: 0 0 16px 16px;
+    margin-top: 30px;
 }
 
 
 /* ==================== Footer ==================== */
 .Footer {
-    background: linear-gradient(90deg, #182848, #4b6cb7); /* match header gradient */
+    background: linear-gradient(90deg, #182848, #4b6cb7);
     color: #fff;
     padding: 16px 20px;
     text-align: center;
@@ -458,9 +458,9 @@
 .footer-cards {
     display: flex;
     justify-content: center;
-    align-items: stretch; /* all cards equal height */
+    align-items: stretch; 
     gap: 20px;
-    flex-wrap: wrap; /* mobile responsive */
+    flex-wrap: wrap;
 }
 
 
@@ -485,7 +485,7 @@
     width: 90px;
     height: 90px;
     border-radius: 50%;
-    border: 2px solid #5865F2; /* Discord blue border */
+    border: 2px solid #5865F2; 
 }
 
 .card-discord-title {
@@ -522,11 +522,11 @@
 .card-title::after {
     content: '';
     display: block;
-    width: 70px;      /* length of the underline */
-    height: 3px;      /* thickness of the underline */
-    background-color: #5865F2; /* color of underline */
-    margin: 6px auto 0 auto;   /* space above/below and center */
-    border-radius: 2px;         /* slightly rounded edges */
+    width: 70px;      
+    height: 3px;      
+    background-color: #5865F2; 
+    margin: 6px auto 0 auto;   
+    border-radius: 2px;
 }
 
 .card-desc {
@@ -554,8 +554,8 @@
 /* ======================================================== */
 
 .atkspd-calc-container {
-    min-height: 70vh;           /* same as HunterBuilder */
-    background-color: #1f1f2e;  /* same as Stat/HunterBuilder background */
+    min-height: 70vh;           
+    background-color: #1f1f2e;  
     padding: 2rem;
     font-family: 'Inter', sans-serif;
     color: #f0f0f5;
@@ -569,7 +569,7 @@
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 1.5rem;
-    color: #ffd166;            /* match Stat heading */
+    color: #ffd166;
     text-align: center;
 }
 

@@ -24,3 +24,6 @@ function App() {
 }
 
 export default App
+
+    // TODO: fix the modal type to have the same lenght as the gear line
+	// TODO: add my name in the footer card
