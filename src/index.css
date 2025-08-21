@@ -191,6 +191,13 @@
     color: #d0d0e0;
 }
 
+.modal-type-subtype-container {
+    display: flex;
+    align-items: center;
+    gap: 8px; 
+    margin-bottom: 8px; 
+}
+
 .modal-rune-selectors {
     display: flex;
     gap: 8px;
@@ -572,6 +579,60 @@
     color: #ffd166;
     text-align: center;
 }
+
+/* Inputs & dropdowns */
+.atkspd-calc-container select,
+.atkspd-calc-container input {
+    background-color: #2a2a40;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 0.5rem 0.7rem;
+    margin: 0.3rem 0;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 300px;
+    transition: border 0.2s, background 0.2s;
+}
+
+.atkspd-calc-container select:focus,
+.atkspd-calc-container input:focus {
+    outline: none;
+    border-color: #ffd166;
+}
+
+/* Labels */
+.atkspd-calc-container label {
+    display: block;
+    font-size: 0.95rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.2rem;
+    color: #cfcfcf;
+    text-align: left;
+    width: 100%;
+    max-width: 300px;
+}
+
+/* Buffs wrapper */
+.atkspd-calc-container .buffs-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem; /* row & column gap */
+    justify-content: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Result text */
+.atkspd-calc-container p {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: lightblue;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+
 
 
 

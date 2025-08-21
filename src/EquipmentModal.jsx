@@ -9,6 +9,7 @@ import { DefSpecialLines, DefChaosValues, DefAbyssValues,
          WeaponSpecialLines, WeaponChaosValues, WeaponAbyssValues
        } from './data/specialLines';
 import { runeLines, runeValues } from './data/runeLines';
+import { WB_TYPES, FIXED_WB_LINES, LINE2_MAPS, wbLineValues } from './data/specialWeapons';
 
 function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, selectedClass }) {
 
@@ -20,10 +21,15 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
         original: 4,
         chaos: 4,
         abyss: 4,
+        wb: 4,
+        twb: 5,
+        vwb: 5,
     };
 
 
     const [type, setType] = useState(saveData?.type || '');
+    const [wbSubType, setWbSubType] = useState(saveData?.wbSubType || '');
+    const [vwbSubType, setVwbSubType] = useState(saveData?.vwbSubType || '');
     const [runeEffect, setRuneEffect] = useState(saveData?.runeEffect || '');
     const [runeValue, setRuneValue] = useState(saveData?.runeValue || '');
 
@@ -35,33 +41,42 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
         { line: "", value: "" },
         { line: "", value: "" },
         { line: "", value: "" },
+        { line: "", value: "" },
     ]);
 
     useEffect(() => {
-        if (saveData) {
-            setType(saveData.type || '');
-            setRuneEffect(saveData.runeEffect || '');
-            setRuneValue(saveData.runeValue || '');
-            setSpecialLine(saveData.specialLine || '');
-            setSpecialLineValue(saveData.specialLineValue || '');
-            setLines(saveData.lines || [
+        if (!saveData) return;
+
+        setType(saveData.type || '');
+        setRuneEffect(saveData.runeEffect || '');
+        setRuneValue(saveData.runeValue || '');
+        setSpecialLine(saveData.specialLine || '');
+        setSpecialLineValue(saveData.specialLineValue || '');
+        setLines(saveData.lines || [
+                { line: "", value: "" },
                 { line: "", value: "" },
                 { line: "", value: "" },
                 { line: "", value: "" },
                 { line: "", value: "" },
             ]);
-        }
 
-        console.log(saveData);
+        console.log("Loaded saveData:", saveData);
     }, [saveData]);
 
 
     let typeOptions = ['ancient', 'primal', 'original', 'chaos', 'abyss'];
-    if (gearName === 'Helmet') {
+    if (gearName === 'Helmet') 
+    {
         typeOptions = ['ancient', 'primal', 'hell', 'original', 'chaos', 'abyss'];
-    } else if (gearName === 'Belt') {
+    } 
+    else if (gearName === 'Belt') 
+    {
         typeOptions = ['golden', 'hell', 'original', 'chaos', 'abyss'];
     } 
+    else if (gearName === 'Weapon')
+    {
+        typeOptions = ['ancient', 'primal', 'original', 'chaos', 'wb', 'twb', 'vwb', 'abyss'];
+    }
 
     const DefGears = ['Chestplate', 'Glove', 'Boot']
     const HpGears = ['Ring', 'Necklace'];
@@ -81,27 +96,32 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
     let imageSrc = '';
     if (type && gearName) 
     {
-        try
-        {
+        try {
+            let fileName = "";
 
-            if (type && gearName === 'Weapon')
+            if ((type === 'wb' || type === 'twb') && gearName === 'Weapon') 
             {
-                const fileName = `${type}${gearName}${selectedClass}.png`;
-                imageSrc = getImageUrl(fileName)
+                fileName = `${type}${wbSubType}${gearName}${selectedClass}.png`;
+            } 
+            else if ((type === 'vwb') && gearName === 'Weapon') 
+            {
+                fileName = `${type}${vwbSubType}${gearName}${selectedClass}.png`;
+            } 
+            else if (gearName === 'Weapon') 
+            {
+                fileName = `${type}${gearName}${selectedClass}.png`;
+            } 
+            else 
+            {
+                fileName = `${type}${gearName}.png`;
             }
 
-            else if (type)
-            {
-                const fileName = `${type}${gearName}.png`;
-                imageSrc = getImageUrl(fileName);
-            }
-        }
-
-        catch
-        {
+            imageSrc = getImageUrl(fileName);
+        } catch {
             imageSrc = '';
         }
-    };
+    }
+
 
     /* 
        Auto complete the special line value based on the selected special line and type. 
@@ -144,44 +164,94 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
     }, [gearName, type, specialLine]);
 
     useEffect(() => {
-        if ((specialLineValues || []).length > 0)
+        if (specialLineValues && specialLineValues.length > 0) 
         {
-            setSpecialLineValue(prev => prev || specialLineValues[0]);
-        }
-        else {
+            setSpecialLineValue(specialLineValues[0]);
+        } 
+        else 
+        {
             setSpecialLineValue('');
         }
-    }, [specialLineValues]);
+    }, [specialLine, specialLineValues]);
 
     /* 
-       Auto complete each normal line's value based on its min value.
+        Adjust the number of lines based on the gear type
     */
     useEffect(() => {
-        setLines(prev =>
-            prev.map(entry => {
-                if (entry.line && type) {
+        if (!type) return;
 
-                    const validValues = getGearValues(entry.line);
+        const maxLines = gearLineAmounts[type] || 5;
 
-                    if (validValues.length && !validValues.includes(entry.value))
-                    {
-                        return { ...entry, value: entry.value || validValues[0] };
-                    }
-                }
-                return entry;
-            })
-        );
-    }, [lines.map(l => l.line).join(","), type, gearName]);
+        setLines(prev => {
+            // Keep only the first maxLines, fill missing with empty objects
+            const newLines = prev.slice(0, maxLines);
+            while (newLines.length < maxLines) {
+                newLines.push({ line: "", value: "" });
+            }
+            return newLines;
+        });
+    }, [type]);
 
-    
+
+
+    /* 
+        Auto select the fixed line for WB weapons
+    */
+    useEffect(() => {
+        if (!gearName || gearName !== 'Weapon' || !WB_TYPES.includes(type)) return;
+
+        const maxLines = gearLineAmounts[type] || 5;
+
+        const newLines = [];
+
+        for (let i = 0; i < maxLines; i++) {
+            let lineText = "";
+
+            const subtype = type === 'vwb' ? vwbSubType : wbSubType;
+
+            if (i === 1) {
+                lineText = LINE2_MAPS[selectedClass]?.[type]?.[subtype] || "";
+            } else if (i <= 3 || (i === 4 && maxLines === 5)) {
+                lineText = FIXED_WB_LINES[i + 1] || "";
+            }
+
+            if ((type === 'twb' || type === 'vwb') && i === 4) {
+                lineText = "Critical Hit Damage";
+            }
+
+            newLines.push({ line: lineText, value: "" });
+        }
+
+        setLines(newLines);
+    }, [gearName, type, wbSubType, vwbSubType, selectedClass]);
+
     /*
         Helper function to generate value ranges for gear values
     */
     function getGearValues(lineName) {
         if (!lineName || !type) return [];
 
-        const valueSource = gearName === "Weapon" ? weaponValuesByType[type] : gearValuesByType[type];
+        if (gearName === "Weapon" && WB_TYPES.includes(type)) {
+            const subtype = type === 'vwb' ? vwbSubType : wbSubType;
+            const wbTypeObj = wbLineValues[type]?.[subtype]; 
 
+            if (wbTypeObj) {
+                // Check fixed lines
+                if (wbTypeObj.fixed?.[lineName]) {
+                    const [min, max] = wbTypeObj.fixed[lineName];
+                    return Array.from({ length: max - min + 1 }, (_, i) => min + i);
+                }
+
+                // Check class-specific lines
+                if (wbTypeObj.classes?.[selectedClass]?.[lineName]) {
+                    const [min, max] = wbTypeObj.classes[selectedClass][lineName];
+                    return Array.from({ length: max - min + 1 }, (_, i) => min + i);
+                }
+            }
+            return [];
+        }
+
+        const valueSource = gearName === "Weapon" ? weaponValuesByType[type] : gearValuesByType[type];
         const [min, max] = valueSource?.[lineName] || [];
         return min !== undefined && max !== undefined
             ? Array.from({ length: max - min + 1 }, (_, i) => min + i)
@@ -230,8 +300,6 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
             return;
         }
 
-        if (!lines.value)
-
         if ((type === 'chaos' || type === 'abyss') && (!specialLine))
         {
             alert(`Please choose the special lines before saving.`);
@@ -240,6 +308,8 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
 
         onSave({
             type,
+            wbSubType,
+            vwbSubType,
             runeEffect,
             runeValue,
             specialLine,
@@ -266,7 +336,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                         )}
                     </div>
                     <div className="modal-gear-info">
-                        <div>
+                        <div className="modal-type-subtype-container">
                             <label htmlFor='type-select'>Type: </label>
                             <select
                                 id="type-select"
@@ -278,6 +348,40 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                                     <option key={opt} value={opt} style={{ textAlign: 'center'}}>{opt}</option>
                                 ))}
                             </select>
+
+                            {( type === "wb" || type === "twb" ) && (
+                                <>
+                                    <label htmlFor='wb-subtype-select'>Subtype:</label>
+                                    <select
+                                        id="wb-subtype-select"
+                                        className='modal-line-select'
+                                        value={wbSubType}
+                                        onChange={e => setWbSubType(e.target.value)}
+                                        style={{ textAlign: 'center'}}
+                                    >
+                                        <option value="">subtype</option>
+                                        <option value="Venom">Venom</option>
+                                        <option value="Darkness">Darkness</option>
+                                    </select>
+                                </>
+                            )}
+
+                            {( type === "vwb" ) && (
+                                <>
+                                    <label htmlFor='vwb-subtype-select'>Subtype:</label>
+                                    <select
+                                        id="vwb-subtype-select"
+                                        className='modal-line-select'
+                                        value={vwbSubType}
+                                        onChange={e => setVwbSubType(e.target.value)}
+                                        style={{ textAlign: 'center'}}
+                                    >
+                                        <option value="">subtype</option>
+                                        <option value="Glacial">Glacial</option>
+                                        <option value="Blaze">Blaze</option>
+                                    </select>
+                                </>
+                            )}
                         </div>
 
                         <div className="modal-rune-selectors">
@@ -344,58 +448,68 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                         )}
 
                         {/* Attribute Lines */}
-                        {lines.slice(0, gearLineAmounts[type]).map((entry, index) => (
-                        <div className="modal-row" key={index}>
-                            <label htmlFor={`line-${index}`}>Line {index + 1}:</label>
-                            <select
-                            id={`line-${index}`}
-                            className='modal-line-select'
-                            value={entry.line}
-                            onChange={e => {
-                                const newLine = e.target.value;
-                                setLines(prev =>
-                                prev.map((l, i) =>
-                                    i === index ? { line: newLine, value: "" } : l
-                                )
-                                );
-                            }}
-                            >
-                            <option value="">Select Line</option>
-                            {(gearName === "Weapon" ? weaponLines : gearLines)
-                                .filter(line => {
-                                    const isAlreadySelected = lines.some((l,i) => i !== index && l.line === line);
-                                    const specialWeaponSelected = lines.some((l,i) => i !== index && specialWeaponLine.includes(l.line));
-                                    const isSpecialLine = specialWeaponLine.includes(line);
+                        {lines.slice(0, gearLineAmounts[type]).map((entry, index) => {
+                            const isFixedLine = gearName === 'Weapon' && WB_TYPES.includes(type) && [0,1,2,3,4].includes(index);
 
-                                    return !isAlreadySelected && !(specialWeaponSelected && isSpecialLine && line !== entry.line);
-                                }).map((line, idx) => (
-                                    <option key={idx} value={line}>{line}</option>
-                                ))
-                            }
-                            </select>
+                            return (
+                                <div className="modal-row" key={index}>
+                                    <label htmlFor={`line-${index}`}>Line {index + 1}:</label>
 
-                            <label htmlFor={`line-${index}-value`}></label>
-                            <select
-                            id={`line-${index}-value`}
-                            className='modal-value-select'
-                            value={entry.value}
-                            onChange={e => {
-                                const newValue = e.target.value;
-                                setLines(prev =>
-                                prev.map((l, i) =>
-                                    i === index ? { ...l, value: newValue } : l
-                                )
-                                );
-                            }}
-                            disabled={!entry.line}
-                            >
-                            <option value="">Value</option>
-                            {getGearValues(entry.line).map((val, idx) => (
-                                <option key={idx} value={val}>{val}%</option>
-                            ))}
-                            </select>
-                        </div>
-                        ))}
+                                    <select
+                                        id={`line-${index}`}
+                                        className='modal-select'
+                                        value={entry.line}
+                                        onChange={e => {
+                                            const newLine = e.target.value;
+                                            setLines(prev =>
+                                                prev.map((l, i) =>
+                                                    i === index ? { line: newLine, value: "" } : l
+                                                )
+                                            );
+                                        }}
+                                    >
+                                        {entry.line && isFixedLine ? (
+                                            <option value={entry.line}>{entry.line}</option>
+                                        ) : (
+                                            <>
+                                                <option value="">Select Line</option>
+                                                {(gearName === "Weapon" ? weaponLines : gearLines)
+                                                    .filter(line => {
+                                                        const isAlreadySelected = lines.some((l,i) => i !== index && l.line === line);
+                                                        const specialWeaponSelected = lines.some((l,i) => i !== index && specialWeaponLine.includes(l.line));
+                                                        const isSpecialLine = specialWeaponLine.includes(line);
+                                                        return !isAlreadySelected && !(specialWeaponSelected && isSpecialLine && line !== entry.line);
+                                                    }).map((line, idx) => (
+                                                        <option key={idx} value={line}>{line}</option>
+                                                    ))
+                                                }
+                                            </>
+                                        )}
+                                    </select>
+
+                                    <label htmlFor={`line-${index}-value`}></label>
+                                    <select
+                                        id={`line-${index}-value`}
+                                        className='modal-value-select'
+                                        value={entry.value}
+                                        onChange={e => {
+                                            const newValue = e.target.value;
+                                            setLines(prev =>
+                                                prev.map((l, i) =>
+                                                    i === index ? { ...l, value: newValue } : l
+                                                )
+                                            );
+                                        }}
+                                        disabled={!entry.line}
+                                    >
+                                        <option value="">Value</option>
+                                        {getGearValues(entry.line).map((val, idx) => (
+                                            <option key={idx} value={val}>{val}%</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            );
+                        })}
                     </div>
                     </div>
 

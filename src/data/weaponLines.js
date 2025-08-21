@@ -84,6 +84,25 @@ export const weaponLineGroups = {
         "Chance to stun enemy for 2 sec",
     ],
 
+    special: [
+        "Damage given by ignoring monster's defense",
+        "Increase Damage given to monster",
+        "Chance to 3x damage when attacking monster",
+        "Chance to cast Poison Aura when attacking monster",
+        "Chance to cast Devour when attacking monster",
+        "Chance to cast Venom Rain when attacking monster",
+        
+        "Chance to cast Dark Fissure when attacking monster",
+        "Chance to cast Soul Eater when attacking monster",
+        "Chance to cast Dark Lightning when attacking monster",
+        "Chance to cast Feather Shot when attacking monster",
+        
+        "Chance to cast Frozen soul when attacking monster",
+        "Chance to cast Rampage when attacking monster",
+        "Chance to cast Dragon's Rage when attacking monster",
+        "Chance to cast Primodial Power when attacking monster",
+    ]
+
 };
 
 export const ancientWeaponValues = {}

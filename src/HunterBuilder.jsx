@@ -36,26 +36,41 @@ function HunterBuilder()
     }
 
     function getGearImage(gearName) {
-        const saveType = saveGearData[gearName]?.type;
+        const saveData = saveGearData[gearName] || {};
+        const saveType = saveData.type;
+        const wbSubType = saveData.wbSubType || "";
+        const vwbSubType = saveData.vwbSubType || "";
 
-        if (gearName === 'Weapon') 
-        {
-            if (saveType) 
-            {
+        if (gearName === 'Weapon') {
+            if (saveType) {
+
+                if (saveType === 'wb' || saveType === 'twb') 
+                {
+                    return getImageUrl(`${saveType}${wbSubType}${gearName}${selectedClass}.png`);
+                }
+               
+                if (saveType === 'vwb') 
+                {
+                    return getImageUrl(`${saveType}${vwbSubType}${gearName}${selectedClass}.png`);
+                }
+                
                 return getImageUrl(`${saveType}${gearName}${selectedClass}.png`);
             } 
-            else {
+            
+            else
+            {
                 return new URL(`./assets/hunter/${gearName}${selectedClass}.png`, import.meta.url).href;
             }
         }
 
-        if (saveType) 
-        {
+        // Non-weapon gear
+        if (saveType) {
             return getImageUrl(`${saveType}${gearName}.png`);
         }
 
         return new URL(`./assets/hunter/${gearName}.png`, import.meta.url).href;
     }
+
 
 
 

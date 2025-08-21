@@ -26,7 +26,6 @@ function Footer()
                     <div className="footer-card">
                         <h2 className="card-title">Coming Soon</h2>
                             <h4 className="card-desc">atk spd Calculator</h4>
-                            <h4 className="card-desc">World Boss Weapon</h4>
                             <h4 className="card-desc">PvP</h4>
                             <h4 className="card-desc">Unique Gears</h4>
                     </div>

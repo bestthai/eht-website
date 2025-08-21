@@ -48,6 +48,13 @@ export const weaponAtkspd = {
         "Ranger": 2.00,
     },
 
+    PvP: {
+        "Berserker": 2.20,
+        "Paladin": 2.50,
+        "Sorcerer": 2.30,
+        "Ranger": 2.00,
+    }
+
 };
 
 export const weaponTypes = {
@@ -58,4 +65,37 @@ export const weaponTypes = {
   Abyss: "Abyss",     
   WB: "WB",
   VWB: "VWB",
+  PvP: "PvP"
 };
+
+export const statColorAtkspd = {
+    Grey: 0,
+    Blue: 10,
+    Orange: 20,
+    Purple: 30,
+};
+
+export const characteristicAtkspd = {
+    None: 0,
+    Thickheaded: -10,
+    Heroic: 7,
+    Swift: 10,
+}
+
+export const quickenAtkspd = {
+    5: 0,
+}
+
+export const furyAtkspd = {
+    "Level 13": 0,
+
+
+    "Level 10": 0,
+}
+
+export const mountEqAtkspd = {
+    None: 0,
+    B : 6,
+    A : 9,
+    S : 12,
+}

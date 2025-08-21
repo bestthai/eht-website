@@ -33,7 +33,7 @@ function App() {
 			<Routes>
 				<Route path='/builder' element={<HunterBuilder />} />
 				<Route path='/atkspd' element={<AtkspdCalc />} />
-				
+
 			</Routes>
 
 			<Footer></Footer>
@@ -44,3 +44,5 @@ function App() {
 }
 
 export default App
+
+// fixed all of the atk spd 
