@@ -4,6 +4,13 @@
     function AtkspdCalc() {
         const targetAtkspd = 0.25;
 
+        const statColorCodes = {
+            Grey: "#808080",
+            Blue: "#7087d2ff",
+            Orange: "#f8b231ff",
+            Purple: "#ac23acff",
+        };
+
         const classes = ["Berserker", "Paladin", "Sorcerer", "Ranger"];
         const weaponTypes = ["Ancient", "Primal", "Original", "Chaos", "Abyss", "WB", "VWB", "PvP"];
 
@@ -178,7 +185,7 @@
                     <label>Stat Color: </label>
                     <select value={statColor} onChange={(e) => setStatColor(Number(e.target.value))}>
                         {Object.entries(statColorAtkspd).map(([name, val]) => (
-                            <option key={name} value={val}>{name} ({val}%)</option>
+                            <option key={name} value={val} style={{ color: statColorCodes[name] }}>{name}</option>
                         ))}
                     </select>
                 </div>
@@ -188,7 +195,7 @@
                     <label>Characteristic: </label>
                     <select value={characteristic} onChange={(e) => setCharacteristic(Number(e.target.value))}>
                         {Object.entries(characteristicAtkspd).map(([name, val]) => (
-                            <option key={name} value={val}>{name} ({val}%)</option>
+                            <option key={name} value={val}>{name}</option>
                         ))}
                     </select>
                 </div>
@@ -221,7 +228,7 @@
                                 })
                                 .map(([name, val]) => (
                                     <option key={name} value={val}>
-                                        {name} ({val}x)
+                                        {name}
                                     </option>
                                 ))}
                         </select>
@@ -257,7 +264,7 @@
                     <label>Mount Equipment: </label>
                     <select value={mountEq} onChange={(e) => setMountEq(Number(e.target.value))}>
                         {Object.entries(mountEqAtkspd).map(([tier, val]) => (
-                            <option key={tier} value={val}>{tier} ({val}%)</option>
+                            <option key={tier} value={val}>{tier}</option>
                         ))}
                     </select>
                 </div>
