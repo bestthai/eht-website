@@ -45,4 +45,5 @@ function App() {
 
 export default App
 
-// fixed all of the atk spd 
+
+// some value in line is still stored

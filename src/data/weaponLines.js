@@ -72,6 +72,7 @@ export const weaponLineGroups = {
 
     Misc: [
         "EXP Gain",
+        "High-Class Material",
         "Decrease Mood Consumption",
         "Decrease Satiety Consumption",
         "Decrease Stamina Consumption", 
@@ -84,7 +85,7 @@ export const weaponLineGroups = {
         "Chance to stun enemy for 2 sec",
     ],
 
-    special: [
+    Special: [
         "Damage given by ignoring monster's defense",
         "Increase Damage given to monster",
         "Chance to 3x damage when attacking monster",

@@ -1,37 +1,290 @@
-import React, { useState, useEffect } from 'react';
-import { weaponAtkspd, statColorAtkspd, characteristicAtkspd, furyAtkspd, mountEqAtkspd } from './data/atkspd';
+    import React, { useState, useEffect } from 'react';
+    import { weaponAtkspd, statColorAtkspd, characteristicAtkspd, quickenAtkspd, furyAtkspd, mountEqAtkspd } from './data/atkspd';
 
-function AtkspdCalc() {
-    const classes = ["Berserker", "Paladin", "Sorcerer", "Ranger"];
-    const weaponTypes = ["Ancient", "Primal", "Original", "Chaos", "Abyss", "WB", "VWB"];
+    function AtkspdCalc() {
+        const targetAtkspd = 0.25;
 
-    // Selected class and weapon
-    const [selectedClass, setSelectedClass] = useState("");
-    const [weaponType, setWeaponType] = useState("");
+        const classes = ["Berserker", "Paladin", "Sorcerer", "Ranger"];
+        const weaponTypes = ["Ancient", "Primal", "Original", "Chaos", "Abyss", "WB", "VWB", "PvP"];
 
-    // Individual buffs
-    const [guild, setGuild] = useState(0);
-    const [secretTech, setSecretTech] = useState(0);
-    const [statColor, setStatColor] = useState(0);
-    const [characteristic, setCharacteristic] = useState(0);
-    const [quicken, setQuicken] = useState(0);
-    const [fury, setFury] = useState(0);
-    const [gear, setGear] = useState(0);
-    const [rune, setRune] = useState(0);
-    const [mountEq, setMountEq] = useState(0);
+        const [selectedClass, setSelectedClass] = useState("");
+        const [weaponType, setWeaponType] = useState("");
 
-    const [atkspd, setAtkspd] = useState(null);
+        const [guild, setGuild] = useState(0);
+        const [secretTech, setSecretTech] = useState(0);
+        const [statColor, setStatColor] = useState(0);
+        const [characteristic, setCharacteristic] = useState(0);
+        const [quicken, setQuicken] = useState(1.0);
+        const [fury, setFury] = useState(0);
+        const [gear, setGear] = useState("");
+        const [rune, setRune] = useState(0);
+        const [mountEq, setMountEq] = useState(0);
 
-    useEffect(() => {
-        
-    })
+        const [atkspd, setAtkspd] = useState(null);
+        const [gearRequired, setGearRequired] = useState(null);
 
-    return (
-        <div className="atkspd-calc-container">
-        <h1 className="atkspd-calc-title">Attack Speed Calculator</h1>
 
-        </div>
-    ); 
-}
+        function calculateAtkspd({ cls, weaponType, guild, secretTech, statColor, characteristic, quicken, fury, gear, rune, mountEq }) {
+            const numericGear = Number(gear) || 0;
+            const numericSecretTech = Number(secretTech) || 0;
+            
+            const baseAtkspd = weaponAtkspd[weaponType]?.[cls] || 0;
+            const additiveBuffs = guild + numericSecretTech + statColor + characteristic + numericGear + rune + mountEq;
+            
+            let multiplicativeBuffs = quicken;
+            if (fury > 0)
+            {
+                multiplicativeBuffs = (quicken - 1) + fury;
+            }
 
-export default AtkspdCalc;
+            const atkspdValue = baseAtkspd * ((1 - (additiveBuffs / 100)) / multiplicativeBuffs);
+
+            return atkspdValue.toFixed(2);
+        }
+
+        function calculateAtkspdRequired({ cls, weaponType, guild, secretTech, statColor, characteristic, quicken, fury, gear, rune, mountEq, targetAtkspd }) {
+            const baseAtkspd = weaponAtkspd[weaponType]?.[cls] || 0;
+            
+            if (!baseAtkspd || !quicken) return null;   
+
+            const numericSecretTech = Number(secretTech) || 0;
+            const numericGear = Number(gear) || 0;
+
+            const additiveBuffs = guild + numericSecretTech + statColor + characteristic + numericGear + rune + mountEq;
+            let multiplicativeBuffs = quicken;
+            if (fury > 0)
+            {
+                multiplicativeBuffs = (quicken - 1) + fury;
+            }
+
+            const needBuffs = (100 * (1 - ( targetAtkspd * multiplicativeBuffs / baseAtkspd))) - additiveBuffs;
+
+            return needBuffs.toFixed(0);
+        }
+
+        /*
+            Calculate atkspd whenever any input changes
+        */
+        useEffect(() => {
+            if (!selectedClass || !weaponType) 
+            {
+                setAtkspd(null);
+                setGearRequired(null);
+                return;
+            }
+
+            const value = calculateAtkspd({
+                cls: selectedClass,
+                weaponType,
+                guild,
+                secretTech,
+                statColor,
+                characteristic,
+                quicken,
+                fury,
+                gear,
+                rune,
+                mountEq
+            });
+
+            const gearNeeded = calculateAtkspdRequired({
+                cls: selectedClass,
+                weaponType,
+                guild,
+                secretTech,
+                statColor,
+                characteristic,
+                quicken,
+                fury,
+                gear,
+                rune,
+                mountEq,
+                targetAtkspd: 0.25,
+            });
+
+            setAtkspd(value);
+            setGearRequired(gearNeeded);
+        }, [selectedClass, weaponType, guild, secretTech, statColor, characteristic, quicken, fury, gear, rune, mountEq]);
+
+        /*
+            Clear fury value when class changes
+        */
+        useEffect(() => {
+            if (selectedClass === "Paladin" || selectedClass === "Ranger") {
+                setFury(0); 
+            } else if (selectedClass === "Sorcerer") {
+                setFury(furyAtkspd["Level 0"]); 
+            } else if (selectedClass === "Berserker") {
+                setFury(furyAtkspd["Level 10"]); 
+            } else {
+                setFury(0);
+            }
+        }, [selectedClass]);
+
+        return (
+            <div className="atkspd-calc-container">
+                <h1 className="atkspd-calc-title">Attack Speed Calculator</h1>
+
+                {/* Class selection */}
+                <div>
+                    <label>Class: </label>
+                    <select 
+                        className = {selectedClass}
+                        onChange = {(e) => setSelectedClass(e.target.value)}>
+                            <option value="">-- Select Class --</option>
+                            {classes.map((cls) => (
+                                <option key={cls} value={cls}>{cls}</option>
+                            ))}
+                    </select>
+                </div>
+
+                {/* Weapon Selector */}
+                <div>
+                    <label>Weapon: </label>
+                    <select value={weaponType} onChange={(e) => setWeaponType(e.target.value)}>
+                        <option value="">-- Select Weapon --</option>
+                        {weaponTypes.map((wp) => (
+                            <option key={wp} value={wp}>{wp}</option>
+                        ))}
+                    </select>
+                </div>
+
+                {/* Guild (0–5%) */}
+                <div>
+                    <label>Guild Buff: </label>
+                    <select value={guild} onChange={(e) => setGuild(Number(e.target.value))}>
+                        {[0,1,2,3,4,5].map((v) => (
+                            <option key={v} value={v}>{v}%</option>
+                        ))}
+                    </select>
+                </div>
+
+                {/* Secret Tech */}
+                <div>
+                    <label>Secret Tech (0 - 10%): </label>
+                    <div className="input-percent-wrapper">
+                        <input
+                            type="number"
+                            value={secretTech}
+                            onChange={(e) => setSecretTech(e.target.value)}
+                            placeholder="Enter value"
+                        />
+                        <span className="percent-symbol">%</span>
+                    </div>
+                </div>
+
+                {/* Stat Color */}
+                <div>
+                    <label>Stat Color: </label>
+                    <select value={statColor} onChange={(e) => setStatColor(Number(e.target.value))}>
+                        {Object.entries(statColorAtkspd).map(([name, val]) => (
+                            <option key={name} value={val}>{name} ({val}%)</option>
+                        ))}
+                    </select>
+                </div>
+
+                {/* Characteristic */}
+                <div>
+                    <label>Characteristic: </label>
+                    <select value={characteristic} onChange={(e) => setCharacteristic(Number(e.target.value))}>
+                        {Object.entries(characteristicAtkspd).map(([name, val]) => (
+                            <option key={name} value={val}>{name} ({val}%)</option>
+                        ))}
+                    </select>
+                </div>
+
+                {/* Quicken */}
+                <div>
+                    <label>Quicken: </label>
+                    <select value={quicken} onChange={(e) => setQuicken(Number(e.target.value))}>
+                        {Object.entries(quickenAtkspd).map(([level, mult]) => (
+                            <option key={level} value={mult}>Level {level}</option>
+                        ))}
+                    </select>
+                </div>
+
+                {/* Fury */}
+                {selectedClass !== "Paladin" && selectedClass !== "Ranger" && (
+                    <div>
+                        <label>Fury: </label>
+                        <select value={fury} onChange={(e) => setFury(Number(e.target.value))}>
+                            {Object.entries(furyAtkspd).filter(([name, _]) => {
+                                    if (selectedClass === "Sorcerer") 
+                                    {
+                                    return ["Level 0", "Level 1"].includes(name); 
+                                    }
+                                    if (selectedClass === "Berserker") 
+                                    {
+                                        return ["Level 10", "Level 11", "Level 12", "Level 13"].includes(name);
+                                    }
+                                    return true; // fallback (if new classes added later)
+                                })
+                                .map(([name, val]) => (
+                                    <option key={name} value={val}>
+                                        {name} ({val}x)
+                                    </option>
+                                ))}
+                        </select>
+                    </div>
+                )}
+
+                {/* Gear */}
+                <div>
+                    <label>Gear: </label>
+                    <div className="input-percent-wrapper">
+                        <input
+                            type="number"
+                            value={gear}
+                            onChange={(e) => setGear(e.target.value)}
+                            placeholder="Enter value"
+                        />
+                        <span className="percent-symbol">%</span>
+                    </div>
+                </div>
+
+                {/* Rune */}
+                <div>
+                    <label>Rune: </label>
+                    <select value={rune} onChange={(e) => setRune(Number(e.target.value))}>
+                        {[0,1,2,3,4,5,6].map((v) => (
+                            <option key={v} value={v}>{v}%</option>
+                        ))}
+                    </select>
+                </div>
+
+                {/* Mount Equipment */}
+                <div>
+                    <label>Mount Equipment: </label>
+                    <select value={mountEq} onChange={(e) => setMountEq(Number(e.target.value))}>
+                        {Object.entries(mountEqAtkspd).map(([tier, val]) => (
+                            <option key={tier} value={val}>{tier} ({val}%)</option>
+                        ))}
+                    </select>
+                </div>
+
+                {/* Result */}
+                <h2>Attack Speed: {atkspd ? atkspd : "--"}</h2>
+                <h2 className={
+                    gearRequired === null
+                    ? "gear-neutral"
+                    : gearRequired > 0
+                        ? "gear-add"
+                        : gearRequired < 0
+                        ? "gear-remove"
+                        : "gear-balanced"
+                }>
+                Atkspd Required for {targetAtkspd}:{" "}
+                {gearRequired === null
+                    ? "--"
+                    : gearRequired > 0
+                    ? `Add ${gearRequired}%`
+                    : gearRequired < 0
+                        ? `Remove ${Math.abs(gearRequired)}%`
+                        : "Perfectly balanced"}
+                </h2>
+
+            </div>
+        ); 
+    }
+
+    export default AtkspdCalc;

@@ -3,9 +3,9 @@
     background: linear-gradient(90deg, #4b6cb7, #182848);
     color: #fff;
     padding: 12px 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-    border-bottom: 2px solid #2c3e50;
     font-family: 'Inter', sans-serif;
+    border-bottom: 2px solid #2c3e50;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .header-content {
@@ -14,6 +14,8 @@
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
+    flex-wrap: wrap; 
+    gap: 10px;
 }
 
 .header-name {
@@ -24,6 +26,7 @@
 
 .header-button {
     display: flex;
+    flex-wrap: wrap;  
     gap: 12px;
 }
 
@@ -36,6 +39,9 @@
     font-weight: 600;
     text-decoration: none;
     transition: all 0.2s ease-in-out;
+    white-space: nowrap;          
+    flex-shrink: 1;                
+    min-width: 60px;
 }
 
 .header-button-nav:hover {
@@ -51,9 +57,41 @@
     margin: 10px 0;
 }
 
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;     
+        align-items: center;
+    }
+
+    .header-name {
+        font-size: 1.5em;
+        margin-bottom: 8px;
+    }
+
+    .header-button {
+        justify-content: center;    
+    }
+
+    .header-button-nav {
+        padding: 6px 14px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-name {
+        font-size: 1.2em;
+    }
+
+    .header-button-nav {
+        padding: 5px 12px;
+        font-size: 0.85em;
+    }
+}
 
 
-/* ===================================================== */
+/* ===================== Hunter Builder =========================== */
 .hunter-builder-container{
     background-color: rgb(81, 78, 78);
 }
@@ -240,6 +278,10 @@
     text-align: center;
 }
 
+.modal-select {
+    min-width: 200px;
+}
+
 .modal-row select {
     width: fit-content;
     min-width: 0px;
@@ -333,6 +375,7 @@
     .modal-special-line-value,
     .modal-value-select {
         width: fit-content;
+        min-width: 200px;
     }
 
     /* Stats container padding */
@@ -590,9 +633,31 @@
     padding: 0.5rem 0.7rem;
     margin: 0.3rem 0;
     font-size: 1rem;
-    width: 100%;
-    max-width: 300px;
+    box-sizing: border-box;
+    width: 200px;  
+    max-width: 100%; 
     transition: border 0.2s, background 0.2s;
+}
+
+/* Wrapper for number inputs with % */
+.input-percent-wrapper {
+    position: relative;
+    width: 200px;  
+}
+
+.input-percent-wrapper input {
+    width: 100%;
+    padding-right: 2rem; 
+    box-sizing: border-box;
+}
+
+.input-percent-wrapper .percent-symbol {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    pointer-events: none;
 }
 
 .atkspd-calc-container select:focus,
@@ -630,6 +695,25 @@
     color: lightblue;
     margin-top: 2rem;
     text-align: center;
+}
+
+.gear-add {
+  color: hsl(120, 100%, 20%);
+  font-weight: bold;
+}
+
+.gear-remove {
+  color: hsl(0, 100%, 30%);
+  font-weight: bold;
+}
+
+.gear-balanced {
+  color: hsl(51, 100%, 40%);
+  font-style: italic;
+}
+
+.gear-neutral {
+  color: #555;
 }
 
 

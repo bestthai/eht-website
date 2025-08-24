@@ -6,8 +6,7 @@ import { weaponLines, weaponValuesByType } from './data/weaponLines';
 import { DefSpecialLines, DefChaosValues, DefAbyssValues,
          HpSpecialLines, HpChaosValues, HpAbyssValues,
          HelmBeltSpecialLines, HelmBeltChaosValues, HelmBeltAbyssValues,
-         WeaponSpecialLines, WeaponChaosValues, WeaponAbyssValues
-       } from './data/specialLines';
+         WeaponSpecialLines, WeaponChaosValues, WeaponAbyssValues } from './data/specialLines';
 import { runeLines, runeValues } from './data/runeLines';
 import { WB_TYPES, FIXED_WB_LINES, LINE2_MAPS, wbLineValues } from './data/specialWeapons';
 
@@ -60,7 +59,6 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                 { line: "", value: "" },
             ]);
 
-        console.log("Loaded saveData:", saveData);
     }, [saveData]);
 
 

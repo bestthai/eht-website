@@ -1,6 +1,6 @@
 export const weaponAtkspd = {
     Ancient: {
-        "Berserker": 2.00,
+        "Berserker": 2.00, 
         "Paladin": 2.40,
         "Sorcerer": 2.20,
         "Ranger": 1.80,
@@ -83,14 +83,21 @@ export const characteristicAtkspd = {
 }
 
 export const quickenAtkspd = {
-    5: 0,
+    5: 1.5,
+    4: 1.4,
+    3: 1.3,
+    2: 1.2,
+    1: 1.1,
+    0: 1.0,
 }
 
 export const furyAtkspd = {
-    "Level 13": 0,
-
-
-    "Level 10": 0,
+    "Level 13": 4.54,
+    "Level 12": 4.36,
+    "Level 11": 4.18,
+    "Level 10": 4.0,
+    "Level 1" : 2.38,
+    "Level 0" : 0.0,
 }
 
 export const mountEqAtkspd = {
