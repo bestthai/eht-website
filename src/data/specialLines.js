@@ -19,19 +19,19 @@ export const DefAbyssValues = {
 // =================================================================
 
 export const HpSpecialLines = [
-	"HP",
+	"Evasion",
 	"Critical Hit Damage",
 	"High-Class Material",
 ];
 
 export const HpChaosValues = {
-	"HP": ["26"],
+	"Evasion": ["14"],
 	"Critical Hit Damage": ["40"],
 	"High-Class Material": ["26"],
 };
 
 export const HpAbyssValues = {
-	"HP": ["29"],
+	"Evasion": ["16"],
 	"Critical Hit Damage": ["45"],
 	"High-Class Material": ["29"],
 }
