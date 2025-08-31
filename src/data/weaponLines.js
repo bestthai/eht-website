@@ -86,23 +86,48 @@ export const weaponLineGroups = {
     ],
 
     Special: [
+        // WB/TWB/VWB
         "Damage given by ignoring monster's defense",
         "Increase Damage given to monster",
         "Chance to 3x damage when attacking monster",
         "Chance to cast Poison Aura when attacking monster",
         "Chance to cast Devour when attacking monster",
         "Chance to cast Venom Rain when attacking monster",
-        
         "Chance to cast Dark Fissure when attacking monster",
         "Chance to cast Soul Eater when attacking monster",
         "Chance to cast Dark Lightning when attacking monster",
         "Chance to cast Feather Shot when attacking monster",
-        
         "Chance to cast Frozen soul when attacking monster",
         "Chance to cast Rampage when attacking monster",
         "Chance to cast Dragon's Rage when attacking monster",
         "Chance to cast Primodial Power when attacking monster",
-    ]
+
+        // Chaos Unique
+        "If the hunter have YOLO characteristic, increase Movement Speed and Attack by",
+        "When attacking, Pumpkin Change is cast at",
+        "Increase 2nd, 3rd Class Skill level by",
+        "When attacked, Mood, Stamina, and Satiety are recovered by",
+        "When attacked, Frost Wave is cast at",
+        "Blood Berserk is activated at all times at level",
+        "When attacking, Curse Chain is cast at",
+        "Amplify ATK by [] from movement speed (max 30%)",
+        "When attacked with status effect that limit action, damage taken is reduced by [] for 6 sec",
+        "When using potion, there is [] for quantity to not decrease",
+        "Thunder Dragon's Rage is activated at all times at level",
+        "when attacking, 20% chance to cast Slyph's Blessing at level",
+        "Cyclone skill duration is increased by",
+        "Trinity is activated at all times at level",
+        "King of the Underworld is activated at all times at level",
+        "Commander's Privilage is actived at all times",
+
+        // Abyss Unique
+        "If damage-absorbtion shield is active, damage taken is reduced by [] for 6 sec",
+        "When attacked, Enhance Frost Wave is cast at",
+        "Enhance Blood Berserk is activated at all times at level",
+        "Hunter's gold gain is increased by",
+        "Amplify ATK by [] from movement speed (max 40%)",
+        "Blood Expansion is activated at level",
+    ],
 
 };
 

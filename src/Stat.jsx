@@ -1,5 +1,6 @@
 
 import { weaponLines, weaponLineGroups } from './data/weaponLines';
+import { chaosUniquePercent, abyssUniquePercent } from './data/uniqueGears';
 
 function Stat({ saveGearData = {} }) 
 {
@@ -30,6 +31,11 @@ function Stat({ saveGearData = {} })
         {
             stats[gear.specialLine] = (stats[gear.specialLine] || 0) + Number(gear.specialLineValue);
         }
+
+        if (gear.uniqueLine && gear.uniqueLineValue)
+        {
+            stats[gear.uniqueLine] = (stats[gear.uniqueLine] || 0) + Number(gear.uniqueLineValue);
+        }
     });
 
     return (
@@ -46,11 +52,28 @@ function Stat({ saveGearData = {} })
                                     const runeValue = runeStats[line] || 0;
                                     if (gearValue === 0 && runeValue === 0) return null;
 
+                                    const uniqueGear = Object.values(saveGearData).find(
+                                        gear => (gear.type === "chaos unique" || gear.type === "abyss unique") && gear.uniqueLine === line
+                                    );
+
+                                    let displayValue = '';
+                                    if (gearValue > 0) 
+                                    {
+                                        if (uniqueGear) {
+                                            const isPercent = uniqueGear.type === "chaos unique"
+                                                ? chaosUniquePercent[uniqueGear.uniqueSubType]
+                                                : abyssUniquePercent[uniqueGear.uniqueSubType];
+                                            displayValue = `${gearValue}${isPercent ? '%' : ''}`;
+                                        } else {
+                                            displayValue = `${gearValue}%`;
+                                        }
+                                    }
+
                                     return (
                                         <li key={line} className="stat-stat">
-                                        {line} : {gearValue > 0 ? `${gearValue}%` : ''}
-                                        {gearValue > 0 && runeValue > 0 ? ' + ' : ''}
-                                        {runeValue > 0 ? `${runeValue}% (rune)` : ''}
+                                            {line} : {displayValue}
+                                            {gearValue > 0 && runeValue > 0 ? ' + ' : ''}
+                                            {runeValue > 0 ? `${runeValue}% (rune)` : ''}
                                         </li>
                                     );
                                 })}

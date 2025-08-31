@@ -40,6 +40,7 @@ function HunterBuilder()
         const saveType = saveData.type;
         const wbSubType = saveData.wbSubType || "";
         const vwbSubType = saveData.vwbSubType || "";
+        const uniqueSubType = saveData.uniqueSubType || "";
 
         if (gearName === 'Weapon') {
             if (saveType) {
@@ -49,7 +50,7 @@ function HunterBuilder()
                     return getImageUrl(`${saveType}${wbSubType}${gearName}${selectedClass}.png`);
                 }
                
-                if (saveType === 'vwb') 
+                else if (saveType === 'vwb') 
                 {
                     return getImageUrl(`${saveType}${vwbSubType}${gearName}${selectedClass}.png`);
                 }
@@ -64,14 +65,18 @@ function HunterBuilder()
         }
 
         // Non-weapon gear
-        if (saveType) {
+        if (saveType) 
+        {
+            if (saveType === "chaos unique" || saveType === "abyss unique")
+            {
+                return getImageUrl(`${saveType}${uniqueSubType}${gearName}.png`);
+            }
+
             return getImageUrl(`${saveType}${gearName}.png`);
         }
 
         return new URL(`./assets/hunter/${gearName}.png`, import.meta.url).href;
     }
-
-
 
 
     return(

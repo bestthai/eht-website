@@ -309,7 +309,7 @@
     transform: translateY(-3px);
 }
 
-/* Mobile version updates */
+/* =============== Mobile version updates =============== */
 @media (max-width: 768px) {
     /* Update overlay for padding & box-sizing */
     .modal-overlay {
