@@ -294,7 +294,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
 
                 newLines[0] = {
                     line: fixedLine,
-                    value: valueRange,
+                    value: prev[0]?.value ? prev[0].value : valueRange, 
                 };
             }
             
@@ -720,7 +720,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                                 return (
                                     <div className="modal-row" key={index}>
                                         <label>Line 1:</label>
-                                        <select value={entry.line}>
+                                        <select value={entry.line} onChange={() => {}}>
                                             <option value={entry.line}>{entry.line}</option>
                                         </select>
                                         <select
@@ -751,7 +751,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                             return (
                                 <div className="modal-row" key={index}>
                                     <label htmlFor={`line-${index}`}>Line {index + 1}:</label>
-                                    <select value={entry.line}>
+                                    <select value={entry.line} onChange={() => {}}>
                                         <option value={entry.line}>{entry.line}</option>
                                     </select>
                                     <select
@@ -773,15 +773,32 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                             );
                         }
 
-                        // --- Normal Lines ---
-                        const normalSelectedLines = lines
-                            .map((l, i) => i !== 0 ? l.line : null)
+                        // --- All other lines ---
+                        const isUniqueWithFixedLine = (type === "chaos unique" || type === "abyss unique") && uniqueSubType;
+                        const fixedLine = isUniqueWithFixedLine
+                            ? (type === "chaos unique"
+                                ? chaosUniqueFixedLine[uniqueSubType]?.[0]
+                                : abyssUniqueFixedLine[uniqueSubType]?.[0])
+                            : null;
+
+                        // Count occurrences of the fixed line
+                        const fixedLineCount = lines.filter(l => l.line === fixedLine).length;
+                        const allowFixedLine = entry.line === fixedLine || fixedLineCount < 2;
+
+                        // Other selected lines (normal lines cannot duplicate)
+                        const selectedLines = lines
+                            .map((l, i) => {
+                                if (i === index) return null;
+                                if (isUniqueWithFixedLine && l.line === fixedLine) return null; // allow duplicate fixed line
+                                return l.line;
+                            })
                             .filter(Boolean);
 
-                        const availableLines = [
-                            ...(entry.line ? [entry.line] : []), 
-                            ...allLines.filter(line => line !== entry.line && !normalSelectedLines.includes(line)) 
-                        ];
+                        // Build available lines
+                        const availableLines = allLines.filter(line => {
+                            if (line === fixedLine) return allowFixedLine;
+                            return !selectedLines.includes(line);
+                        });
 
                         return (
                             <div className="modal-row" key={index}>
