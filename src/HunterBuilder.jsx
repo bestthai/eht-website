@@ -42,42 +42,39 @@ function HunterBuilder()
         const vwbSubType = saveData.vwbSubType || "";
         const uniqueSubType = saveData.uniqueSubType || "";
 
+        let fileName = "";
+
         if (gearName === 'Weapon') {
             if (saveType) {
-
-                if (saveType === 'wb' || saveType === 'twb') 
-                {
-                    return getImageUrl(`${saveType}${wbSubType}${gearName}${selectedClass}.png`);
+                if (saveType === 'wb' || saveType === 'twb') {
+                    fileName = `${saveType}${wbSubType}${gearName}${selectedClass}.png`;
+                } else if (saveType === 'vwb') {
+                    fileName = `${saveType}${vwbSubType}${gearName}${selectedClass}.png`;
+                } else {
+                    fileName = `${saveType}${gearName}${selectedClass}.png`;
                 }
-               
-                else if (saveType === 'vwb') 
-                {
-                    return getImageUrl(`${saveType}${vwbSubType}${gearName}${selectedClass}.png`);
-                }
-                
-                return getImageUrl(`${saveType}${gearName}${selectedClass}.png`);
-            } 
-            
-            else
-            {
-                return new URL(`./assets/hunter/${gearName}${selectedClass}.png`, import.meta.url).href;
+                return getImageUrl(fileName);
+            } else {
+                fileName = `${gearName}${selectedClass}.png`;
+                return getImageUrl(fileName);
             }
         }
 
         // Non-weapon gear
-        if (saveType) 
-        {
-            if (saveType === "chaos unique" || saveType === "abyss unique")
-            {
-                return getImageUrl(`${saveType}${uniqueSubType}${gearName}.png`);
+        if (saveType) {
+            if (saveType === "chaos unique" || saveType === "abyss unique") {
+                fileName = `${saveType}${uniqueSubType}${gearName}.png`;
+            } else {
+                fileName = `${saveType}${gearName}.png`;
             }
 
-            return getImageUrl(`${saveType}${gearName}.png`);
+            return getImageUrl(fileName);
         }
 
-        return new URL(`./assets/hunter/${gearName}.png`, import.meta.url).href;
-    }
+        fileName = `${gearName}.png`;
 
+        return getImageUrl(fileName);
+    }
 
     return(
         <div className="hunter-builder-container"

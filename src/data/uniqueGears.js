@@ -3,16 +3,16 @@ export const chaosUniqueLines = {
         "Juggernaut Helm" : "If the hunter have YOLO characteristic, increase Movement Speed and Attack by",
         "Pumpkin Witch Hat" : "When attacking, Pumpkin Change is cast at",
         "Helmet of Insight" : "Increase 2nd, 3rd Class Skill level by",
-    }, // done
+    }, 
 
     Chestplate: {
-        "Sufferer's Armor" : "When attacked, Mood, Stamina, and Satiety are recovered by",
-        "Frost Giant Cuirass" : "When attacked, Frost Wave is cast at", // done
+        "Sufferer Armor" : "When attacked, Mood, Stamina, and Satiety are recovered by",
+        "Frost Giant Cuirass" : "When attacked, Frost Wave is cast at", 
     },
 
     Glove: {
         "Bloodfist" : "Blood Berserk is activated at all times at level",
-        "Hecate's Glove" : "When attacking, Curse Chain is cast at",
+        "Hecate Glove" : "When attacking, Curse Chain is cast at",
     },
 
     Boot: {
@@ -21,9 +21,9 @@ export const chaosUniqueLines = {
     },
 
     Belt: {
-        "Alchemist's Belt" : "When using potion, there is [] for quantity to not decrease",
-        "Thunder Dragon's Belt" : "Thunder Dragon's Rage is activated at all times at level",
-        "Slyph's Belt" : "when attacking, 20% chance to cast Slyph's Blessing at level",
+        "Alchemist Belt" : "When using potion, there is [] for quantity to not decrease",
+        "Thunder Dragon Belt" : "Thunder Dragon Rage is activated at all times at level",
+        "Slyph Belt" : "when attacking, 20% chance to cast Slyph Blessing at level",
     },
 
     Ring: {
@@ -32,8 +32,8 @@ export const chaosUniqueLines = {
     },
 
     Necklace: {
-        "Hades's Necklace" : "King of the Underworld is activated at all times at level",
-        "Commander's Necklace" : "Commander's Privilage is actived at all times",
+        "Hades Necklace" : "King of the Underworld is activated at all times at level",
+        "Commander Necklace" : "Commander Privilage is actived at all times",
     },
 }
 
@@ -42,24 +42,34 @@ export const chaosUniqueLineValues = {
     "Pumpkin Witch Hat": [10, 20], 
     "Helmet of Insight": [1, 3],
 
-    "Sufferer's Armor": [1, 5],
+    "Sufferer Armor": [1, 5],
     "Frost Giant Cuirass": [10, 25],
 
     "Bloodfist": [1, 3],
-    "Hecate's Glove": [10, 25],
+    "Hecate Glove": [10, 25],
 
     "Greaves of Wind": [3, 10],
     "Greaves of Tenacity": [30, 50],
 
-    "Alchemist's Belt": [25, 50],
-    "Thunder Dragon's Belt": [1, 3],
-    "Slyph's Belt": [1, 3],
+    "Alchemist Belt": [25, 50],
+    "Thunder Dragon Belt": [1, 3],
+    "Slyph Belt": [1, 3],
 
     "Cyclone Ring": [2, 4],
     "Trinity Ring": [1, 3],
 
-    "Hades's Necklace": [1, 3],
-    "Commander's Necklace": [null], 
+    "Hades Necklace": [1, 3],
+    "Commander Necklace": [null], 
+};
+
+export const chaosUniqueFixedLine = {
+    "Juggernaut Helm": {0: "HP"},
+    "Greaves of Wind": {0: "Increase Movement Speed"},
+};
+
+export const chaosUniqueFixedLineValue = {
+    "Juggernaut Helm": [20, 30],
+    "Greaves of Wind": [15, 30],
 };
 
 export const chaosUniquePercent = {
@@ -67,24 +77,24 @@ export const chaosUniquePercent = {
     "Pumpkin Witch Hat": true,
     "Helmet of Insight": false,
 
-    "Sufferer's Armor": true,
+    "Sufferer Armor": true,
     "Frost Giant Cuirass": true,
 
     "Bloodfist": false,
-    "Hecate's Glove": true,
+    "Hecate Glove": true,
 
     "Greaves of Wind": true,
     "Greaves of Tenacity": true,
 
-    "Alchemist's Belt": true,
-    "Thunder Dragon's Belt": false,
-    "Slyph's Belt": true,
+    "Alchemist Belt": true,
+    "Thunder Dragon Belt": false,
+    "Slyph Belt": true,
 
     "Cyclone Ring": false,
     "Trinity Ring": false,
 
-    "Hades's Necklace": false,
-    "Commander's Necklace": false,
+    "Hades Necklace": false,
+    "Commander Necklace": false,
 };
 
 
@@ -99,8 +109,8 @@ export const abyssUniqueLines = {
     },
 
     Glove: {
-        "Truthful Bloodfist" : "Enhance Blood Berserk is activated at all times at level", // done
-        "Hand of Midas" : "Hunter's gold gain is increased by",
+        "Truthful Bloodfist" : "Enhance Blood Berserk is activated at all times at level", 
+        "Hand of Midas" : "Hunter gold gain is increased by",
     },
  
     Boot: {
@@ -130,6 +140,14 @@ export const abyssUniqueLineValues = {
 
     "Truthful Greaves of Wind": [3, 10],
     "Vampire Boot": [1, 3],
+};
+
+export const abyssUniqueFixedLine = {
+    "Truthful Greaves of Wind": {0: "Increase Movement Speed"},
+};
+
+export const abyssUniqueFixedLineValue = {
+    "Truthful Greaves of Wind": [17, 32],
 };
 
 export const abyssUniquePercent = {
