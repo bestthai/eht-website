@@ -207,13 +207,6 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
             setUniqueSubType("");
             setUniqueLine("");
             setUniqueLineValue("");
-            setLines([
-                { line: "", value: "" },
-                { line: "", value: "" },
-                { line: "", value: "" },
-                { line: "", value: "" },
-                { line: "", value: "" },
-            ]);
         }
 
         if (!WB_TYPES.includes(type))
@@ -294,7 +287,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
 
                 newLines[0] = {
                     line: fixedLine,
-                    value: prev[0]?.value ? prev[0].value : valueRange, 
+                    value: prev[0]?.value ? prev[0].value : valueRange,
                 };
             }
             
@@ -794,9 +787,20 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                             })
                             .filter(Boolean);
 
+                        const selectedSpecialWeaponLines = lines
+                            .map(l => l.line)
+                            .filter(l => specialWeaponLine.includes(l) && l);
+
                         // Build available lines
                         const availableLines = allLines.filter(line => {
+                            if (gearName === "Weapon" && !WB_TYPES.includes(type) && specialWeaponLine.includes(line)) {
+                                return lines[index].line === line || selectedSpecialWeaponLines.length === 0;
+                            }
+
+                            // Unique fixed line logic
                             if (line === fixedLine) return allowFixedLine;
+
+                            // Normal duplicate prevention
                             return !selectedLines.includes(line);
                         });
 
