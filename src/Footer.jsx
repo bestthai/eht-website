@@ -25,7 +25,6 @@ function Footer()
 
                     <div className="footer-card">
                         <h2 className="card-title">Coming Soon</h2>
-                            <h4 className="card-desc">PvP</h4>
                     </div>
 
                     <div className="footer-card">
