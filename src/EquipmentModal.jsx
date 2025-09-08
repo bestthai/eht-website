@@ -11,6 +11,10 @@ import { runeLines, runeValues } from './data/runeLines';
 import { WB_TYPES, FIXED_WB_LINES, LINE2_MAPS, wbLineValues } from './data/wbWeapons';
 import { chaosUniqueLines, chaosUniqueLineValues, chaosUniqueFixedLine, chaosUniqueFixedLineValue,
          abyssUniqueLines, abyssUniqueLineValues, abyssUniqueFixedLine, abyssUniqueFixedLineValue,} from './data/uniqueGears';
+import { PVP_TYPES, 
+         FIXED_PVP_DPS_WEAPON_LINES, FIXED_PVP_TANK_WEAPON_LINES, LINE2_WEAPON_MAPS, 
+         FIXED_PVP_DPS_WEAPON_LINE_VALUE, FIXED_PVP_TANK_WEAPON_LINE_VALUE,
+         FIXED_PVP_TANK_HELMET_LINE_VALUE, FIXED_PVP_DPS_HELMET_LINE_VALUE, } from './data/pvpLines';
 
 function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, selectedClass }) {
 
@@ -19,12 +23,15 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
         ancient: 3,
         hell: 3,
         primal: 3,
+        "2v2": 3,
         original: 4,
         chaos: 4,
         "chaos unique": 4,
+        "champion": 4,
         abyss: 4,
         "abyss unique": 4,
         wb: 4,
+        "challenger": 5,
         twb: 5,
         vwb: 5,
     };
@@ -34,6 +41,8 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
     const [wbSubType, setWbSubType] = useState(saveData?.wbSubType || '');
     const [vwbSubType, setVwbSubType] = useState(saveData?.vwbSubType || '');
     const [uniqueSubType, setUniqueSubType] = useState(saveData?.uniqueSubType || '');
+    const [pvpWeaponSubType, setpvpWeaponSubType] = useState(saveData?.pvpWeaponSubType || '');
+    const [pvpHelmetSubType, setPvpHelmetSubType] = useState(saveData?.pvpHelmetSubType || '');
     const [runeEffect, setRuneEffect] = useState(saveData?.runeEffect || '');
     const [runeValue, setRuneValue] = useState(saveData?.runeValue || '');
     const [specialLine, setSpecialLine] = useState(saveData?.specialLine || '');
@@ -58,6 +67,8 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
         setSpecialLine(saveData.specialLine || '');
         setSpecialLineValue(saveData.specialLineValue || '');
         setUniqueSubType(saveData.uniqueSubType || '');
+        setpvpWeaponSubType(saveData.pvpWeaponSubType || '');
+        setPvpHelmetSubType(saveData.pvpHelmetSubType || '');
         setLines(saveData.lines || [
                 { line: "", value: "" },
                 { line: "", value: "" },
@@ -72,7 +83,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
     let typeOptions = ['ancient', 'primal', 'original', 'chaos', 'chaos unique', 'abyss', 'abyss unique'];
     if (gearName === 'Helmet') 
     {
-        typeOptions = ['ancient', 'primal', 'hell', 'original', 'chaos', 'chaos unique', 'abyss', 'abyss unique'];
+        typeOptions = ['ancient', 'primal', 'hell', 'original', 'chaos', 'chaos unique', 'abyss', 'abyss unique', '2v2', 'champion', 'challenger',];
     } 
     else if (gearName === 'Belt') 
     {
@@ -80,7 +91,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
     } 
     else if (gearName === 'Weapon')
     {
-        typeOptions = ['ancient', 'primal', 'original', 'chaos', 'wb', 'twb', 'vwb', 'abyss'];
+        typeOptions = ['ancient', 'primal', 'original', 'chaos', 'wb', 'twb', 'vwb', 'abyss', '2v2', 'champion', 'challenger',];
     }
 
     const hasUnique = Object.values(saveGearData || {}).some(
@@ -121,6 +132,14 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
             {
                 fileName = `${type}${vwbSubType}${gearName}${selectedClass}.png`;
             } 
+            else if ((PVP_TYPES.includes(type)) && gearName === 'Weapon')
+            {
+                fileName = `${type}${pvpWeaponSubType}${gearName}${selectedClass}.png`;
+            }
+            else if ((PVP_TYPES.includes(type)) && gearName === 'Helmet')
+            {
+                fileName = `${type}${pvpHelmetSubType}${gearName}.png`;
+            }
             else if (type === 'chaos unique' || type === 'abyss unique')
             {
                 fileName = `${type}${uniqueSubType}${gearName}.png`;
@@ -193,28 +212,31 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
     }, [specialLine, specialLineValues]);
 
     /*
-        Reset the special line value (WB, Choas, Abyss, Unique)
+        Auto reset line when changing type
     */
+    const [prevType, setPrevType] = useState(type);
     useEffect(() => {
-        if (type !== "chaos" && type !== "abyss")
-        {
-            setSpecialLine("");
-            setSpecialLineValue("");
+        if (prevType !== type) {
+            if (!["chaos", "abyss"].includes(type)) {
+                setSpecialLine("");
+                setSpecialLineValue("");
+            }
+            if (!["chaos unique", "abyss unique"].includes(type)) {
+                setUniqueSubType("");
+                setUniqueLine("");
+                setUniqueLineValue("");
+            }
+            if (!WB_TYPES.includes(type)) {
+                setWbSubType("");
+                setVwbSubType("");
+            }
+            if (!PVP_TYPES.includes(type)) {
+                setpvpWeaponSubType("");
+                setPvpHelmetSubType("");
+            }
+            setPrevType(type);
         }
-
-        if (type !== "chaos unique" && type !== "abyss unique")
-        {
-            setUniqueSubType("");
-            setUniqueLine("");
-            setUniqueLineValue("");
-        }
-
-        if (!WB_TYPES.includes(type))
-        {
-            setWbSubType("");
-            setVwbSubType("");
-        }
-    }, [type]);
+    }, [type, prevType]);
 
     /* 
         Adjust the number of lines based on the gear type
@@ -329,6 +351,72 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
     }, [gearName, type, wbSubType, vwbSubType, selectedClass]);
 
     /*
+        auto-set PvP weapon lines
+    */
+    useEffect(() => {
+        if (gearName === "Weapon" || PVP_TYPES.includes(type) && pvpWeaponSubType)
+        {
+            const maxLines = gearLineAmounts[type] || 5;
+            let newLines = [];
+
+            const isTank = selectedClass === "Paladin" && pvpWeaponSubType === "Mahes"
+            const fixedLine = isTank ? FIXED_PVP_TANK_WEAPON_LINES : FIXED_PVP_DPS_WEAPON_LINES;
+
+            for (let i = 0; i < maxLines; i++)
+            {
+                let lineText = fixedLine[i + 1] || "";
+
+                if (!isTank && i === 1)
+                {
+                    lineText = LINE2_WEAPON_MAPS[selectedClass]?.[type]?.[pvpWeaponSubType] || "";
+                }
+
+                const savedValue = saveData?.lines?.[i]?.value;
+                const value = savedValue && savedValue.length > 0 ? savedValue : [];
+
+                newLines.push({ line: lineText, value });
+            }
+
+            setLines(newLines);
+        }
+
+        // PvP Helmet
+        if (gearName === "Helmet" && PVP_TYPES.includes(type) && pvpHelmetSubType) 
+        {
+            const maxLines = gearLineAmounts[type] || 5;
+            let newLines = [];
+            let fixedLines = [];
+
+            // Find lines for selected subtype in either DPS or Tank
+            if (type && pvpHelmetSubType) { 
+                if (
+                    FIXED_PVP_TANK_HELMET_LINE_VALUE[type] &&
+                    FIXED_PVP_TANK_HELMET_LINE_VALUE[type][pvpHelmetSubType]
+                ) {
+                    fixedLines = Object.keys(
+                        FIXED_PVP_TANK_HELMET_LINE_VALUE[type][pvpHelmetSubType].fixed || {}
+                    );
+                } else if (
+                    FIXED_PVP_DPS_HELMET_LINE_VALUE[type] &&
+                    FIXED_PVP_DPS_HELMET_LINE_VALUE[type][pvpHelmetSubType]
+                ) {
+                    fixedLines = Object.keys(
+                        FIXED_PVP_DPS_HELMET_LINE_VALUE[type][pvpHelmetSubType].fixed || {}
+                    );
+                }
+            }
+
+            for (let i = 0; i < maxLines; i++) {
+                const savedValue = saveData?.lines?.[i]?.value;
+                const value = savedValue && savedValue.length > 0 ? savedValue : [];
+                newLines.push({ line: fixedLines[i], value });
+            }
+            setLines(newLines);
+        }
+    }, [gearName, type, pvpWeaponSubType, selectedClass, pvpHelmetSubType]);
+    
+
+    /*
         Helper function to generate value ranges for gear values
     */
     function getGearValues(lineName, type) {
@@ -387,6 +475,67 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
             return [];
         }
 
+        // PvP Weapon 
+        if (gearName === "Weapon" && PVP_TYPES.includes(type))
+        {
+            const isTank = selectedClass === "Paladin" && pvpWeaponSubType === "Mahes"
+
+            if (isTank)
+            {
+                const tankObj = FIXED_PVP_TANK_WEAPON_LINE_VALUE[type]?.Paladin?.fixed;
+                if (tankObj && tankObj[lineName])
+                {
+                    const [min, max] = tankObj[lineName];
+                    return Array.from({ length: max - min + 1}, (_, i) => min + i);
+                }
+            }
+            else 
+            {
+                if (type === "2v2" && pvpWeaponSubType)
+                {
+                    const classObj = FIXED_PVP_DPS_WEAPON_LINE_VALUE[type]?.classes?.[selectedClass]?.[pvpWeaponSubType];
+                    if (classObj?.fixed?.[lineName])
+                    {
+                        const [min, max] = classObj.fixed[lineName];
+                        return Array.from({ length: max - min + 1}, (_, i) => min + i);
+                    }
+                    if (classObj?.line2?.[lineName])
+                    {
+                        const [min, max] = classObj.line2[lineName];
+                        return Array.from({ length: max - min + 1}, (_, i) => min + i);
+                    }
+                }
+
+                const fixedObj = FIXED_PVP_DPS_WEAPON_LINE_VALUE[type]?.fixed;
+                if (fixedObj && fixedObj[lineName])
+                {
+                    const [min, max] = fixedObj[lineName];
+                    return Array.from({ length: max - min + 1}, (_, i) => min + i);
+                }
+
+                const classObj = FIXED_PVP_DPS_WEAPON_LINE_VALUE[type]?.classes?.[selectedClass]?.[pvpWeaponSubType];
+                if (classObj && classObj[lineName])
+                {
+                    const [min, max] = classObj[lineName];
+                    return Array.from({ length: max - min + 1}, (_, i) => min + i);
+                }
+            }
+            return [];
+        }
+
+        // PvP Helmet
+        if (gearName === "Helmet" && PVP_TYPES.includes(type)) {
+            if (type && pvpHelmetSubType) {
+                let obj = FIXED_PVP_TANK_HELMET_LINE_VALUE[type]?.[pvpHelmetSubType]
+                    || FIXED_PVP_DPS_HELMET_LINE_VALUE[type]?.[pvpHelmetSubType];
+                if (obj && obj.fixed && obj.fixed[lineName]) {
+                    const [min, max] = obj.fixed[lineName];
+                    return Array.from({ length: max - min + 1 }, (_, i) => min + i);
+                }
+            }
+            return [];
+        }
+
         // Normal gear (all other cases)
         const valueSource = gearName === "Weapon" ? weaponValuesByType[type] : gearValuesByType[type];
         const [min, max] = valueSource?.[lineName] || [];
@@ -434,20 +583,6 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
             default:
                 return gearLines;
         }
-    }
-
-    function getAvaliableLines(type, index, uniqueSubType, allLines, selectedLines)
-    {
-        if (type === "chaos unique" && uniqueSubType && index === 0)
-        {
-            return [chaosUniqueFixedLine[uniqueSubType]?.[0]];
-        }
-        else if (type === "abyss unique" && uniqueSubType && index === 0)
-        {
-            return [abyssUniqueFixedLine[uniqueSubType]?.[0]];
-        }
-
-        return allLines.filter(line => !selectedLines.includes(line));
     }
 
     /* 
@@ -515,6 +650,8 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
             uniqueSubType,
             uniqueLine,
             uniqueLineValue,
+            pvpWeaponSubType,
+            pvpHelmetSubType,
             lines,
         });
 
@@ -555,8 +692,8 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
 
                             {/* WB / TWB Subtype */}
                             {(type === "wb" || type === "twb") && (
-                                <div className="modal-row" style={{ marginBottom: '0'}}>
-                                    <label htmlFor="wb-subtype-select">Subtype:</label>
+                                <div>
+                                    <label htmlFor="wb-subtype-select">Subtype: </label>
                                     <select
                                         id="wb-subtype-select"
                                         value={wbSubType}
@@ -572,7 +709,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                             {/* VWB Subtype */}
                             {type === "vwb" && (
                                 <div>
-                                    <label htmlFor="vwb-subtype-select">Subtype:</label>
+                                    <label htmlFor="vwb-subtype-select">Subtype: </label>
                                     <select
                                         id="vwb-subtype-select"
                                         value={vwbSubType}
@@ -588,7 +725,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                             {/* Chaos/Abyss Unique Subtype */}
                             {(type === "chaos unique" || type === "abyss unique") && (
                                 <div>
-                                    <label htmlFor="unique-subtype-select">Gear:</label>
+                                    <label htmlFor="unique-subtype-select">Gear: </label>
                                     <select
                                         id="unique-subtype-select"
                                         value={uniqueSubType}
@@ -603,6 +740,53 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                                             <option key={subName} value={subName}>
                                                 {subName}
                                             </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            )}
+
+                            {/* PvP Weapon Subtype */}
+                            {gearName === "Weapon" && PVP_TYPES.includes(type) && (
+                                <div>
+                                    <label htmlFor="pvp-weapon-subtype-select">Subtype: </label>
+                                    <select
+                                        id="pvp-weapon-subtype-select"
+                                        value={pvpWeaponSubType}
+                                        onChange={e => setpvpWeaponSubType(e.target.value)}
+                                    >
+                                        <option value="">subtype</option>
+                                        {selectedClass === "Paladin"
+                ? Object.keys(LINE2_WEAPON_MAPS.Paladin?.[type] || {}).map(sub => (
+                    <option key={sub} value={sub}>{sub}</option>
+                ))
+                : Object.keys(LINE2_WEAPON_MAPS[selectedClass]?.[type] || {}).map(sub => (
+                    <option key={sub} value={sub}>{sub}</option>
+                ))
+            }
+                                    </select>
+                                </div>
+                            )}
+
+                            {/* PvP Helmet Subtype */}
+                            {gearName === "Helmet" && PVP_TYPES.includes(type) && (
+                                <div>
+                                    <label htmlFor="pvp-helmet-subtype-select">Subtype: </label>
+                                    <select
+                                        id="pvp-helmet-subtype-select"
+                                        value={pvpHelmetSubType}
+                                        onChange={e => setPvpHelmetSubType(e.target.value)}
+                                    >
+                                        <option value="">subtype</option>
+                                        {Object.keys(
+                                            type === "2v2"
+                                                ? { ...FIXED_PVP_DPS_HELMET_LINE_VALUE["2v2"], ...FIXED_PVP_TANK_HELMET_LINE_VALUE["2v2"] }
+                                                : type === "champion"
+                                                    ? { ...FIXED_PVP_DPS_HELMET_LINE_VALUE["champion"], ...FIXED_PVP_TANK_HELMET_LINE_VALUE["champion"] }
+                                                    : type === "challenger"
+                                                        ? { ...FIXED_PVP_DPS_HELMET_LINE_VALUE["challenger"], ...FIXED_PVP_TANK_HELMET_LINE_VALUE["challenger"] }
+                                                        : {}
+                                        ).map(sub => (
+                                            <option key={sub} value={sub}>{sub}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -670,7 +854,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                     {/* Unique Line (Chaos Unique / Abyss Unique only) */}
                     {(type === "chaos unique" || type === "abyss unique") && uniqueLine && (
                         <div className="modal-row">
-                            <label htmlFor="unique-line">Unique:</label>
+                            <label htmlFor="unique-line">Unique: </label>
                             <select 
                                 id="unique-line" 
                                 value={uniqueLine}
@@ -766,6 +950,61 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                             );
                         }
 
+                        // --- PvP Weapon Fixed Lines ---
+                        if (gearName === "Weapon" && PVP_TYPES.includes(type) && entry.line) {
+                            return (
+                                <div className="modal-row" key={index}>
+                                    <label htmlFor={`line-${index}`}>Line {index + 1}:</label>
+                                    <select value={entry.line} onChange={() => {}}>
+                                        <option value={entry.line}>{entry.line}</option>
+                                    </select>
+                                    <select
+                                        id={`line-${index}-value`}
+                                        value={entry.value}
+                                        onChange={e => {
+                                            const newValue = e.target.value;
+                                            setLines(prev =>
+                                                prev.map((l, i) => i === index ? { ...l, value: newValue } : l)
+                                            );
+                                        }}
+                                    >
+                                        <option value="">Value</option>
+                                        {getGearValues(entry.line, type).map(val => (
+                                            <option key={val} value={val}>{val}%</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            );
+                        }
+
+                        // --- PvP Helmet Fixed Lines ---
+                        if (gearName === "Helmet" && PVP_TYPES.includes(type) && entry.line) {
+                            return (
+                                <div className="modal-row" key={index}>
+                                    <label htmlFor={`line-${index}`}>Line {index + 1}:</label>
+                                    <select value={entry.line} onChange={() => {}}>
+                                        <option value={entry.line}>{entry.line}</option>
+                                    </select>
+                                    <select
+                                        id={`line-${index}-value`}
+                                        value={entry.value}
+                                        onChange={e => {
+                                            const newValue = e.target.value;
+                                            setLines(prev =>
+                                                prev.map((l, i) => i === index ? { ...l, value: newValue } : l)
+                                            );
+                                        }}
+                                        disabled={!entry.line}
+                                    >
+                                        <option value="">Value</option>
+                                        {getGearValues(entry.line, type).map(val => (
+                                            <option key={val} value={val}>{val}%</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            );
+                        }
+                        
                         // --- All other lines ---
                         const isUniqueWithFixedLine = (type === "chaos unique" || type === "abyss unique") && uniqueSubType;
                         const fixedLine = isUniqueWithFixedLine

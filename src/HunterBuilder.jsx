@@ -41,6 +41,8 @@ function HunterBuilder()
         const wbSubType = saveData.wbSubType || "";
         const vwbSubType = saveData.vwbSubType || "";
         const uniqueSubType = saveData.uniqueSubType || "";
+        const pvpWeaponSubType = saveData.pvpWeaponSubType || "";
+        const pvpHelmetSubType = saveData.pvpHelmetSubType || "";
 
         let fileName = "";
 
@@ -50,7 +52,10 @@ function HunterBuilder()
                     fileName = `${saveType}${wbSubType}${gearName}${selectedClass}.png`;
                 } else if (saveType === 'vwb') {
                     fileName = `${saveType}${vwbSubType}${gearName}${selectedClass}.png`;
-                } else {
+                } else if (saveType === '2v2' || saveType === 'champion' || saveType === 'challenger') {
+                    fileName = `${saveType}${pvpWeaponSubType}${gearName}${selectedClass}.png`;
+                } 
+                else {
                     fileName = `${saveType}${gearName}${selectedClass}.png`;
                 }
                 return getImageUrl(fileName);
@@ -64,7 +69,10 @@ function HunterBuilder()
         if (saveType) {
             if (saveType === "chaos unique" || saveType === "abyss unique") {
                 fileName = `${saveType}${uniqueSubType}${gearName}.png`;
-            } else {
+            } else if ((saveType === '2v2' || saveType === 'champion' || saveType === 'challenger') && (gearName === "Helmet")) {
+                fileName = `${saveType}${pvpHelmetSubType}${gearName}.png`;
+            } 
+            else {
                 fileName = `${saveType}${gearName}.png`;
             }
 

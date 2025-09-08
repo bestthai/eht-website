@@ -44,5 +44,3 @@ function App() {
 }
 
 export default App
-
-// have the first unique line set with duplication

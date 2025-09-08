@@ -127,6 +127,24 @@ export const weaponLineGroups = {
         "Hunter's gold gain is increased by",
         "Amplify ATK by [] from movement speed (max 40%)",
         "Blood Expansion is activated at level",
+
+        // PvP
+        "Ignore enemy's defense and inflict pure damage",
+        "Increase damage against enemy with HP below 50%",
+        "Berserker's Wrath is active at all times at level",
+        "Chance to cast level 1 Thunderbolt when attacking",
+        "Chance to cast level 1 Fury when attacking",
+        "Decrease skill cooldown by",
+        "Ruler of the sky is active at all times at level",
+        "Chance to inflict 3x damage",
+        "Chance to cast Firestorm when attacking",
+        "Chance to cast Replication when the ranger cast a skill",
+        "Increase Critical Hit Damage to Primate",
+        "Increase damage dealt to hunter",
+        "Chance to cast level 1 Evasion",
+        "Decrease damage taken during barrier skill",
+        "Decrease damage taken from Critical Hit Damage",
+        "Decrease damage taken from hunter",
     ],
 
 };
