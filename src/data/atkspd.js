@@ -76,7 +76,7 @@ export const statColorAtkspd = {
 };
 
 export const characteristicAtkspd = {
-    None: 0,
+    Other: 0,
     Thickheaded: -10,
     Heroic: 7,
     Swift: 10,

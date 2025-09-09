@@ -175,6 +175,8 @@
                             value={secretTech}
                             onChange={(e) => setSecretTech(e.target.value)}
                             placeholder="Enter value"
+                            max={10}
+                            min={0}
                         />
                         <span className="percent-symbol">%</span>
                     </div>
@@ -222,7 +224,7 @@
                                     }
                                     if (selectedClass === "Berserker") 
                                     {
-                                        return ["Level 10", "Level 11", "Level 12", "Level 13"].includes(name);
+                                        return ["Level 0", "Level 10", "Level 11", "Level 12", "Level 13"].includes(name);
                                     }
                                     return true; // fallback (if new classes added later)
                                 })
