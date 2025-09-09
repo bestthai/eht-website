@@ -124,6 +124,28 @@
 	cursor: pointer;
 }
 
+.reset-container{
+    display: flex;
+    justify-content: center;
+}
+
+.reset-button{
+    flex: 0 1 auto;              /* shrink and grow */
+    padding: 0.6em 1.2em;        /* scale with font size */
+    border: none;
+    border-radius: 6px;
+    background-color: #e63946;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+
+    min-width: 100px;            /* don’t get too small */
+    max-width: 200px;            /* don’t get too huge */
+    width: auto;                 /* auto-size based on content */
+    font-size: clamp(0.9rem, 2vw, 1rem); /* responsive text size */
+}
+
 
 /* ====================	Modal ======================= */
 
@@ -182,6 +204,7 @@
     border-radius: 6px;
     padding: 6px 12px;
     transition: background 0.2s ease;
+    margin-bottom: 10px;
 }
 
 .modal-back-btn:hover {
@@ -217,6 +240,7 @@
 
 .modal-gear-info {
     min-width: 120px;
+    max-width: 500px;
     height: 100px;
     background: #3a3a4f;
     border-radius: 12px;
@@ -234,12 +258,31 @@
     align-items: center;
     gap: 8px; 
     margin-bottom: 8px; 
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.modal-type-subtype-container label,
+.modal-type-subtype-container select {
+    max-width: 180px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .modal-rune-selectors {
     display: flex;
     gap: 8px;
     align-items: center;
+    flex-wrap: wrap; /* Allow rune selectors to wrap */
+    max-width: 100%;
+}
+
+.rune-line-selector {
+    max-width: 225px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .modal-rune-selectors select {
@@ -283,34 +326,51 @@
 }
 
 .modal-row select {
-    width: fit-content;
     min-width: 0px;
     text-align: center;
     padding: 2px 0;
 }
 
-.modal-save-btn {
-    background-color: hsl(137, 33%, 48%);
-    color: white;
+.modal-actions {
+    display: flex;
+    justify-content: space-between; /* Reset left, Save right */
+    align-items: center;
+    margin-top: 20px;
+    gap: 12px;
+}
+
+.modal-btn {
     padding: 12px 24px;
     border: none;
     border-radius: 10px;
     font-size: 1rem;
     font-weight: bold;
-    display: block;
-    margin-top: 10px;
-    margin: 34px auto 0 auto;
     transition: background 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
 }
 
+/* Reset button */
+.modal-reset-btn {
+    background-color: hsl(0, 70%, 50%);
+    color: white;
+}
+.modal-reset-btn:hover {
+    background-color: hsl(0, 70%, 40%);
+    transform: translateY(-3px);
+}
+
+/* Save button */
+.modal-save-btn {
+    background-color: hsl(137, 33%, 48%);
+    color: white;
+}
 .modal-save-btn:hover {
     background-color: hsl(137, 33%, 37%);
-    cursor: pointer;
     transform: translateY(-3px);
 }
 
 /* =============== Mobile version updates =============== */
-@media (max-width: 768px) {
+@media (max-width: 650px) {
     /* Update overlay for padding & box-sizing */
     .modal-overlay {
         padding: 1rem;
@@ -355,6 +415,10 @@
         justify-content: flex-start;
     }
 
+    .rune-line-selector{
+        max-width: 178px;
+    }
+
     /* Responsive selects */
     .modal-special-line-select,
     .modal-rune-effect-select,
@@ -376,6 +440,30 @@
     .modal-value-select {
         width: fit-content;
         min-width: 200px;
+    }
+
+    .modal-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 6px;
+        width: 100%;
+    }
+
+    .modal-row label {
+        flex: 0 0 auto;   /* shrink to content */
+        white-space: nowrap; /* keeps "Line 1:" compact */
+    }
+
+    .modal-row select:nth-of-type(1) {
+        flex: 1 1 auto;   /* stretch as much as possible */
+        min-width: 100px;     /* prevents overflow */
+    }
+
+    .modal-row select:nth-of-type(2) {
+        flex: 0 0 auto;   /* shrink to content */
+        width: fit-content; 
+        white-space: nowrap;
     }
 
     /* Stats container padding */

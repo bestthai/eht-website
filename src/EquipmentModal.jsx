@@ -756,13 +756,13 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                                     >
                                         <option value="">subtype</option>
                                         {selectedClass === "Paladin"
-                ? Object.keys(LINE2_WEAPON_MAPS.Paladin?.[type] || {}).map(sub => (
-                    <option key={sub} value={sub}>{sub}</option>
-                ))
-                : Object.keys(LINE2_WEAPON_MAPS[selectedClass]?.[type] || {}).map(sub => (
-                    <option key={sub} value={sub}>{sub}</option>
-                ))
-            }
+                                            ? Object.keys(LINE2_WEAPON_MAPS.Paladin?.[type] || {}).map(sub => (
+                                                <option key={sub} value={sub}>{sub}</option>
+                                            ))
+                                            : Object.keys(LINE2_WEAPON_MAPS[selectedClass]?.[type] || {}).map(sub => (
+                                                <option key={sub} value={sub}>{sub}</option>
+                                            ))
+                                        }
                                     </select>
                                 </div>
                             )}
@@ -797,6 +797,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                         <div className="modal-rune-selectors">
                             <label htmlFor="rune-line-select">Rune: </label>
                             <select
+                                className='rune-line-selector'
                                 id="rune-line-select"
                                 value={runeEffect}
                                 onChange={e => setRuneEffect(e.target.value)}
@@ -1083,9 +1084,40 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                     })}
                 </div>
 
-                {/* Save Button */}
-                <div className="modal-row">
-                    <button className="modal-save-btn" onClick={handleSave}>
+                {/* Action Buttons */}
+                <div className="modal-actions">
+                    <button
+                        className="modal-btn modal-reset-btn"
+                        onClick={() => {
+                            if (window.confirm(`Reset all data for ${gearName}?`)) {
+                                setType('');
+                                setWbSubType('');
+                                setVwbSubType('');
+                                setUniqueSubType('');
+                                setpvpWeaponSubType('');
+                                setPvpHelmetSubType('');
+                                setRuneEffect('');
+                                setRuneValue('');
+                                setSpecialLine('');
+                                setSpecialLineValue('');
+                                setUniqueLine('');
+                                setUniqueLineValue('');
+                                setSpecialLineOption([]);
+                                setSpecialLineValues([]);
+                                setLines([        
+                                    { line: "", value: "" },
+                                    { line: "", value: "" },
+                                    { line: "", value: "" },
+                                    { line: "", value: "" },
+                                    { line: "", value: "" },
+                                ]);
+                            }
+                        }}
+                    >
+                        Reset
+                    </button>
+
+                    <button className="modal-btn modal-save-btn" onClick={handleSave}>
                         Save
                     </button>
                 </div>

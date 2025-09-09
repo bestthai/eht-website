@@ -167,6 +167,19 @@ function HunterBuilder()
                 />
             )}
 
+            <div className='reset-container'>
+                <button className='reset-button'
+                    onClick={() => {
+                        if(window.confirm("Are you sure you want to reset all gear?"))
+                        {
+                            setSaveGearData({});
+                        }
+                    }}
+                >
+                    Reset
+                </button>
+            </div>
+
             <Stat saveGearData={saveGearData}></Stat>
 
         </div>
