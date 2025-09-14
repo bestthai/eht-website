@@ -319,5 +319,10 @@ export const FIXED_PVP_TANK_HELMET_LINE_VALUE = {
     }
 }
 
+export const pvpNoPercent = [
+    "Berserker's Wrath is active at all times at level",
+    "Ruler of the sky is active at all times at level",
+]
+
 
 

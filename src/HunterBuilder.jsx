@@ -1,21 +1,49 @@
-import React, {useState} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
+import * as htmlToImage from 'html-to-image';
 
 import HunterImage from './assets/hunter/Hunter.png'
 
 import Stat from './Stat';
 import EquipmentModal from './EquipmentModal';
 import getImageUrl from './utils/getImageUrl';
+import ExportHunterCard from './utils/ExportHunterCard';
 
 function HunterBuilder()
 {
-
     const classes = ["Berserker" , "Paladin", "Sorcerer", "Ranger"]
     const squares = Array.from({ length: 8 });
 
     const [showModal, setShowModal] = useState(false);
+    const [showExport, setShowExport] = useState(false);
     const [selectedGear, setSelectedGear] = useState('');
     const [selectedClass, setSelectedClass] = useState(classes[0]);
     const [saveGearData, setSaveGearData] = useState({});
+
+    const exportRef = useRef(null);
+
+    useEffect(() => {
+        if (showExport && exportRef.current) {
+            const node = exportRef.current;
+
+            htmlToImage.toPng(node, {
+                cacheBust: true,
+                width: 1500,
+                height: 2000,
+            })
+            .then((dataUrl) => {
+                const link = document.createElement("a");
+                link.download = "hunter_export.png";
+                link.href = dataUrl;
+                link.click();
+            })
+            .catch((err) => {
+                console.error("Failed to generate image", err);
+            })
+            .finally(() => {
+                setShowExport(false); 
+            });
+        }
+    }, [showExport]);
 
     function handleButtonClick(gearname) {
         setSelectedGear(gearname); 
@@ -33,6 +61,10 @@ function HunterBuilder()
 
         setShowModal(false);
         console.log(data);
+    }
+
+    function handleShare() {
+        setShowExport(true);
     }
 
     function getGearImage(gearName) {
@@ -167,18 +199,30 @@ function HunterBuilder()
                 />
             )}
 
-            <div className='reset-container'>
+            <div className='button-container'>
                 <button className='reset-button'
                     onClick={() => {
-                        if(window.confirm("Are you sure you want to reset all gear?"))
-                        {
+                        if(window.confirm("Are you sure you want to reset all gear?")) {
                             setSaveGearData({});
                         }
                     }}
                 >
                     Reset
                 </button>
+
+                <button className="share-button" onClick={handleShare}>
+                    Share
+                </button>
             </div>
+
+            {showExport && (
+                <div ref={exportRef}>
+                    <ExportHunterCard 
+                        saveGearData={saveGearData} 
+                        selectedClass={selectedClass} 
+                    />
+                </div>
+            )}
 
             <Stat saveGearData={saveGearData}></Stat>
 

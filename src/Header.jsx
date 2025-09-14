@@ -9,7 +9,7 @@ function Header() {
                 <nav className="header-button">
                     <Link to="/builder" className="header-button-nav">Builder</Link>
                     <Link to="/atkspd" className="header-button-nav">ATK SPD</Link>
-                    <Link to="/index" className="header-button-nav">Index</Link>
+                    <Link to="/guide" className="header-button-nav">Guide</Link>
                 </nav>
 
             </div>

@@ -124,27 +124,62 @@
 	cursor: pointer;
 }
 
-.reset-container{
-    display: flex;
-    justify-content: center;
+.button-container {
+  display: flex;
+  justify-content: center; /* center both buttons horizontally */
+  gap: 16px; /* space between buttons */
+  margin: 20px 0;
 }
 
-.reset-button{
-    flex: 0 1 auto;              /* shrink and grow */
-    padding: 0.6em 1.2em;        /* scale with font size */
-    border: none;
-    border-radius: 6px;
-    background-color: #e63946;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    text-align: center;
-
-    min-width: 100px;            /* don’t get too small */
-    max-width: 200px;            /* don’t get too huge */
-    width: auto;                 /* auto-size based on content */
-    font-size: clamp(0.9rem, 2vw, 1rem); /* responsive text size */
+.button-container button {
+  flex: 0 1 auto;              /* shrink and grow */
+  padding: 0.6em 1.2em;        /* scale with font size */
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  min-width: 100px;
+  max-width: 200px;
+  width: auto;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  transition: all 0.2s ease-in-out;
 }
+
+.reset-button {
+  background-color: #e63946; /* red */
+}
+
+.reset-button:hover {
+  background-color: #f05d6d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0,0,0,0.25);
+}
+
+.reset-button:active {
+  background-color: #b22234;
+  transform: translateY(1px);
+  box-shadow: 0 3px 4px rgba(0,0,0,0.2);
+}
+
+.share-button {
+  background-color: #4caf50; /* green */
+}
+
+.share-button:hover {
+  background-color: #66bb6a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0,0,0,0.25);
+}
+
+.share-button:active {
+  background-color: #388e3c;
+  transform: translateY(1px);
+  box-shadow: 0 3px 4px rgba(0,0,0,0.2);
+}
+
 
 
 /* ====================	Modal ======================= */
@@ -562,7 +597,242 @@
     height: 30px;
     background-color: rgb(81, 78, 78); 
     border-radius: 0 0 16px 16px;
-    margin-top: 30px;
+}
+
+/* ====================== Export Hunter Card ========================== */
+.export-container {
+    background-color: #1f1f2e;
+    color: #f0f0f5;
+    display: inline-block; /* shrink to content */
+    padding: 10px;         /* optional spacing around grid */
+    font-family: 'Inter', sans-serif;
+    border-radius: 12px;
+}
+
+/* Gear Section*/
+.export-gear-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.export-gear-card {
+    background: linear-gradient(145deg, #2a2a3b, #1f1f2e);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.export-gear-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffd166;
+    margin-bottom: 10px;
+    margin-top: 0px;
+}
+
+.export-gear-card img {
+    width: 75px;
+    height: 75px;
+    margin-bottom: 10px;
+}
+
+.export-gear-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.export-gear-card li {
+    margin: 4px 0;
+    padding: 6px 10px;
+    background: #3a3a4d;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+/* Total Stats */
+.export-stats-container {
+    background-color: #1f1f2e;
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 900px;
+    margin: 30px auto;
+    font-family: 'Inter', sans-serif;
+    color: #f0f0f5;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    border: 2.5px solid #3a3a4d;
+}
+
+.export-stats-heading {
+    text-align: center;
+    font-size: 2em;
+    font-weight: 800;
+    color: #ffd166;
+    margin-bottom: 20px;
+    margin-top: 0px;
+}
+
+.export-stats-group {
+    margin-bottom: 20px;
+}
+
+.export-stats-group-heading {
+    display: flex;
+    color: #06d6a0;
+    margin: 20px 0 10px;
+}
+
+.export-stats-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px; 
+}
+
+.export-stats-item {
+    display: inline-block;
+    padding: 8px 16px;
+    background: linear-gradient(90deg, #3a3a4d, #2a2a3d);
+    border-radius: 12px;
+    font-weight: 500;
+    color: #f0f0f5;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    white-space: nowrap;
+}
+
+/* Footer */
+.export-footer {
+    margin-top: 32px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #c0c0c8;
+}
+
+.export-footer h3 {
+    color: #ffd166;
+    font-weight: 400;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+
+/* ======================================================== */
+
+.atkspd-calc-container {
+    min-height: 70vh;           
+    background-color: #1f1f2e;  
+    padding: 2rem;
+    font-family: 'Inter', sans-serif;
+    color: #f0f0f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.atkspd-calc-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #ffd166;
+    text-align: center;
+}
+
+/* Inputs & dropdowns */
+.atkspd-calc-container select,
+.atkspd-calc-container input {
+    background-color: #2a2a40;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 0.5rem 0.7rem;
+    margin: 0.3rem 0;
+    font-size: 1rem;
+    box-sizing: border-box;
+    width: 200px;  
+    max-width: 100%; 
+    transition: border 0.2s, background 0.2s;
+}
+
+/* Wrapper for number inputs with % */
+.input-percent-wrapper {
+    position: relative;
+    width: 200px;  
+}
+
+.input-percent-wrapper input {
+    width: 100%;
+    padding-right: 2rem; 
+    box-sizing: border-box;
+}
+
+.input-percent-wrapper .percent-symbol {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    pointer-events: none;
+}
+
+.atkspd-calc-container select:focus,
+.atkspd-calc-container input:focus {
+    outline: none;
+    border-color: #ffd166;
+}
+
+/* Labels */
+.atkspd-calc-container label {
+    display: block;
+    font-size: 0.95rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.2rem;
+    color: #cfcfcf;
+    text-align: left;
+    width: 100%;
+    max-width: 300px;
+}
+
+/* Buffs wrapper */
+.atkspd-calc-container .buffs-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem; /* row & column gap */
+    justify-content: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+/* Result text */
+.atkspd-calc-container p {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: lightblue;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.gear-add {
+    color: hsl(120, 100%, 20%);
+  font-weight: bold;
+}
+
+.gear-remove {
+    color: hsl(0, 100%, 30%);
+  font-weight: bold;
+}
+
+.gear-balanced {
+    color: hsl(51, 100%, 40%);
+  font-style: italic;
+}
+
+.gear-neutral {
+  color: #555;
 }
 
 
@@ -688,123 +958,6 @@
 .card-link:hover {
     background-color: #4752c4;
 }
-
-/* ======================================================== */
-
-.atkspd-calc-container {
-    min-height: 70vh;           
-    background-color: #1f1f2e;  
-    padding: 2rem;
-    font-family: 'Inter', sans-serif;
-    color: #f0f0f5;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.atkspd-calc-title {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: #ffd166;
-    text-align: center;
-}
-
-/* Inputs & dropdowns */
-.atkspd-calc-container select,
-.atkspd-calc-container input {
-    background-color: #2a2a40;
-    color: #fff;
-    border: 1px solid #444;
-    border-radius: 8px;
-    padding: 0.5rem 0.7rem;
-    margin: 0.3rem 0;
-    font-size: 1rem;
-    box-sizing: border-box;
-    width: 200px;  
-    max-width: 100%; 
-    transition: border 0.2s, background 0.2s;
-}
-
-/* Wrapper for number inputs with % */
-.input-percent-wrapper {
-    position: relative;
-    width: 200px;  
-}
-
-.input-percent-wrapper input {
-    width: 100%;
-    padding-right: 2rem; 
-    box-sizing: border-box;
-}
-
-.input-percent-wrapper .percent-symbol {
-    position: absolute;
-    right: 0.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #fff;
-    pointer-events: none;
-}
-
-.atkspd-calc-container select:focus,
-.atkspd-calc-container input:focus {
-    outline: none;
-    border-color: #ffd166;
-}
-
-/* Labels */
-.atkspd-calc-container label {
-    display: block;
-    font-size: 0.95rem;
-    margin-top: 0.8rem;
-    margin-bottom: 0.2rem;
-    color: #cfcfcf;
-    text-align: left;
-    width: 100%;
-    max-width: 300px;
-}
-
-/* Buffs wrapper */
-.atkspd-calc-container .buffs-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem 2rem; /* row & column gap */
-    justify-content: center;
-    width: 100%;
-    max-width: 600px;
-}
-
-/* Result text */
-.atkspd-calc-container p {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: lightblue;
-    margin-top: 2rem;
-    text-align: center;
-}
-
-.gear-add {
-  color: hsl(120, 100%, 20%);
-  font-weight: bold;
-}
-
-.gear-remove {
-  color: hsl(0, 100%, 30%);
-  font-weight: bold;
-}
-
-.gear-balanced {
-  color: hsl(51, 100%, 40%);
-  font-style: italic;
-}
-
-.gear-neutral {
-  color: #555;
-}
-
-
 
 
 
