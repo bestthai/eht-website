@@ -14,7 +14,8 @@ import { chaosUniqueLines, chaosUniqueLineValues, chaosUniqueFixedLine, chaosUni
 import { PVP_TYPES, 
          FIXED_PVP_DPS_WEAPON_LINES, FIXED_PVP_TANK_WEAPON_LINES, LINE2_WEAPON_MAPS, 
          FIXED_PVP_DPS_WEAPON_LINE_VALUE, FIXED_PVP_TANK_WEAPON_LINE_VALUE,
-         FIXED_PVP_TANK_HELMET_LINE_VALUE, FIXED_PVP_DPS_HELMET_LINE_VALUE, } from './data/pvpLines';
+         FIXED_PVP_TANK_HELMET_LINE_VALUE, FIXED_PVP_DPS_HELMET_LINE_VALUE,
+         pvpNoPercent } from './data/pvpLines';
 
 function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, selectedClass }) {
 
@@ -254,7 +255,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
             }
             return newLines;
         });
-    }, [type]);
+    }, [type, gearName]);
 
     /*
         Autoset the unique and fixed line
@@ -414,6 +415,35 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
             setLines(newLines);
         }
     }, [gearName, type, pvpWeaponSubType, selectedClass, pvpHelmetSubType]);
+
+    /*
+        Preserve the data when reopening the modal if there is saveData
+    */
+    useEffect(() => {
+        if (gearName && saveGearData[gearName]) {
+            const saved = saveGearData[gearName];
+
+            setType(saved.type || '');
+            setWbSubType(saved.wbSubType || '');
+            setVwbSubType(saved.vwbSubType || '');
+            setUniqueSubType(saved.uniqueSubType || '');
+            setpvpWeaponSubType(saved.pvpWeaponSubType || '');
+            setPvpHelmetSubType(saved.pvpHelmetSubType || '');
+            setRuneEffect(saved.runeEffect || '');
+            setRuneValue(saved.runeValue || '');
+            setSpecialLine(saved.specialLine || '');
+            setSpecialLineValue(saved.specialLineValue || '');
+            setUniqueLine(saved.uniqueLine || '');
+            setUniqueLineValue(saved.uniqueLineValue || '');
+            setLines(saved.lines || [
+                { line: "", value: "" },
+                { line: "", value: "" },
+                { line: "", value: "" },
+                { line: "", value: "" },
+                { line: "", value: "" },
+            ]);
+        }
+    }, [gearName, saveGearData]);
     
 
     /*
@@ -592,7 +622,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
         .filter(([gear, data]) => gear !== gearName && data?.runeEffect)
         .map(([gear, data]) => data.runeEffect);
 
-    const avaliableRunes = runeLines.filter(r => !selectedRunes.includes(r));
+    const availableRunes = runeLines.filter(r => !selectedRunes.includes(r));
 
     /* 
         Helper function to generate value ranges for rune values
@@ -803,7 +833,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                                 onChange={e => setRuneEffect(e.target.value)}
                             >
                                 <option value="">Effect</option>
-                                {avaliableRunes.map(line => (
+                                {availableRunes.map(line => (
                                     <option key={line} value={line}>{line}</option>
                                 ))}
                             </select>
@@ -970,9 +1000,11 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                                         }}
                                     >
                                         <option value="">Value</option>
-                                        {getGearValues(entry.line, type).map(val => (
-                                            <option key={val} value={val}>{val}%</option>
-                                        ))}
+                                        {getGearValues(entry.line, type).map(val => {
+                                            const noPercent = pvpNoPercent.includes(entry.line);
+                                            const displayVal = noPercent ? val : `${val}%`;
+                                            return <option key={val} value={val}>{displayVal}</option>;
+                                        })}
                                     </select>
                                 </div>
                             );
@@ -995,7 +1027,6 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                                                 prev.map((l, i) => i === index ? { ...l, value: newValue } : l)
                                             );
                                         }}
-                                        disabled={!entry.line}
                                     >
                                         <option value="">Value</option>
                                         {getGearValues(entry.line, type).map(val => (
@@ -1033,6 +1064,12 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
 
                         // Build available lines
                         const availableLines = allLines.filter(line => {
+                            // Exclude WB fixed lines for non-WB weapons
+                            if (gearName === "Weapon" && !WB_TYPES.includes(type) && Object.values(FIXED_WB_LINES).includes(line)) {
+                                return false;
+                            }
+
+                            // Special weapon lines logic (for PvP)
                             if (gearName === "Weapon" && !WB_TYPES.includes(type) && specialWeaponLine.includes(line)) {
                                 return lines[index].line === line || selectedSpecialWeaponLines.length === 0;
                             }
@@ -1072,7 +1109,6 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                                             prev.map((l, i) => i === index ? { ...l, value: newValue } : l)
                                         );
                                     }}
-                                    disabled={!entry.line}
                                 >
                                     <option value="">Value</option>
                                     {getGearValues(entry.line, type).map(val => (

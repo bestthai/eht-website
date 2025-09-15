@@ -25,10 +25,17 @@ function HunterBuilder()
         if (showExport && exportRef.current) {
             const node = exportRef.current;
 
+            const width = node.scrollWidth;
+            const height = node.scrollHeight;
+
             htmlToImage.toPng(node, {
                 cacheBust: true,
-                width: 1500,
-                height: 2000,
+                width,
+                height,
+                style: {
+                    width: `${width}px`,
+                    height: `${height}px`,
+                }
             })
             .then((dataUrl) => {
                 const link = document.createElement("a");

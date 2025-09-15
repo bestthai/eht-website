@@ -141,7 +141,6 @@ export const weaponLineGroups = {
         "Chance to cast Replication when the ranger cast a skill",
         "Increase Critical Hit Damage to Primate",
         "Increase damage dealt to hunter",
-        "Chance to cast level 1 Evasion",
         "Decrease damage taken during barrier skill",
         "Decrease damage taken from Critical Hit Damage",
         "Decrease damage taken from hunter",

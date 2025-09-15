@@ -5,6 +5,7 @@ import HunterBuilder from './HunterBuilder';
 import AtkspdCalc from './AtkspdCalc';
 import Guide from './Guide';
 import Footer from './Footer';
+import MovementCalc from './MovementCalc';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
 				"/builder": "Builder",
 				"/atkspd": "ATK SPD",
 				"/guide": "Guide",
+				"/movement": "Movement SPD"
 			};
 
 			document.title = titles[location.pathname] || "Home";
@@ -34,6 +36,7 @@ function App() {
 			<Routes>
 				<Route path='/builder' element={<HunterBuilder />} />
 				<Route path='/atkspd' element={<AtkspdCalc />} />
+				<Route path='/movement' element={<MovementCalc />} />
 				<Route path='/guide' element={<Guide />} />
 			</Routes>
 
@@ -46,6 +49,3 @@ function App() {
 
 export default App
 
-
-// WB weapon reopening the modal
-// some PvP line no need Percent at the end in hunterEquipment 
