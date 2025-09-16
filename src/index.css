@@ -720,7 +720,7 @@
 }
 
 
-/* ======================================================== */
+/* ======================== Atk Spd =========================== */
 
 .atkspd-calc-container {
     min-height: 70vh;           
@@ -835,6 +835,169 @@
   color: #555;
 }
 
+/* ======================== Movement Calc =========================== */
+
+.movement-calc-container {
+    min-height: 70vh;           
+    background-color: #1f1f2e;  
+    padding: 2rem;
+    font-family: 'Inter', sans-serif;
+    color: #f0f0f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.movement-calc-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #06d6a0; /* teal-green for contrast */
+    text-align: center;
+}
+
+/* Inputs & dropdowns */
+.movement-calc-container select,
+.movement-calc-container input {
+    background-color: #2a2a40;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 8px;
+    padding: 0.5rem 0.7rem;
+    margin: 0.3rem 0;
+    font-size: 1rem;
+    box-sizing: border-box;
+    width: 200px;  
+    max-width: 100%; 
+    transition: border 0.2s, background 0.2s;
+}
+
+.input-percent-wrapper {
+    position: relative;
+    width: 200px;  
+}
+
+.input-percent-wrapper input {
+    width: 100%;
+    padding-right: 2rem; 
+    box-sizing: border-box;
+}
+
+.input-percent-wrapper .percent-symbol {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    pointer-events: none;
+}
+
+.movement-calc-container select:focus,
+.movement-calc-container input:focus {
+    outline: none;
+    border-color: #06d6a0;
+}
+
+/* Labels */
+.movement-calc-container label {
+    display: block;
+    font-size: 0.95rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.2rem;
+    color: #cfcfcf;
+    text-align: left;
+    width: 100%;
+    max-width: 300px;
+}
+
+/* Wrapper for toggle, allow row or column based on space */
+.toggle-wrapper {
+  display: flex;
+  flex-wrap: wrap;       
+  align-items: center;    
+  margin: 0.8rem 0;
+  max-width: 200px;       
+}
+
+/* Label */
+.toggle-wrapper > label:first-child {
+  margin-right: 8px;      
+  color: #cfcfcf;
+  font-size: 0.95rem;
+  flex-shrink: 0;         
+}
+
+/* Switch container */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  height: 26px;
+  margin-top: 0;          
+}
+
+/* Slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #ccc;
+  border-radius: 999px;
+  transition: 0.25s;
+}
+
+/* Slider knob */
+.slider:before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  bottom: 3px;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+/* Checked state */
+.switch input:checked + .slider {
+  background-color: #06d6a0;
+}
+.switch input:checked + .slider:before {
+  transform: translateX(174px);
+}
+
+/* Responsive: if not enough space, slider moves below label */
+@media (max-width: 180px) {
+  .toggle-wrapper {
+    flex-direction: column; /* stack label above slider */
+    align-items: flex-start;
+  }
+  .toggle-wrapper > label:first-child {
+    margin-bottom: 6px;
+    margin-right: 0;
+  }
+  .switch {
+    margin-top: 0;
+  }
+}
+
+/* Results */
+.result-title {
+    font-size: 1.5rem;
+    color: #ffd166;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.movement-calc-container p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: lightblue;
+    margin: 0.5rem 0;
+    text-align: center;
+}
 
 /* ==================== Footer ==================== */
 .Footer {
