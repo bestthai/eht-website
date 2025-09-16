@@ -10,7 +10,7 @@ function MovementCalc() {
     const [medal, setMedal] = useState(true);
     const [wing, setWing] = useState(true);
     const [secretTech, setSecretTech] = useState(15);
-    const [gear, setGear] = useState("");
+    const [gear, setGear] = useState("15");
     const [rune, setRune] = useState(0);
     const [mount, setMount] = useState(false);
     const [mountEq, setMountEq] = useState("");
@@ -178,7 +178,7 @@ function MovementCalc() {
                         value={gear}
                         onChange={(e) => setGear(Number(e.target.value))}
                         placeholder="Enter Value"
-                        min={0}
+                        min={15}
                     />
                     <span className="percent-symbol">%</span>
                 </div>
@@ -271,3 +271,6 @@ function MovementCalc() {
 }
 
 export default MovementCalc;
+
+// TODO : add movement speed x amp graph for each wind boot
+// TODO : show movement speed require and MAYBE have build optimizer

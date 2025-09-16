@@ -6,7 +6,7 @@ export const hunterRarityValues = {
 }
 
 export const mountEqValues = {
-    B : 5,
-    A : 10,
-    S : 15,
+    B : 15,
+    A : 30,
+    S : 45,
 }

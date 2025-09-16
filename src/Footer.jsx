@@ -25,7 +25,7 @@ function Footer()
 
                     <div className="footer-card">
                         <h2 className="card-title">Coming Soon</h2>
-                        <h2 className="card-desc">Movement Speed Calc</h2>
+                        <h2 className="card-desc"></h2>
                     </div>
 
                     <div className="footer-card">
