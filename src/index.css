@@ -719,8 +719,95 @@
     transition: color 0.2s ease;
 }
 
+/* ==================== Calculator Page ==================== */
+.calculator-page {
+    text-align: center;
+    background-color: #1f1f2e;
+    padding-top: 2.5rem;
+}
 
-/* ======================== Atk Spd =========================== */
+.calculator-page-title {
+    font-size: 3rem;
+    color: #ffd166;
+    margin: 0 0 1.5rem 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.calculator-card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(100px, 1fr));
+    gap: 10vw;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.calc-card-container {
+    border: 2px solid #836fc5;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-align: center;
+    background-color: #2a2a40;
+    position: relative;
+}
+
+/* Soft glow behind the card */
+.calc-card-container::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    border-radius: 12px;
+    background: radial-gradient(circle, rgba(131,111,197,0.3) 0%, rgba(131,111,197,0) 70%);
+    opacity: 0.7;
+    z-index: -1;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.calc-card-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(131,111,197,0.6), 0 0 20px rgba(131,111,197,0.3);
+}
+
+.calc-card-container:hover::before {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.calc-card-container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.calc-card-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
+.calc-card-title h3 {
+    font-size: 2rem;
+    margin: 0.5rem 0;
+    padding: 0.8rem;
+    color: hsl(0, 0%, 87%);
+    font-family: 'Inter', sans-serif;
+}
+
+.calc-card-desc p {
+    font-size: 1rem;
+    color: hsl(0, 0%, 80%);
+    margin: 0 1rem 1rem 1rem;
+    font-family: 'Inter', sans-serif;
+}
+
+
+/* ======================== Atk Spd Calc =========================== */
 
 .atkspd-calc-container {
     min-height: 70vh;           
@@ -807,33 +894,63 @@
     max-width: 600px;
 }
 
-/* Result text */
-.atkspd-calc-container p {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: lightblue;
-    margin-top: 2rem;
-    text-align: center;
+.result-panel-atkspd {
+  background-color: #2a2a40;  /* dark panel */
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 365px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  text-align: center;
 }
 
+/* Main Attack Speed line */
+.result-panel-atkspd .main-result {
+    font-size: 1.3rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    color: #ffd166; /* same as title */
+}
+
+/* The numeric Attack Speed value */
+.result-panel-atkspd .result-value {
+    font-size: 1.3rem; /* bigger number */
+    font-weight: 700;
+    color: #ffd166; /* same yellow */
+}
+
+.result-panel-atkspd .optional-result {
+    font-size: 1.1rem;
+    margin-top: 0.4rem;
+}
+
+/* The static label part stays yellow */
+.result-panel-atkspd .optional-label {
+    color: #ffd166; /* same as title */
+    font-weight: 600;
+}
+
+/* Dynamic value coloring */
 .gear-add {
-    color: hsl(120, 100%, 20%);
+  color: hsl(120, 100%, 30%);
   font-weight: bold;
 }
 
 .gear-remove {
-    color: hsl(0, 100%, 30%);
+  color: hsl(0, 100%, 30%);
   font-weight: bold;
 }
 
 .gear-balanced {
-    color: hsl(51, 100%, 40%);
+  color: hsl(51, 100%, 40%);
   font-style: italic;
 }
 
 .gear-neutral {
   color: #555;
 }
+
 
 /* ======================== Movement Calc =========================== */
 
@@ -971,7 +1088,7 @@
 /* Responsive: if not enough space, slider moves below label */
 @media (max-width: 180px) {
   .toggle-wrapper {
-    flex-direction: column; /* stack label above slider */
+    flex-direction: column; 
     align-items: flex-start;
   }
   .toggle-wrapper > label:first-child {
@@ -983,21 +1100,70 @@
   }
 }
 
-/* Results */
-.result-title {
-    font-size: 1.5rem;
-    color: #ffd166;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+/* Result container */
+.result-panel-movement {
+  background-color: #2a2a40; 
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 365px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  text-align: center;
 }
 
-.movement-calc-container p {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: lightblue;
-    margin: 0.5rem 0;
-    text-align: center;
+/* Result title */
+.result-panel-movement h2 {
+  font-size: 1.3rem;
+  color: #06d6a0; 
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
 }
+
+/* Optional result line */
+.result-panel-movement .optional-result {
+  font-size: 1.1rem;
+  color: #06d6a0; 
+  margin-top: 0.4rem;
+}
+
+.movement-result-text {
+    white-space: nowrap; 
+    margin-top: 2rem;
+}
+
+.movement-result-text .gear-add {
+    color: hsl(120, 100%, 30%);
+}
+
+.movement-result-text .gear-remove {
+    color: hsl(0, 100%, 30%);
+}
+
+.movement-result-text .gear-balanced {
+    color: hsl(51, 100%, 40%);
+    font-style: italic;
+}
+
+/* Graph Toggle Button */
+.graph-toggle-button {
+  padding: 8px 16px;
+  margin: 20px 0 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: none;
+  background: #118ab2;
+  color: #fff;
+  font-weight: bold;
+  transition: background 0.25s;
+}
+
+.graph-toggle-button:hover {
+  background: #0f799c; /* darker on hover */
+}
+
+
+
 
 /* ==================== Footer ==================== */
 .Footer {

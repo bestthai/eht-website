@@ -22,8 +22,8 @@ export const chaosUniqueLines = {
 
     Belt: {
         "Alchemist Belt" : "When using potion, there is [] for quantity to not decrease",
-        "Thunder Dragon Belt" : "Thunder Dragon Rage is activated at all times at level",
-        "Slyph Belt" : "when attacking, 20% chance to cast Slyph Blessing at level",
+        "Thunder Dragon Belt" : "Thunder Dragon's Rage is activated at all times at level",
+        "Slyph Belt" : "when attacking, 20% chance to cast Slyph's Blessing at level",
     },
 
     Ring: {
@@ -33,7 +33,7 @@ export const chaosUniqueLines = {
 
     Necklace: {
         "Hades Necklace" : "King of the Underworld is activated at all times at level",
-        "Commander Necklace" : "Commander Privilage is actived at all times",
+        "Commander Necklace" : "Commander's Privilage is actived at all times",
     },
 }
 
@@ -59,7 +59,7 @@ export const chaosUniqueLineValues = {
     "Trinity Ring": [1, 3],
 
     "Hades Necklace": [1, 3],
-    "Commander Necklace": [null], 
+    "Commander Necklace": [100], 
 };
 
 export const chaosUniqueFixedLine = {
@@ -94,7 +94,7 @@ export const chaosUniquePercent = {
     "Trinity Ring": false,
 
     "Hades Necklace": false,
-    "Commander Necklace": false,
+    "Commander Necklace": true,
 };
 
 

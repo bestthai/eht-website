@@ -124,7 +124,7 @@ export const weaponLineGroups = {
         "If damage-absorbtion shield is active, damage taken is reduced by [] for 6 sec",
         "When attacked, Enhance Frost Wave is cast at",
         "Enhance Blood Berserk is activated at all times at level",
-        "Hunter's gold gain is increased by",
+        "Hunter gold gain is increased by",
         "Amplify ATK by [] from movement speed (max 40%)",
         "Blood Expansion is activated at level",
 

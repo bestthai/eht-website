@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { hunterRarityValues, mountEqValues } from './data/movementSpd';
+import MovementGraph from './utils/MovementGraph';
 
 function MovementCalc() {
-    const [windBoot, setWindBoot] = useState("");
+    const [type, setType] = useState(null);
+    const [windBootPercent, setwindBootPercent] = useState("");
 
     const [building, setBuilding] = useState("");
     const [hunterRarity, setHunterRarity] = useState("");
@@ -20,9 +22,12 @@ function MovementCalc() {
 
     const [atkAmp, setAtkAmp] = useState(null);
     const [atkAmpWithOptional, setAtkAmpWithOptional] = useState(null);
+    const [movementRequire, setMovementRequire] = useState(null);
 
-    function calculateAtkAmp({ windBoot, building, hunterRarity, secretTech, gear, mount, mountEq, costume, medal, wing, rune, GBow, transform }) {
-        const numericWindBoot = Number(windBoot) || 0;
+    const [showGraph, setShowGraph] = useState(false);
+
+    function calculateAtkAmp({ windBootPercent, building, hunterRarity, secretTech, gear, mount, mountEq, costume, medal, wing, rune, GBow, transform }) {
+        const numericwindBootPercent = Number(windBootPercent) || 0;
         const total = Number(building) 
             + Number(hunterRarity) 
             + (costume ? 40 : 0) 
@@ -36,24 +41,32 @@ function MovementCalc() {
 
         const optional = (GBow ? 80 : 0) + (transform ? 200 : 0);
 
-        const atkAmpNormal = (total * (numericWindBoot / 100)).toFixed(2);
-        const atkAmpOptional = ((total + optional) * (numericWindBoot / 100)).toFixed(2);
+        const atkAmpNormal = (total * (numericwindBootPercent / 100)).toFixed(2);
+        const atkAmpOptional = ((total + optional) * (numericwindBootPercent / 100)).toFixed(2);
 
-        return { atkAmpNormal, atkAmpOptional };
+        return { atkAmpNormal, atkAmpOptional, totalWithOptional: total + optional };
+    }
+
+     function calculateMovementRequire({ type, windBootPercent, totalWithOptional }) 
+     {
+        const maxAmp = type === "chaos" ? 30 : type === "abyss" ? 40 : 0;
+        const required = maxAmp / (windBootPercent / 100) - totalWithOptional;
+        return required;
     }
 
     /*
         Recalculate whenever any input changes
     */
     useEffect(() => {
-        if (!windBoot) {
+        if (!type || !windBootPercent) {
             setAtkAmp(null);
             setAtkAmpWithOptional(null);
+            setMovementRequire(null);
             return;
         }
 
-        const { atkAmpNormal, atkAmpOptional } = calculateAtkAmp({
-            windBoot,
+        const { atkAmpNormal, atkAmpOptional, totalWithOptional } = calculateAtkAmp({
+            windBootPercent,
             building,
             hunterRarity,
             secretTech,
@@ -68,18 +81,39 @@ function MovementCalc() {
             transform
         });
 
+        const requiredMovement = calculateMovementRequire({
+            type,
+            windBootPercent: Number(windBootPercent),
+            totalWithOptional
+        });
+
         setAtkAmp(atkAmpNormal);
         setAtkAmpWithOptional(atkAmpOptional);
-    }, [windBoot, building, hunterRarity, secretTech, gear, mount, mountEq, costume, medal, wing, rune, GBow, transform]);
+        setMovementRequire(requiredMovement);
+    }, [type, windBootPercent, building, hunterRarity, secretTech, gear, mount, mountEq, costume, medal, wing, rune, GBow, transform]);
+
 
     return (
         <div className="movement-calc-container">
             <h1 className="movement-calc-title">Movement Speed Calculator</h1>
 
+            {/* Wind Boot Type */}
+            <div>
+                <label>Wind Boot Type: </label>
+                <select
+                    value={type}
+                    onChange={(e) => setType(e.target.value)}
+                >
+                    <option value="">-- Select Type --</option>
+                    <option value="chaos">Chaos (30%)</option>
+                    <option value="abyss">Abyss (40%)</option>
+                </select>
+            </div>
+
             {/* Wind Boot */}
             <div>
                 <label>Wind Boot %: </label>
-                <select value={windBoot} onChange={(e) => setWindBoot(Number(e.target.value))}>
+                <select value={windBootPercent} onChange={(e) => setwindBootPercent(Number(e.target.value))}>
                     <option value="">-- Select Value --</option>
                     {[3, 4, 5, 6, 7, 8, 9, 10].map((v) => (
                         <option key={v} value={v}>{v}%</option>
@@ -251,26 +285,40 @@ function MovementCalc() {
             )}
 
             {/* Result */}
-            <>
-                {(!GBow && !transform) ? (
-                    <h2>Attack Amp: {atkAmp ? `${atkAmp}%` : "--"}</h2>
-                ) : (
-                    <>
-                        <h2>Attack Amp: {atkAmp ? `${atkAmp}%` : "--"}</h2>
-                        <h2>
-                            Attack Amp with {GBow ? "Glacier Bow" : transform ? "Transform" : ""}:{" "}
-                            {atkAmpWithOptional ? `${atkAmpWithOptional}%` : "--"}
-                        </h2>
-                    </>
+            <div className="result-panel-movement">
+                <h2>Attack Amp: {atkAmp ? `${atkAmp}%` : "--"}</h2>
+
+                {(GBow || transform) && (
+                    <div className="optional-result">
+                    Attack Amp with {GBow ? "Glacier Bow" : "Transform"}:{" "}
+                    {atkAmpWithOptional ? `${atkAmpWithOptional}%` : "--"}
+                    </div>
                 )}
-            </>
+
+                {movementRequire !== null && (
+                    <div className="movement-result-text">
+                        Movement Required:{" "}
+                        {Number(movementRequire) === 0
+                            ? <span className="gear-balanced">Perfect Movement</span>
+                            : Number(movementRequire) > 0
+                            ? <span className="gear-add">Add {movementRequire}%</span>
+                            : <span className="gear-remove">Remove {Math.abs(movementRequire)}%</span>
+                        }
+                    </div>
+                )}
+            </div>
             
+            {/* Show/hide graph */}
+            <button
+                className='graph-toggle-button'
+                onClick={() => setShowGraph(prev => !prev)}
+            >
+            {showGraph ? "Don't close me, I spent a lot of time on the graph 😭" : "Show Graph"}
+            </button>
+            {showGraph && <MovementGraph />}
             
         </div>
     );
 }
 
 export default MovementCalc;
-
-// TODO : add movement speed x amp graph for each wind boot
-// TODO : show movement speed require and MAYBE have build optimizer

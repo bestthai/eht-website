@@ -272,26 +272,36 @@ function AtkspdCalc() {
             </div>
 
             {/* Result */}
-            <h2>Attack Speed: {atkspd ? atkspd : "--"}</h2>
-            <h2 className={
-                gearRequired === null
-                ? "gear-neutral"
-                : gearRequired > 0
-                    ? "gear-add"
-                    : gearRequired < 0
-                    ? "gear-remove"
-                    : "gear-balanced"
-            }>
-            Atkspd Required for {targetAtkspd}:{" "}
-            {gearRequired === null
-                ? "--"
-                : gearRequired > 0
-                ? `Add ${gearRequired}%`
-                : gearRequired < 0
-                    ? `Remove ${Math.abs(gearRequired)}%`
-                    : "Perfectly balanced"}
-            </h2>
+            <div className="result-panel-atkspd">
+                <h2 className="main-result">
+                    Attack Speed: <span className="result-value">{atkspd ? atkspd : "--"}</span>
+                </h2>
 
+                <div className="optional-result">
+                    <span className="optional-label">
+                    Atkspd Required for {targetAtkspd}:
+                    </span>{" "}
+                    <span
+                    className={
+                        gearRequired === null
+                        ? "gear-neutral"
+                        : gearRequired > 0
+                        ? "gear-add"
+                        : gearRequired < 0
+                        ? "gear-remove"
+                        : "gear-balanced"
+                    }
+                    >
+                    {gearRequired === null
+                        ? "--"
+                        : gearRequired > 0
+                        ? `Add ${gearRequired}%`
+                        : gearRequired < 0
+                        ? `Remove ${Math.abs(gearRequired)}%`
+                        : "Perfectly balanced"}
+                    </span>
+                </div>
+            </div>
         </div>
     ); 
 }

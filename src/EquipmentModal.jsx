@@ -230,10 +230,24 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
             if (!WB_TYPES.includes(type)) {
                 setWbSubType("");
                 setVwbSubType("");
+                setLines([
+                    { line: "", value: "" },
+                    { line: "", value: "" },
+                    { line: "", value: "" },
+                    { line: "", value: "" },
+                    { line: "", value: "" },
+                ]);
             }
             if (!PVP_TYPES.includes(type)) {
                 setpvpWeaponSubType("");
                 setPvpHelmetSubType("");
+                setLines([
+                    { line: "", value: "" },
+                    { line: "", value: "" },
+                    { line: "", value: "" },
+                    { line: "", value: "" },
+                    { line: "", value: "" },
+                ]);
             }
             setPrevType(type);
         }
@@ -324,38 +338,40 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
         Auto select the fixed line for WB weapons
     */
     useEffect(() => {
-        if (!gearName || gearName !== 'Weapon' || !WB_TYPES.includes(type)) return;
-
-        const maxLines = gearLineAmounts[type] || 5;
-
-        const newLines = [];
-
-        for (let i = 0; i < maxLines; i++) {
-            let lineText = "";
-
-            const subtype = type === 'vwb' ? vwbSubType : wbSubType;
-
-            if (i === 1) {
-                lineText = LINE2_MAPS[selectedClass]?.[type]?.[subtype] || "";
-            } else if (i <= 3 || (i === 4 && maxLines === 5)) {
-                lineText = FIXED_WB_LINES[i + 1] || "";
+        if (gearName === "Weapon" && WB_TYPES.includes(type) && (wbSubType || vwbSubType))
+        {
+            const maxLines = gearLineAmounts[type] || 5;
+    
+            const newLines = [];
+    
+            for (let i = 0; i < maxLines; i++) {
+                let lineText = "";
+                
+                const subtype = type === 'vwb' ? vwbSubType : wbSubType;
+    
+                if (i === 1) {
+                    lineText = LINE2_MAPS[selectedClass]?.[type]?.[subtype] || "";
+                } else if (i <= 3 || (i === 4 && maxLines === 5)) {
+                    lineText = FIXED_WB_LINES[i + 1] || "";
+                }
+    
+                if ((type === 'twb' || type === 'vwb') && i === 4) {
+                    lineText = "Critical Hit Damage";
+                }
+    
+                newLines.push({ line: lineText, value: "" });
             }
-
-            if ((type === 'twb' || type === 'vwb') && i === 4) {
-                lineText = "Critical Hit Damage";
-            }
-
-            newLines.push({ line: lineText, value: "" });
+    
+            setLines(newLines);
         }
 
-        setLines(newLines);
     }, [gearName, type, wbSubType, vwbSubType, selectedClass]);
 
     /*
         auto-set PvP weapon lines
     */
     useEffect(() => {
-        if (gearName === "Weapon" || PVP_TYPES.includes(type) && pvpWeaponSubType)
+        if (gearName === "Weapon" && PVP_TYPES.includes(type) && pvpWeaponSubType)
         {
             const maxLines = gearLineAmounts[type] || 5;
             let newLines = [];
@@ -1063,9 +1079,9 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
                             .filter(l => specialWeaponLine.includes(l) && l);
 
                         // Build available lines
-                        const availableLines = allLines.filter(line => {
+                        const availableLines = allLines.filter(line => {  
                             // Exclude WB fixed lines for non-WB weapons
-                            if (gearName === "Weapon" && !WB_TYPES.includes(type) && Object.values(FIXED_WB_LINES).includes(line)) {
+                            if (gearName === "Weapon" && !WB_TYPES.includes(type) && Object.values(FIXED_WB_LINES && line !== "Attack").includes(line)) {
                                 return false;
                             }
 
