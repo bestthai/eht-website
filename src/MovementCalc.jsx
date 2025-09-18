@@ -51,7 +51,7 @@ function MovementCalc() {
      {
         const maxAmp = type === "chaos" ? 30 : type === "abyss" ? 40 : 0;
         const required = maxAmp / (windBootPercent / 100) - totalWithOptional;
-        return required;
+        return required.toFixed(1);
     }
 
     /*
