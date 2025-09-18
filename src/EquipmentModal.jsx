@@ -115,7 +115,11 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
         "Chance to cast level 1 Curse",
         "Chance to transform into Archangel",
         "Chance to transform into Demon Lord",
-        "Additional Damage"
+        "Additional Damage",
+        "Chance to recover 1% Stamina",
+        "Chance to recover 3% Satiety",
+        "Chance to recover 3% Mood",
+        "Chance to stun enemy for 2 sec",
     ];
 
 

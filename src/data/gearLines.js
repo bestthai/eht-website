@@ -1,28 +1,27 @@
 export const gearLines = [
-    "Evasion",
-    "Critical Hit Chance",
+    "Attack",
     "Attack Speed",
-    "EXP Gain",
+    "Critical Hit Chance",
+    "Critical Hit Damage",
+    "Increase Damage Against Boss",
+    "Increase Damage Against Undead",
+    "Increase Damage Against Primate",
+    "Increase Damage Against Demon",
+    "Increase Damage Against Animal",
 
+    "Defense",
     "Decrease Damage Taken",
+    "Evasion",
+    "HP",
+
+    "Lifesteal",
+    "EXP Gain",
     "Decrease Mood Consumption",
     "Decrease Satiety Consumption",
     "Decrease Stamina Consumption",
-    "Lifesteal",
     "Increase Movement Speed",
     "Chance to gain 2x Gold",
     "Chance to gain extra Material",
-
-    "Attack",
-    "Defense",
-    "HP",
-
-    "Critical Hit Damage",
-    "Increase Damage Against Boss",
-    "Increase Damage Against Primate",
-    "Increase Damage Against Undead",
-    "Increase Damage Against Demon",
-    "Increase Damage Against Animal",
 ];
 
 export const gearLineGroups = {
