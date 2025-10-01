@@ -10,9 +10,9 @@ export const gearLines = [
     "Increase Damage Against Animal",
 
     "Defense",
-    "Decrease Damage Taken",
     "Evasion",
     "HP",
+    "Decrease Damage Taken",
 
     "Lifesteal",
     "EXP Gain",

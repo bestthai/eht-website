@@ -13,9 +13,9 @@ export const weaponLines = [
     "Chance to stun enemy for 2 sec",
 
     "Defense",
-    "Decrease Damage Taken",
     "Evasion",
     "HP",
+    "Decrease Damage Taken",
     "Chance to transform into Archangel",
     "Chance to cast level 1 Evasion",
     "Chance to cast level 1 Barrier",
