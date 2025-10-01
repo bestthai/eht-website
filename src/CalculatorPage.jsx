@@ -19,17 +19,17 @@ function CalculatorPage()
                     img={atkSpdImage}
                     title="ATK SPD Calculator"
                     description="Calculate the attack speed require for your hunter"
-                    onClick={(e) => navigate("/atkspd")}
+                    onClick={(e) => navigate("atkspd")}
                 />
 
                 <CalculatorCard 
                     img={movementImage}
                     title="Movement Speed Calculator"
                     description="Calculate the hunter attack amplified by the wind of greaves."
-                    onClick={(e) => navigate("/movement")}
+                    onClick={(e) => navigate("movement")}
                 />
-
             </div>
+
         </div>
     );
 }

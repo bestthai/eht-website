@@ -36,9 +36,11 @@ function App() {
 
 			<Routes>
 				<Route path='/builder' element={<HunterBuilder />} />
+
 				<Route path='/calculator' element={<CalculatorPage />} />
-				<Route path='/atkspd' element={<AtkspdCalc />} />
-				<Route path='/movement' element={<MovementCalc />} />
+				<Route path='/calculator/atkspd' element={<AtkspdCalc />} />
+				<Route path='/calculator/movement' element={<MovementCalc />} />
+				
 				<Route path='/guide' element={<Guide />} />
 			</Routes>
 

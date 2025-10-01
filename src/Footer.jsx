@@ -25,13 +25,14 @@ function Footer()
 
                     <div className="footer-card">
                         <h2 className="card-title">Coming Soon</h2>
-                        <h2 className="card-desc"></h2>
+                        <h2 className="card-desc">Guide</h2>
                     </div>
 
                     <div className="footer-card">
                         <h2 className="card-title">Credit</h2>
                         <p className="card-desc"><strong>Bestthai</strong> </p>
-                        <p className="card-desc"><strong>Roelando</strong> for atkspd equation ❤️</p>
+                        <p className="card-desc"><strong>Roelando</strong> for atkspd equation</p>
+                        <p className="card-desc"><strong>Xenavier</strong> for progression guide</p>
                     </div>
                 </div>
             </div>
