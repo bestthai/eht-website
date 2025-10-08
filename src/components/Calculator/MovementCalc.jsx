@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { hunterRarityValues, mountEqValues } from './data/movementSpd';
-import MovementGraph from './utils/MovementGraph';
+import { hunterRarityValues, mountEqValues } from '../../data/movementSpd';
+import MovementGraph from '../../utils/MovementGraph';
 
 function MovementCalc() {
-    const [type, setType] = useState(null);
+    const [type, setType] = useState("");
     const [windBootPercent, setwindBootPercent] = useState("");
 
     const [building, setBuilding] = useState("");

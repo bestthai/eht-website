@@ -1,7 +1,7 @@
 
-import { weaponLines, weaponLineGroups } from './data/weaponLines';
-import { chaosUniquePercent, abyssUniquePercent } from './data/uniqueGears';
-import { pvpNoPercent } from './data/pvpLines';
+import { weaponLines, weaponLineGroups } from '../../data/weaponLines';
+import { chaosUniquePercent, abyssUniquePercent } from '../../data/uniqueGears';
+import { pvpNoPercent } from '../../data/pvpLines';
 
 function Stat({ saveGearData = {} }) 
 {

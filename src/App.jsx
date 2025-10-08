@@ -1,13 +1,13 @@
 import { useLocation, BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react'; 
-import Header from './Header';
-import HunterBuilder from './HunterBuilder';
-import Guide from './Guide';
-import Footer from './Footer';
+import Header from './components/Header';
+import HunterBuilder from './components/Builder/HunterBuilder';
+import Guide from './components/Guide/Guide';
+import Footer from './components/Footer';
 
-import CalculatorPage from './CalculatorPage';
-import AtkspdCalc from './AtkspdCalc';
-import MovementCalc from './MovementCalc';
+import CalculatorPage from './components/Calculator/CalculatorPage';
+import AtkspdCalc from './components/Calculator/AtkspdCalc';
+import MovementCalc from './components/Calculator/MovementCalc';
 
 function App() {
 	function PageTitleupdater() {
@@ -41,7 +41,7 @@ function App() {
 				<Route path='/calculator/atkspd' element={<AtkspdCalc />} />
 				<Route path='/calculator/movement' element={<MovementCalc />} />
 				
-				<Route path='/guide' element={<Guide />} />
+				<Route path='/guide/*' element={<Guide />} />
 			</Routes>
 
 			<Footer />

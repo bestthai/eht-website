@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { weaponAtkspd, statColorAtkspd, characteristicAtkspd, quickenAtkspd, furyAtkspd, mountEqAtkspd } from './data/atkspd';
+import { weaponAtkspd, statColorAtkspd, characteristicAtkspd, quickenAtkspd, furyAtkspd, mountEqAtkspd } from '../../data/atkspd';
 
 function AtkspdCalc() {
     const targetAtkspd = 0.25;

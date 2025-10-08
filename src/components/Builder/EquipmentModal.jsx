@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import getImageUrl from './utils/getImageUrl';
+import getImageUrl from '../../utils/getImageUrl';
 
-import { gearLines, gearValuesByType } from './data/gearLines';
-import { weaponLines, weaponValuesByType } from './data/weaponLines';
+import { gearLines, gearValuesByType } from '../../data/gearLines';
+import { weaponLines, weaponValuesByType } from '../../data/weaponLines';
 import { DefSpecialLines, DefChaosValues, DefAbyssValues,
          HpSpecialLines, HpChaosValues, HpAbyssValues,
          HelmBeltSpecialLines, HelmBeltChaosValues, HelmBeltAbyssValues,
-         WeaponSpecialLines, WeaponChaosValues, WeaponAbyssValues } from './data/specialLines';
-import { runeLines, runeValues } from './data/runeLines';
-import { WB_TYPES, FIXED_WB_LINES, LINE2_MAPS, wbLineValues } from './data/wbWeapons';
+         WeaponSpecialLines, WeaponChaosValues, WeaponAbyssValues } from '../../data/specialLines';
+import { runeLines, runeValues } from '../../data/runeLines';
+import { WB_TYPES, FIXED_WB_LINES, LINE2_MAPS, wbLineValues } from '../../data/wbWeapons';
 import { chaosUniqueLines, chaosUniqueLineValues, chaosUniqueFixedLine, chaosUniqueFixedLineValue,
-         abyssUniqueLines, abyssUniqueLineValues, abyssUniqueFixedLine, abyssUniqueFixedLineValue,} from './data/uniqueGears';
+         abyssUniqueLines, abyssUniqueLineValues, abyssUniqueFixedLine, abyssUniqueFixedLineValue,} from '../../data/uniqueGears';
 import { PVP_TYPES, 
          FIXED_PVP_DPS_WEAPON_LINES, FIXED_PVP_TANK_WEAPON_LINES, LINE2_WEAPON_MAPS, 
          FIXED_PVP_DPS_WEAPON_LINE_VALUE, FIXED_PVP_TANK_WEAPON_LINE_VALUE,
          FIXED_PVP_TANK_HELMET_LINE_VALUE, FIXED_PVP_DPS_HELMET_LINE_VALUE,
-         pvpNoPercent } from './data/pvpLines';
+         pvpNoPercent } from '../../data/pvpLines';
 
 function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, selectedClass }) {
 

@@ -1,12 +1,12 @@
 import React, {useState, useRef, useEffect} from 'react';
 import * as htmlToImage from 'html-to-image';
 
-import HunterImage from './assets/hunter/Hunter.png'
+import HunterImage from '../../assets/hunter/Hunter.png'
 
 import Stat from './Stat';
 import EquipmentModal from './EquipmentModal';
-import getImageUrl from './utils/getImageUrl';
-import ExportHunterCard from './utils/ExportHunterCard';
+import getImageUrl from '../../utils/getImageUrl';
+import ExportHunterCard from '../../utils/ExportHunterCard';
 
 function HunterBuilder()
 {

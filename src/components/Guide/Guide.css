@@ -1,0 +1,319 @@
+/* ==================== Guide ==================== */
+
+/* Theme variables for light and dark mode */
+.guide-layout.light {
+    --bg-color: #f9fafb;
+    --sidebar-bg: #fff;
+    --sidebar-border: #ddd;
+    --sidebar-header-bg: #f3f4f6;
+    --close-button-color: #333;
+    --text-color: #333;
+    --text-secondary: #555;
+    --section-hover: #007bff;
+    --guide-heading-border: #eee;
+    --guide-bg: #f9fafb;
+}
+
+.guide-layout.dark {
+    --bg-color: #1f1f2e;
+    --sidebar-bg: #2a2a40;
+    --sidebar-border: #555;
+    --sidebar-header-bg: #25253b;
+    --close-button-color: #fff;
+    --text-color: #eee;
+    --text-secondary: #ccc;
+    --section-hover: #8ab4f8;
+    --guide-heading-border: #444;
+    --guide-bg: #1f1f2e;
+}
+
+/* ================== General Layout ================== */
+.guide-layout {
+    display: flex;
+    min-height: 100vh;
+    background: var(--bg-color);
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text-color);
+}
+
+.guide-layout {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar,
+.sidebar-header,
+.sidebar-nav,
+.section-toggle,
+.section-item,
+.guide-content {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+    width: 260px;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--sidebar-border);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+    z-index: 30;
+}
+
+@media (max-width: 1023px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    bottom: 0;
+  }
+
+  .sidebar.open {
+    transform: translateX(260px);
+  }
+
+  .close-button {
+    display: block;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    position: static;
+    transform: none !important;
+  }
+
+  .close-button {
+    display: none;
+  }
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--sidebar-border);
+    background: var(--sidebar-header-bg);
+}
+
+.sidebar-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.theme-button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    margin-left: auto;
+    color: var(--text-color);
+}
+
+/* Theme Button Visibility */
+.theme-button-header {
+    display: inline-block;
+}
+.theme-button-sidebar {
+    display: none;
+}
+
+@media (min-width: 1100px) {
+    .theme-button-header {
+        display: none;
+    }
+    .theme-button-sidebar {
+        display: inline-block;
+    }
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--close-button-color);
+}
+
+.sidebar-nav {
+  padding: 1rem;
+}
+
+.sidebar-section {
+  margin-bottom: 0.3rem;
+}
+
+.section-toggle {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-color);
+  font-family: 'Inter', sans-serif;
+}
+
+.section-toggle:hover {
+  color: var(--section-hover);
+}
+
+.section-list {
+  margin-left: 1.85rem;
+  margin-top: 0.1rem;
+  list-style: none;
+  padding: 0;
+}
+
+.section-item {
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    margin: 0.25rem 0;
+    transition: color 0.2s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.section-item:hover {
+    color: var(--section-hover);
+}
+
+.section-item.active {
+    font-weight: bold;
+    color: var(--section-hover);
+}
+
+/* ===== Content ===== */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: var(--sidebar-bg);
+  border-bottom: 1px solid var(--sidebar-border);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.menu-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-color);
+}
+
+.mobile-title {
+  margin-left: 1rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+@media (min-width: 1100px) {
+  .mobile-header {
+    display: none;
+  }
+}
+
+/* ===== Guide Content ===== */
+.guide-content {
+  padding: 2rem;
+  max-width: 100%;
+  margin: 0 auto;
+  background: var(--guide-bg);
+}
+
+.guide-heading {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--guide-heading-border);
+}
+
+.guide-subheading {
+  font-weight: bold;
+  margin-bottom: 1.3rem;
+}
+
+.guide-paragraph {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.guide-image-container {
+  display: flex;
+  justify-content: center;       /* Center the row */
+  align-items: flex-start;       /* Align to top so heights don’t jump */
+  flex-wrap: wrap;               /* Wrap when needed */
+  gap: 1.5rem;                   /* Space between images */
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.eht-image {
+  flex: 1 1 300px;               
+  max-width: 100%;              
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px var(--shadow-color, rgba(0, 0, 0, 0.25));
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  object-fit: cover;            
+}
+
+.three-row-image {
+  flex: 1 1 calc(33.333% - 1rem); /* 3 per row by default */
+  max-width: calc(33.333% - 1rem);
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+/* .guide-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 14px var(--shadow-hover-color, rgba(0, 0, 0, 0.35));
+} */
+
+
+blockquote {
+  border-left: 4px solid #888;
+  padding-left: 1rem;
+  margin: 0.5rem 0 1rem 0;
+  color: var(--text-color);
+}
+
+ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+/* ✅ Medium screens (2 per row) */
+@media (max-width: 1024px) {
+  .guide-image {
+    flex: 1 1 calc(45% - 1.5rem);
+    max-width: calc(45% - 1.5rem);
+  }
+
+  .guide-content {
+    padding: 1.2rem;
+  }
+}
+
+/* ✅ Small screens (1 per row) */
+@media (max-width: 600px) {
+  .guide-image {
+    flex: 1 1 90%;
+    max-width: 90%;
+  }
+}

@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import CalculatorCard from "./utils/CalculatorCard";
+import CalculatorCard from "../../utils/CalculatorCard";
 
-import atkSpdImage from "./assets/calculatorCard/atkspd.png";
-import movementImage from "./assets/calculatorCard/movement.png";
+import atkSpdImage from "../../assets/calculatorCard/atkspd.png";
+import movementImage from "../../assets/calculatorCard/movement.png";
 
 
 function CalculatorPage()
