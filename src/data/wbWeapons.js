@@ -123,7 +123,7 @@ export const wbLineValues = {
             classes: {
                 Berserker: { "Chance to cast Dark Fissure when attacking monster": [15,25] },
                 Paladin: { "Chance to cast Dark Lightning when attacking monster": [15,25] },
-                Sorcerer: { "Chance to cast Soul Eater when attacking monster": [25,35] },
+                Sorcerer: { "Chance to cast Soul Eater when attacking monster": [15,25] },
                 Ranger: { "Chance to cast Feather Shot when attacking monster": [15,25] }
             }
         }
