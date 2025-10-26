@@ -125,6 +125,9 @@ export const weaponLineGroups = {
         "Hunter gold gain is increased by",
         "Amplify ATK by [] from movement speed (max 40%)",
         "Blood Expansion is activated at level",
+        "Aura of Sacrifice is activated at level",
+        "Enhance King of the Underworld is activated at all times at level",
+        "Dragon's Blessing is activated at all times",
 
         // PvP
         "Ignore enemy's defense and inflict pure damage",

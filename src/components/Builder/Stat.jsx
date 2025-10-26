@@ -3,6 +3,8 @@ import { weaponLines, weaponLineGroups } from '../../data/weaponLines';
 import { chaosUniquePercent, abyssUniquePercent } from '../../data/uniqueGears';
 import { pvpNoPercent } from '../../data/pvpLines';
 
+import isUniqueGearPercentage from '../../utils/isUniqueGearPercentage';
+
 function Stat({ saveGearData = {} }) 
 {
     const baseStats = weaponLines.reduce((acc, line) => {
@@ -61,10 +63,8 @@ function Stat({ saveGearData = {} })
                                     if (gearValue > 0) 
                                     {
                                         if (uniqueGear) {
-                                            const isPercent = uniqueGear.type === "chaos unique"
-                                                ? chaosUniquePercent[uniqueGear.uniqueSubType]
-                                                : abyssUniquePercent[uniqueGear.uniqueSubType];
-                                            displayValue = `${gearValue}${isPercent ? '%' : ''}`;
+                                            const isPercent = isUniqueGearPercentage(uniqueGear);
+	                                        displayValue = `${gearValue}${isPercent ? '%' : ''}`;
                                         } 
                                         else if (pvpNoPercent.includes(line)) 
                                         {

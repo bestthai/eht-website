@@ -31,7 +31,7 @@ function Footer()
                         <h2 className="card-title">Credit</h2>
                         <p className="card-desc"><strong>Bestthai</strong> </p>
                         <p className="card-desc"><strong>Roelando</strong> for atkspd equation</p>
-                        <p className="card-desc"><strong>Satursan</strong> and <strong>Xenavier</strong> for guides</p>
+                        <p className="card-desc"><strong>Satursan</strong> for guides</p>
                     </div>
                 </div>
             </div>

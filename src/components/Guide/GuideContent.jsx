@@ -16,7 +16,7 @@ function GuideContent()
     const activePage = decodeURIComponent(page || "");
 
     return contentMap[activePage] || (
-        <p className="guide-placeholder">Content for "{activePage}" is not written yet. Blame Xenavier for that.</p>
+        <p className="guide-placeholder">Content for "{activePage}" is not written yet.</p>
     );
 }
 

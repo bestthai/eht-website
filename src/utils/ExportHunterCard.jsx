@@ -1,7 +1,9 @@
 import { weaponLineGroups } from '../data/weaponLines';
 import { exportShortName } from '../data/exportShortName';
 import { pvpNoPercent } from '../data/pvpLines';
+
 import getImageUrl from '../utils/getImageUrl';
+import isUniqueGearPercentage from '../utils/isUniqueGearPercentage';
 
 function ExportHunterCard({ saveGearData = {}, selectedClass }) {
 	const gearOrder = ['Weapon', 'Chestplate', 'Glove', 'Boot', 'Helmet', 'Necklace', 'Ring', 'Belt'];
@@ -56,7 +58,23 @@ function ExportHunterCard({ saveGearData = {}, selectedClass }) {
 
 	Object.entries(totalStats).forEach(([line, value]) => {
 		const group = lineToGroup[line];
-		const displayValue = pvpNoPercent.includes(line) ? value : `${value}%`;
+		if (!group) return;
+
+		let isPercent = true;
+		for (const gear of Object.values(saveGearData))
+		{
+			if (gear?.uniqueLine === line)
+			{
+				const percentCheck = isUniqueGearPercentage(gear);
+				if (percentCheck !== null)
+				{
+					isPercent = percentCheck;
+					break;
+				}
+			}
+		}
+
+		const displayValue = pvpNoPercent.includes(line) ? value : `${value}${isPercent ? '%' : ''}`;
 
 		statsByGroup[group].push({
 			key: line,
@@ -133,9 +151,15 @@ function ExportHunterCard({ saveGearData = {}, selectedClass }) {
 
 								{/* Unique line */}
 								{gear?.uniqueLine && gear?.uniqueLineValue && (
-									<li style={{ marginBottom: "15px", color: "#f4d6b4ff" }}>
-										{getShortName(gear.uniqueLine)} {gear.uniqueLineValue}%
-									</li>
+									(() => {
+										const isPercent = isUniqueGearPercentage(gear);
+										const displayValue = `${gear.uniqueLineValue}${isPercent ? '%' : ''}`;
+										return (
+											<li style={{ marginBottom: "15px", color: "#f4d6b4ff" }}>
+												{getShortName(gear.uniqueLine)} {displayValue}
+											</li>
+										)
+									})()
 								)}
 
 								{/* Normal lines */}

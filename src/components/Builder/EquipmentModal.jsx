@@ -1122,7 +1122,7 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
 
                                 <select
                                     id={`line-${index}-value`}
-                                    value={entry.value}
+                                    value={entry.value ?? ''}
                                     onChange={e => {
                                         const newValue = e.target.value;
                                         setLines(prev =>

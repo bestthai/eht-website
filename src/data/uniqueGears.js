@@ -123,11 +123,13 @@ export const abyssUniqueLines = {
     },
 
     Ring: {
-
+        "Truthful Cyclone Ring" : "Cyclone skill duration is increased by",
+        "Guardian Sacrifice Ring" : "Aura of Sacrifice is activated at level",
     },
 
     Necklace: {
-    
+        "Truthful Hades Necklace" : "Enhance King of the Underworld is activated at all times at level",
+        "Dragon Blessing Necklace" : "Dragon's Blessing is activated at all times",
     },
 }
 
@@ -140,6 +142,12 @@ export const abyssUniqueLineValues = {
 
     "Truthful Greaves of Wind": [3, 10],
     "Vampire Boot": [1, 3],
+
+    "Truthful Cyclone Ring": [4, 6],
+    "Guardian Sacrifice Ring" : [1, 3],
+
+    "Truthful Hades Necklace": [1, 3],
+    "Dragon Blessing Necklace": [1, 3],
 };
 
 export const abyssUniqueFixedLine = {
@@ -159,4 +167,10 @@ export const abyssUniquePercent = {
 
     "Truthful Greaves of Wind": true, 
     "Vampire Boot": true,
+
+    "Truthful Cyclone Ring": false,
+    "Guardian Sacrifice Ring" : false,
+
+    "Truthful Hades Necklace": false,
+    "Dragon Blessing Necklace": false,
 };

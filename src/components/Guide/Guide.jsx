@@ -128,7 +128,7 @@ function Guide()
                                 </p>
 
                                 <p className="guide-paragraph">
-                                This guide is a collective effort from <b>Bestthai, Satursan, Xenavier, and many more from TheGoddess Community</b>. If you have any suggestions, corrections, or additional information that you think would be helpful to include in this guide, please feel free to contact me in the discord server, found in the footer of the page.
+                                This guide is a collective effort from <b>Bestthai, Satursan, and many more from TheGoddess Community</b>. If you have any suggestions, corrections, or additional information that you think would be helpful to include in this guide, please feel free to contact me in the discord server, found in the footer of the page.
                                 </p>    
 
                                 <p className="guide-paragraph">
