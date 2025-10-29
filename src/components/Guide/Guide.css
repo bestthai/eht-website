@@ -118,7 +118,7 @@
     display: none;
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 1024px) {
     .theme-button-header {
         display: none;
     }
@@ -215,7 +215,7 @@
   color: var(--text-color);
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 1024px) {
   .mobile-header {
     display: none;
   }
@@ -240,6 +240,7 @@
 
 .guide-subheading {
   font-weight: bold;
+  font-size: 1.3rem;
   margin-bottom: 1.3rem;
 }
 
@@ -280,10 +281,15 @@
   display: block;
 }
 
-/* .guide-image:hover {
+.guide-image {
+  align-self: flex-start; /* Align this image to the start (left/top) */
+  margin-right: auto;     /* Push it to the left */
+}
+
+.guide-image:hover {
   transform: scale(1.05);
   box-shadow: 0 6px 14px var(--shadow-hover-color, rgba(0, 0, 0, 0.35));
-} */
+}
 
 
 blockquote {
@@ -300,7 +306,7 @@ ul {
 
 /* ✅ Medium screens (2 per row) */
 @media (max-width: 1024px) {
-  .guide-image {
+  .three-row-image {
     flex: 1 1 calc(45% - 1.5rem);
     max-width: calc(45% - 1.5rem);
   }
@@ -312,7 +318,7 @@ ul {
 
 /* ✅ Small screens (1 per row) */
 @media (max-width: 600px) {
-  .guide-image {
+  .three-row-image {
     flex: 1 1 90%;
     max-width: 90%;
   }

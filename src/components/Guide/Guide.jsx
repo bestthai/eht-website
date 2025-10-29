@@ -33,7 +33,7 @@ function Guide()
             {/* Side Bar */}
             <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
                 <div className="sidebar-header">
-                    <h2 className="sidebar-title">Sidebar Title</h2>
+                    <h2 className="sidebar-title">Topics</h2>
                     <button 
                         className="close-button"
                         onClick={() => setIsSidebarOpen(false)}    
@@ -118,8 +118,8 @@ function Guide()
                                 <h2 className="guide-heading">Evil Hunter Tycoon</h2>
 
                                 <p className="guide-paragraph">
-                                Welcome to TheGoddess's Evil Hunter Tycoon Guide! 
-                                
+                                <b>Welcome to TheGoddess's Evil Hunter Tycoon Guide!</b>
+                                <br />
                                 This guide is designed to help both new and experieced players navigate the game, understand its mechanics, and optimize your gameplay. 
                                 </p>
 
@@ -128,7 +128,9 @@ function Guide()
                                 </p>
 
                                 <p className="guide-paragraph">
-                                This guide is a collective effort from <b>Bestthai, Satursan, and many more from TheGoddess Community</b>. If you have any suggestions, corrections, or additional information that you think would be helpful to include in this guide, please feel free to contact me in the discord server, found in the footer of the page.
+                                This guide is a collective effort from <b>Bestthai, Satursan, and many more from TheGoddess Community</b>. 
+                                <br />
+                                If you have any suggestions, corrections, or additional information that you think would be helpful to include in this guide, please feel free to contact me in the discord server, found in the footer of the page.
                                 </p>    
 
                                 <p className="guide-paragraph">
