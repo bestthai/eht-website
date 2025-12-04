@@ -249,6 +249,23 @@
   line-height: 1.6;
 }
 
+.text-card {
+  --card-bg: var(--card-bg, #ffffff);
+  --card-border: var(--card-border, rgba(0,0,0,0.06));
+  --card-shadow: var(--card-shadow, 0 6px 18px rgba(0,0,0,0.06));
+  --accent: var(--accent, #6b7cff);
+  width: 100%;
+  max-width: 780px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  padding: 18px;
+  box-sizing: border-box;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+  display: block;
+}
+
 .guide-image-container {
   display: flex;
   justify-content: center;       /* Center the row */

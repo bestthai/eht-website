@@ -19,6 +19,9 @@ import { PVP_TYPES,
 
 function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, selectedClass }) {
 
+    // Configure the maximum number of unique gears allowed
+    const MAX_UNIQUE_GEARS = 2;
+
     const gearLineAmounts = {
         golden: 3,
         ancient: 3,
@@ -95,11 +98,11 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
         typeOptions = ['ancient', 'primal', 'original', 'chaos', 'wb', 'twb', 'vwb', 'abyss', '2v2', 'champion', 'challenger',];
     }
 
-    const hasUnique = Object.values(saveGearData || {}).some(
+    const uniqueGearCount = Object.values(saveGearData || {}).filter(
         gear => gear?.type === "chaos unique" || gear?.type === "abyss unique"
-    );
+    ).length;
 
-    if (hasUnique)
+    if (uniqueGearCount >= MAX_UNIQUE_GEARS)
     {
         typeOptions = typeOptions.filter(t => t !== "chaos unique" && t !== "abyss unique");
     }
@@ -703,6 +706,8 @@ function EquipmentModal({ gearName, onClose, onSave, saveData, saveGearData, sel
             pvpWeaponSubType,
             pvpHelmetSubType,
             lines,
+            gearName,
+            selectedClass,
         });
 
         onClose();

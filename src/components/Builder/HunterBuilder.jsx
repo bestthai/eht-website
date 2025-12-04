@@ -10,10 +10,11 @@ import ExportHunterCard from '../../utils/ExportHunterCard';
 
 function HunterBuilder()
 {
-    const classes = ["Berserker" , "Paladin", "Sorcerer", "Ranger"]
+    const classes = ["Berserker" , "Paladin", "Sorcerer", "Ranger", "Dark Knight"]
     const squares = Array.from({ length: 8 });
 
     const [showModal, setShowModal] = useState(false);
+    const [showExportCard, setShowExportCard] = useState(false);
     const [showExport, setShowExport] = useState(false);
     const [selectedGear, setSelectedGear] = useState('');
     const [selectedClass, setSelectedClass] = useState(classes[0]);
@@ -45,9 +46,6 @@ function HunterBuilder()
             })
             .catch((err) => {
                 console.error("Failed to generate image", err);
-            })
-            .finally(() => {
-                setShowExport(false); 
             });
         }
     }, [showExport]);
@@ -217,21 +215,37 @@ function HunterBuilder()
                     Reset
                 </button>
 
-                <button className="share-button" onClick={handleShare}>
-                    Share
+                <button 
+                    className="show-build-button" 
+                    onClick={() => setShowExportCard(prev => !prev)}>
+                        {showExportCard ? "Hide Build" : "Show Build"}
                 </button>
             </div>
 
-            {showExport && (
-                <div ref={exportRef}>
-                    <ExportHunterCard 
-                        saveGearData={saveGearData} 
-                        selectedClass={selectedClass} 
-                    />
+            <Stat saveGearData={saveGearData}></Stat>
+            
+            <div className="button-container" style={{marginBottom: '0px'}}>
+                {showExportCard && (
+                    <button 
+                        className="share-button"
+                        onClick={handleShare}
+                        disabled={!showExportCard}  // Optional: prevent download if not visible
+                    >
+                        Download
+                    </button>
+                )}
+            </div>
+
+            {showExportCard && (
+                <div className="export-card-wrapper">
+                    <div ref={exportRef}>
+                        <ExportHunterCard 
+                            saveGearData={saveGearData} 
+                            selectedClass={selectedClass} 
+                        />
+                    </div>
                 </div>
             )}
-
-            <Stat saveGearData={saveGearData}></Stat>
 
         </div>
     );
