@@ -56,6 +56,9 @@ export const exportShortName = {
     "Chance to cast Rampage when attacking monster" : "Rampage",
     "Chance to cast Dragon's Rage when attacking monster" : "Dragon's Rage",
     "Chance to cast Primodial Power when attacking monster" : "Primodial Power",
+    "Chance to cast Poison Fang when attacking monster" : "Poison Fang",
+    "Chance to cast Curse Aura when attacking monster": "Curse Aura",
+    "Chance to cast Frozen Heart when attacking monster": "Frozen Heart",
 
 
     "If the hunter have YOLO characteristic, increase Movement Speed and Attack by" : "YOLO Buff",
@@ -99,4 +102,7 @@ export const exportShortName = {
     "Decrease damage taken during barrier skill" : "DDT during barrier",
     "Decrease damage taken from Critical Hit Damage" : "DDT from Crit Dmg",
     "Decrease damage taken from hunter" : "DDT from Hunter",
+    "Chance to cast Strike of Destruction" : "Strike of Destruction",
+    "Ignore enemy's evasion by": "Ignore Evasion",
+    "Chance to cast Hydro Pillar when attacking": "Hydro Pillar",
 }

@@ -229,7 +229,7 @@ function HunterBuilder()
                     <button 
                         className="share-button"
                         onClick={handleShare}
-                        disabled={!showExportCard}  // Optional: prevent download if not visible
+                        disabled={!showExportCard}
                     >
                         Download
                     </button>

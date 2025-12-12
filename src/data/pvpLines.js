@@ -19,7 +19,7 @@ export const LINE2_WEAPON_MAPS = {
     Berserker: {
         "2v2": {
             "Valhalla" : "Increase Damage Against Primate",
-            "Truthful Valhalla" : "Increase Damage Against Primate",
+            "Ultimate Valhalla" : "Increase Damage Against Primate",
         },
         "champion" : {
             "Valhalla" : "Increase Damage Against Primate",
@@ -34,7 +34,7 @@ export const LINE2_WEAPON_MAPS = {
     Paladin: {
         "2v2": {
             "Mjolnir" : "Chance to cast level 1 Thunderbolt when attacking", 
-            "Truthful Mjolnir" : "Chance to cast level 1 Thunderbolt when attacking", 
+            "Ultimate Mjolnir" : "Chance to cast level 1 Thunderbolt when attacking", 
         },
         "champion" : {
             "Mjolnir" : "Chance to cast level 1 Thunderbolt when attacking",
@@ -49,7 +49,7 @@ export const LINE2_WEAPON_MAPS = {
     Sorcerer: {
         "2v2": {
             "Immortal" : "Chance to cast level 1 Fury when attacking",
-            "Truthful Immortal" : "Chance of casting level 1 Fury when attacking",
+            "Ultimate Immortal" : "Chance of casting level 1 Fury when attacking",
         },
         "champion" : {
             "Immortal" : "Chance to cast level 1 Fury when attacking",
@@ -64,7 +64,7 @@ export const LINE2_WEAPON_MAPS = {
     Ranger: {
         "2v2": {
             "Vijaya" : "Chance to inflict 3x damage",
-            "Truthful Vijaya" : "Chance to inflict 3x damage",
+            "Ultimate Vijaya" : "Chance to inflict 3x damage",
         },
         "champion" : {
             "Vijaya" : "Chance to inflict 3x damage",
@@ -73,6 +73,21 @@ export const LINE2_WEAPON_MAPS = {
         "challenger" : {
             "Artemis" : "Chance to cast Replication when the ranger cast a skill",
             "Gandiva" : "Chance to cast Firestorm when attacking",
+        }
+    },
+
+    "Dark Knight": {
+        "2v2": {
+            "Trishula" : "Chance to cast Strike of Destruction",
+            "Ultimate Trishula" : "Chance to cast Strike of Destruction",
+        },
+        "champion" : {
+            "Trishula" : "Chance to cast Strike of Destruction",
+            "Gungnir" : "Ignore enemy's evasion by",
+        },
+        "challenger" : {
+            "Poseidon Spear" : "Chance to cast Hydro Pillar when attacking",
+            "Gungnir" : "Ignore enemy's evasion by",
         }
     },
 }
@@ -90,7 +105,7 @@ export const FIXED_PVP_DPS_WEAPON_LINE_VALUE = {
                         "Increase Damage Against Primate": [18, 33],
                     }
                 },
-                "Truthful Valhalla": {
+                "Ultimate Valhalla": {
                     fixed: {
                         "Ignore enemy's defense and inflict pure damage": [15, 33],
                         "Attack": [10, 20],
@@ -110,7 +125,7 @@ export const FIXED_PVP_DPS_WEAPON_LINE_VALUE = {
                         "Chance to cast level 1 Thunderbolt when attacking": [13, 23],
                     }
                 },
-                "Truthful Mjolnir": {
+                "Ultimate Mjolnir": {
                     fixed: {
                         "Ignore enemy's defense and inflict pure damage": [15, 33],
                         "Attack": [10, 20],
@@ -130,7 +145,7 @@ export const FIXED_PVP_DPS_WEAPON_LINE_VALUE = {
                         "Chance to cast level 1 Fury when attacking": [11, 21],
                     }
                 },
-                "Truthful Immortal": {
+                "Ultimate Immortal": {
                     fixed: {
                         "Ignore enemy's defense and inflict pure damage": [15, 33],
                         "Attack": [10, 20],
@@ -150,7 +165,7 @@ export const FIXED_PVP_DPS_WEAPON_LINE_VALUE = {
                         "Chance to inflict 3x damage": [13, 28],
                     }
                 },
-                "Truthful Vijaya": {
+                "Ultimate Vijaya": {
                     fixed: {
                         "Ignore enemy's defense and inflict pure damage": [15, 33],
                         "Attack": [10, 20],
@@ -160,6 +175,26 @@ export const FIXED_PVP_DPS_WEAPON_LINE_VALUE = {
                     }
                 }
             },
+            "Dark Knight" : {
+                "Trishula": {
+                    fixed: {
+                        "Ignore enemy's defense and inflict pure damage": [12, 30],
+                        "Attack": [8, 18],
+                    },
+                    line2: {
+                        "Chance to cast Strike of Destruction" : [13, 23]
+                    }
+                },
+                "Ultimate Trishula": {
+                    fixed: {
+                        "Ignore enemy's defense and inflict pure damage": [15, 33],
+                        "Attack": [10, 20],
+                    },
+                    line2: {
+                        "Chance to cast Strike of Destruction" : [15, 25]
+                    }
+                },
+            }
         }
     },
 
@@ -185,6 +220,10 @@ export const FIXED_PVP_DPS_WEAPON_LINE_VALUE = {
                 "Vijaya": { "Chance to inflict 3x damage": [15, 30] },
                 "Gandiva": { "Chance to cast Firestorm when attacking": [15, 25] },
             },
+            "Dark Knight": {
+                "Trishula": { "Chance to cast Strike of Destruction" : [15, 25] },
+                "Gungnir": { "Ignore enemy's evasion by" : [10, 20] },
+            }
         },
     },
 
@@ -211,6 +250,10 @@ export const FIXED_PVP_DPS_WEAPON_LINE_VALUE = {
                 "Artemis": { "Chance to cast Replication when the ranger cast a skill": [35, 50] },
                 "Gandiva": { "Chance to cast Firestorm when attacking": [25, 35] },
             },
+            "Dark Knight": {
+                "Poseidon Spear" : { "Chance to cast Hydro Pillar when attacking": [15, 25] },
+                "Gungnir" : { "Ignore enemy's evasion by" : [10, 20] },
+            }
         },
     },
 }

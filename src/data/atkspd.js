@@ -4,6 +4,7 @@ export const weaponAtkspd = {
         "Paladin": 2.40,
         "Sorcerer": 2.20,
         "Ranger": 1.80,
+        "Dark Knight": 2.20,
     },
 
     Primal: {
@@ -11,6 +12,7 @@ export const weaponAtkspd = {
         "Paladin": 2.40,
         "Sorcerer": 2.20,
         "Ranger": 1.80,
+        "Dark Knight": 2.20,
     },
 
     Original: {
@@ -18,6 +20,7 @@ export const weaponAtkspd = {
         "Paladin": 2.40,
         "Sorcerer": 2.20,
         "Ranger": 1.80,
+        "Dark Knight": 2.20,
     },
 
     Chaos: {
@@ -25,6 +28,7 @@ export const weaponAtkspd = {
         "Paladin": 2.40,
         "Sorcerer": 2.20,
         "Ranger": 1.80,
+        "Dark Knight": 2.20,
     },
 
     Abyss: {
@@ -32,6 +36,7 @@ export const weaponAtkspd = {
         "Paladin": 2.40,
         "Sorcerer": 2.20,
         "Ranger": 1.80,
+        "Dark Knight": 2.20,
     },
 
     WB: {
@@ -39,6 +44,7 @@ export const weaponAtkspd = {
         "Paladin": 2.50,
         "Sorcerer": 2.30,
         "Ranger": 2.00,
+        "Dark Knight": 2.30,
     },
 
     VWB: {
@@ -46,6 +52,7 @@ export const weaponAtkspd = {
         "Paladin": 2.50,
         "Sorcerer": 2.30,
         "Ranger": 2.00,
+        "Dark Knight": 2.30,
     },
 
     PvP: {
@@ -53,6 +60,7 @@ export const weaponAtkspd = {
         "Paladin": 2.50,
         "Sorcerer": 2.30,
         "Ranger": 2.00,
+        "Dark Knight": 2.30,
     }
 
 };

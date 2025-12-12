@@ -99,6 +99,9 @@ export const weaponLineGroups = {
         "Chance to cast Rampage when attacking monster",
         "Chance to cast Dragon's Rage when attacking monster",
         "Chance to cast Primodial Power when attacking monster",
+        "Chance to cast Poison Fang when attacking monster",
+        "Chance to cast Curse Aura when attacking monster",
+        "Chance to cast Frozen Heart when attacking monster",
 
         // Chaos Unique
         "If the hunter have YOLO characteristic, increase Movement Speed and Attack by",
@@ -145,6 +148,9 @@ export const weaponLineGroups = {
         "Decrease damage taken during barrier skill",
         "Decrease damage taken from Critical Hit Damage",
         "Decrease damage taken from hunter",
+        "Chance to cast Strike of Destruction",
+        "Ignore enemy's evasion by",
+        "Chance to cast Hydro Pillar when attacking",
     ],
 
 };

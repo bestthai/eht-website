@@ -1,6 +1,13 @@
-
 import { weaponLines, weaponLineGroups } from '../../data/weaponLines';
-import { chaosUniquePercent, abyssUniquePercent } from '../../data/uniqueGears';
+import { chaosUniqueLineValues, abyssUniqueLineValues,
+         chaosUniqueFixedLine, abyssUniqueFixedLine,
+         chaosUniqueFixedLineValue, abyssUniqueFixedLineValue,
+} from '../../data/uniqueGears';
+import { DefChaosValues, DefAbyssValues,
+         HpChaosValues, HpAbyssValues,
+         HelmBeltChaosValues, HelmBeltAbyssValues,
+         WeaponChaosValues, WeaponAbyssValues 
+} from '../../data/specialLines';
 import { pvpNoPercent } from '../../data/pvpLines';
 import { gearValuesByType } from '../../data/gearLines';
 import { wbLineValues } from '../../data/wbWeapons';
@@ -12,8 +19,19 @@ import { FIXED_PVP_DPS_WEAPON_LINE_VALUE,
 
 import isUniqueGearPercentage from '../../utils/isUniqueGearPercentage';
 
+function normalizeGearType(type) {
+    if (type === "chaos unique") return "chaos";
+    if (type === "abyss unique") return "abyss";
+    return type;
+}
+
 function Stat({ saveGearData = {} }) 
 {
+    const DefGears = ['Chestplate', 'Glove', 'Boot'];
+    const HpGears = ['Ring', 'Necklace'];
+    const HelmBeltGears = ['Helmet', 'Belt'];
+    const WeaponGears = ['Weapon'];
+
     const baseStats = weaponLines.reduce((acc, line) => {
         acc[line] = 0;
         return acc;
@@ -48,94 +66,135 @@ function Stat({ saveGearData = {} })
         }
     });
 
-    // TODO: Fixed VWB progress bar
-
-    function computeMaxStat(line)
-    {
+    function computeMaxStat(line) {
         let maxStat = 0;
+
         Object.values(saveGearData).forEach((gear) => {
             if (!gear || !gear.type) return;
 
-            // Check if this gear actually has the line selected
-            const hasLine = gear.lines?.some(l => l.line === line) || 
-                           gear.specialLine === line || 
-                           gear.uniqueLine === line;
-            if (!hasLine) return; // Skip if line is not selected for this gear
+            const gearType = gear.type;
+            const gearName = gear.gearName;
 
-            // -----------------------------
-            // NORMAL gear values
-            // -----------------------------
-            const normalTypeValues = gearValuesByType[gear.type];
-            if (normalTypeValues && normalTypeValues[line]) {
-                const range = normalTypeValues[line];
-                if (Array.isArray(range) && range.length >= 2) {
-                    maxStat += Number(range[1]);
+            // Does this gear even contain this stat?
+            const hasLine =
+                gear.lines?.some(l => l.line === line) ||
+                gear.specialLine === line ||
+                gear.uniqueLine === line;
+
+            if (!hasLine) return;
+
+
+            // ------------------------------------------------
+            // 1. NORMAL STAT RANGE (Attack, HP, Crit, etc.)
+            // ------------------------------------------------
+            const normalType = normalizeGearType(gearType); // chaos unique → chaos
+            const normalValues = gearValuesByType[normalType];
+
+            // TODO: handle unique gear that have own normal line with their own range (juggernaut helm HP% and greaves of wind move speed)
+
+            if (normalValues && normalValues[line]) {
+                const arr = normalValues[line];
+                maxStat += Number(arr[arr.length - 1]); // take highest
+            }
+
+
+            // ------------------------------------------------
+            // 2. UNIQUE LINES (chaos unique / abyss unique)
+            // ------------------------------------------------
+            if ((gearType === "chaos unique" || gearType === "abyss unique") && gear.uniqueLine === line) {
+                const map = gearType === "chaos unique"
+                    ? chaosUniqueLineValues
+                    : abyssUniqueLineValues;
+
+                const arr = map[gear.specialLine];
+                if (arr) maxStat += Number(arr[arr.length - 1]); // last element = max
+            }
+
+
+            // ------------------------------------------------
+            // 3. UNIQUE FIXED STAT LINES
+            // ------------------------------------------------
+            if ((gearType === "chaos unique" || gearType === "abyss unique") && gear.specialLine === line) {
+                const fixedMap = gearType === "chaos unique"
+                    ? chaosUniqueFixedLineValue
+                    : abyssUniqueFixedLineValue;
+
+                const arr = fixedMap[gear.uniqueSubType];
+                if (arr) maxStat += Number(arr[arr.length - 1]);
+            }
+
+
+            // ------------------------------------------------
+            // 4. SPECIAL CHAOS / ABYSS (DEF, HP, HELM, WEAPON)
+            // ------------------------------------------------
+            if ((gearType === "chaos" || gearType === "abyss") && gear.specialLine === line) {
+                const isChaos = gearType === "chaos";
+
+                const table =
+                    DefGears.includes(gearName) ? (isChaos ? DefChaosValues : DefAbyssValues) :
+                    HpGears.includes(gearName) ? (isChaos ? HpChaosValues : HpAbyssValues) :
+                    HelmBeltGears.includes(gearName) ? (isChaos ? HelmBeltChaosValues : HelmBeltAbyssValues) :
+                    WeaponGears.includes(gearName) ? (isChaos ? WeaponChaosValues : WeaponAbyssValues) :
+                    null;
+
+                if (table && table[line]) {
+                    const arr = table[line];
+                    maxStat += Number(arr[arr.length - 1]);
                 }
             }
 
-            // -----------------------------
-            // WORLD BOSS (WB / TWB / VWB)
-            // -----------------------------
-            if (gear.type === "wb" || gear.type === "twb" || gear.type === "vwb") {
-                const wbType = gear.type;        // wb / twb / vwb
-                const wbSubType = wbType === "vwb" ? gear.vwbSubType : gear.wbSubType;
 
-                const wbData = wbLineValues[wbType]?.[wbSubType];
+            // ------------------------------------------------
+            // 5. WORLD BOSS (WB / TWB / VWB)
+            // ------------------------------------------------
+            if (gearType === "wb" || gearType === "twb" || gearType === "vwb") {
+                const wbType = gearType;
+                const sub = wbType === "vwb" ? gear.vwbSubType : gear.wbSubType;
+                const wbData = wbLineValues[wbType]?.[sub];
+
                 if (wbData) {
-                    // fixed stats
                     if (wbData.fixed?.[line]) {
-                        maxStat += wbData.fixed[line][1];
+                        const arr = wbData.fixed[line];
+                        maxStat += Number(arr[arr.length - 1]);
                     }
-                    // class-specific stats
                     if (wbData.classes?.[gear.selectedClass]?.[line]) {
-                        maxStat += wbData.classes[gear.selectedClass][line][1];
+                        const arr = wbData.classes[gear.selectedClass][line];
+                        maxStat += Number(arr[arr.length - 1]);
                     }
                 }
             }
 
-            // -----------------------------
-            // PVP GEARS (2v2 / champion / challenger)
-            // -----------------------------
-            if (gear.type === "2v2" || gear.type === "champion" || gear.type === "challenger") {
-                const pvpType = gear.type;
 
-                // REFERENCE TABLE
-                // For PvP weapons (including special weapon lines)
-                if (gear.gearName === "Weapon") {
-                    const isTank = gear.selectedClass === "Paladin" && gear.pvpWeaponSubType === "Mahes";
-                    
-                    if (isTank) {
-                        const tankData = FIXED_PVP_TANK_WEAPON_LINE_VALUE[pvpType]?.Paladin?.fixed;
-                        if (tankData?.[line]) {
-                            maxStat += tankData[line][1];
-                        }
+            // ------------------------------------------------
+            // 6. PvP (2v2 / champion / challenger)
+            // ------------------------------------------------
+            if (gearType === "2v2" || gearType === "champion" || gearType === "challenger") {
+                // WEAPON
+                if (gearName === "Weapon") {
+                    const isTankPaladin = gear.selectedClass === "Paladin" && gear.pvpWeaponSubType === "Mahes";
+
+                    if (isTankPaladin) {
+                        const map = FIXED_PVP_TANK_WEAPON_LINE_VALUE[gearType]?.Paladin?.fixed;
+                        if (map?.[line]) maxStat += Number(map[line][1]);
                     } else {
-                        // DPS weapon
-                        const dpsData = FIXED_PVP_DPS_WEAPON_LINE_VALUE[pvpType];
-                        if (dpsData) {
-                            // fixed stats
-                            if (dpsData.fixed?.[line]) {
-                                maxStat += dpsData.fixed[line][1];
-                            }
-                            // class-specific stats including special weapon lines
-                            if (gear.pvpWeaponSubType && dpsData.classes?.[gear.selectedClass]?.[gear.pvpWeaponSubType]?.fixed?.[line]) {
-                                maxStat += dpsData.classes[gear.selectedClass][gear.pvpWeaponSubType].fixed[line][1];
-                            }
-                            if (gear.pvpWeaponSubType && dpsData.classes?.[gear.selectedClass]?.[gear.pvpWeaponSubType]?.line2?.[line]) {
-                                maxStat += dpsData.classes[gear.selectedClass][gear.pvpWeaponSubType].line2[line][1];
-                            }
+                        const dps = FIXED_PVP_DPS_WEAPON_LINE_VALUE[gearType];
+                        if (dps) {
+                            if (dps.fixed?.[line]) maxStat += Number(dps.fixed[line][1]);
+
+                            const classData = dps.classes?.[gear.selectedClass]?.[gear.pvpWeaponSubType];
+                            if (classData?.fixed?.[line]) maxStat += Number(classData.fixed[line][1]);
+                            if (classData?.line2?.[line]) maxStat += Number(classData.line2[line][1]);
                         }
                     }
                 }
-                // For PvP helmets
-                else if (gear.gearName === "Helmet") {
-                    const dpsHelmData = FIXED_PVP_DPS_HELMET_LINE_VALUE[pvpType]?.[gear.pvpHelmetSubType];
-                    const tankHelmData = FIXED_PVP_TANK_HELMET_LINE_VALUE[pvpType]?.[gear.pvpHelmetSubType];
-                    const helmData = dpsHelmData || tankHelmData;
-                    
-                    if (helmData?.fixed?.[line]) {
-                        maxStat += helmData.fixed[line][1];
-                    }
+
+                // HELMET
+                if (gearName === "Helmet") {
+                    const dps = FIXED_PVP_DPS_HELMET_LINE_VALUE[gearType]?.[gear.pvpHelmetSubType];
+                    const tank = FIXED_PVP_TANK_HELMET_LINE_VALUE[gearType]?.[gear.pvpHelmetSubType];
+                    const map = dps || tank;
+
+                    if (map?.fixed?.[line]) maxStat += Number(map.fixed[line][1]);
                 }
             }
         });
@@ -208,7 +267,6 @@ function Stat({ saveGearData = {} })
                                                     <div className="stat-progress-label">{gearValue}% / {maxPossible}%</div>
                                                 </div>
                                             )}
-                                            
                                         </li>
                                     );
                                 })}

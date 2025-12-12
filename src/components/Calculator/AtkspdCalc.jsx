@@ -11,7 +11,7 @@ function AtkspdCalc() {
         Purple: "#ac23acff",
     };
 
-    const classes = ["Berserker", "Paladin", "Sorcerer", "Ranger"];
+    const classes = ["Berserker", "Paladin", "Sorcerer", "Ranger", "Dark Knight"];
     const weaponTypes = ["Ancient", "Primal", "Original", "Chaos", "Abyss", "WB", "VWB", "PvP"];
 
     const [selectedClass, setSelectedClass] = useState("");
@@ -66,7 +66,7 @@ function AtkspdCalc() {
 
         const needBuffs = (100 * (1 - ( targetAtkspd * multiplicativeBuffs / baseAtkspd))) - additiveBuffs;
 
-        return needBuffs.toFixed(0);
+        return needBuffs.toFixed(1);
     }
 
     /*
